@@ -31,30 +31,56 @@ An example:
 
 As you might have noticed, Formstrap uses different form helpers than Ruby on Rails. An overview is provided, alongside with the method one can use to access the Ruby on Rails helpers:
 
-| Type              | Formstrap helpers | Ruby on Rails helpers      |
-|-------------------|-------------------|----------------------------|
-| Association       | association       | N/A                        |
-| Checkbox          | checkbox          | checkbox_without_formstrap |
-| Color             | color             | color_without_formstrap    |
-| Date              | date              | date_without_formstrap     |
-| Date range        | date_range        | N/A                        |
-| Datetime          | datetime          | datetime_without_formstrap |
-| Datetime range    | datetime_range    | N/A                        |
-| Email             | email             | email_without_formstrap    |
-| File              | file              | file_without_formstrap     |
-| Flatpickr *       | flatpickr         | N/A                        |
-| Flatpickr range * | flatpickr_range   | N/A                        |
-| Hidden            | hidden            | hidden_without_formstrap   |
-| Media             | media             | N/A                        |
-| Number            | number            | number_without_formstrap   |
-| Password          | password          | password_without_formstrap |
-| RedactorX *       | redactorx         | N/A                        |
-| Select            | select            | select_without_formstrap   |
-| Switch            | switch            | N/A                        |
-| Text              | text              | text_without_formstrap     |
-| Textarea          | textarea          | textarea_without_formstrap |
-| URL               | url               | url_without_formstrap      |
-| WYSIWYG *         | wysiwyg           | N/A                        |
+| Type              | Formstrap helpers | Ruby on Rails helpers                       |
+|-------------------|-------------------|---------------------------------------------|
+| Association       | association       | N/A                                         |
+| Checkbox          | checkbox          | checkbox formstrap: false or check_box      |
+| Color             | color             | color formstrap: false or color_field       |
+| Date              | date              | date formstrap: false or date_field         |
+| Date range        | date_range        | N/A                                         |
+| Datetime          | datetime          | datetime formstrap: false or datetime_field |
+| Datetime range    | datetime_range    | N/A                                         |
+| Email             | email             | email formstrap: false or email_field       |
+| File              | file              | file formstrap: false or file_field         |
+| Flatpickr *       | flatpickr         | N/A                                         |
+| Flatpickr range * | flatpickr_range   | N/A                                         |
+| Hidden            | hidden            | hidden formstrap: false or hidden_field     |
+| Media             | media             | N/A                                         |
+| Number            | number            | number formstrap: false or number_field     |
+| Password          | password          | password formstrap: false or password_field |
+| RedactorX *       | redactorx         | N/A                                         |
+| Select            | select            | select formstrap: false                     |
+| Switch            | switch            | N/A                                         |
+| Text              | text              | text formstrap: false or text_field         |
+| Textarea          | textarea          | textarea formstrap: false or text_area      |
+| URL               | url               | url formstrap: false or url_field           |
+| WYSIWYG *         | wysiwyg           | N/A                                         |
+
+
+[//]: # (| Type              | Formstrap helpers | Ruby on Rails helpers      |)
+[//]: # (|-------------------|-------------------|----------------------------|)
+[//]: # (| Association       | association       | N/A                        |)
+[//]: # (| Checkbox          | checkbox          | checkbox_without_formstrap |)
+[//]: # (| Color             | color             | color_without_formstrap    |)
+[//]: # (| Date              | date              | date_without_formstrap     |)
+[//]: # (| Date range        | date_range        | N/A                        |)
+[//]: # (| Datetime          | datetime          | datetime_without_formstrap |)
+[//]: # (| Datetime range    | datetime_range    | N/A                        |)
+[//]: # (| Email             | email             | email_without_formstrap    |)
+[//]: # (| File              | file              | file_without_formstrap     |)
+[//]: # (| Flatpickr *       | flatpickr         | N/A                        |)
+[//]: # (| Flatpickr range * | flatpickr_range   | N/A                        |)
+[//]: # (| Hidden            | hidden            | hidden_without_formstrap   |)
+[//]: # (| Media             | media             | N/A                        |)
+[//]: # (| Number            | number            | number_without_formstrap   |)
+[//]: # (| Password          | password          | password_without_formstrap |)
+[//]: # (| RedactorX *       | redactorx         | N/A                        |)
+[//]: # (| Select            | select            | select_without_formstrap   |)
+[//]: # (| Switch            | switch            | N/A                        |)
+[//]: # (| Text              | text              | text_without_formstrap     |)
+[//]: # (| Textarea          | textarea          | textarea_without_formstrap |)
+[//]: # (| URL               | url               | url_without_formstrap      |)
+[//]: # (| WYSIWYG *         | wysiwyg           | N/A                        |)
 
 \* Formstrap provides the implementation of these 3rd party libraries, however it is up to the user to provide the correct assets
 
