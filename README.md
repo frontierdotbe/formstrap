@@ -56,7 +56,7 @@ As you might have noticed, Formstrap uses different form helpers than Ruby on Ra
 | URL               | url               | url_without_formstrap      |
 | WYSIWYG *         | wysiwyg           | N/A                        |
 
-/* Formstrap provides the implementation of these 3rd party libraries, however it is up to the user to provide the correct assets
+\* Formstrap provides the implementation of these 3rd party libraries, however it is up to the user to provide the correct assets
 
 
 ### Altering Formstrap helpers
