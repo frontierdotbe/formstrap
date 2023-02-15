@@ -29,15 +29,35 @@ An example:
 <% end %>
 ```
 
-As you might have noticed, Formstrap uses different form helpers than Ruby on Rails. An overview is proved:
+As you might have noticed, Formstrap uses different form helpers than Ruby on Rails. An overview is provided, alongside with the method one can use to access the Ruby on Rails helpers:
 
-| Input    | Formstrap | Ruby on Rails  |
-|----------|-----------|----------------|
-| Text     | text      | text_field     |
-| Email    | email     | email_field    |
-| Password | password  | password_field |
-| Phone    | phone     | phone_field    |
-| Checkbox | checkbox  | check_box      |
+| Type              | Formstrap helpers | Ruby on Rails helpers      |
+|-------------------|-------------------|----------------------------|
+| Association       | association       | N/A                        |
+| Checkbox          | checkbox          | checkbox_without_formstrap |
+| Color             | color             | color_without_formstrap    |
+| Date              | date              | date_without_formstrap     |
+| Date range        | date_range        | N/A                        |
+| Datetime          | datetime          | datetime_without_formstrap |
+| Datetime range    | datetime_range    | N/A                        |
+| Email             | email             | email_without_formstrap    |
+| File              | file              | file_without_formstrap     |
+| Flatpickr *       | flatpickr         | N/A                        |
+| Flatpickr range * | flatpickr_range   | N/A                        |
+| Hidden            | hidden            | hidden_without_formstrap   |
+| Media             | media             | N/A                        |
+| Number            | number            | number_without_formstrap   |
+| Password          | password          | password_without_formstrap |
+| RedactorX *       | redactorx         | N/A                        |
+| Select            | select            | select_without_formstrap   |
+| Switch            | switch            | N/A                        |
+| Text              | text              | text_without_formstrap     |
+| Textarea          | textarea          | textarea_without_formstrap |
+| URL               | url               | url_without_formstrap      |
+| WYSIWYG *         | wysiwyg           | N/A                        |
+
+/* Formstrap provides the implementation of these 3rd party libraries, however it is up to the user to provide the correct assets
+
 
 ### Altering Formstrap helpers
 Because Formstrap uses html and Ruby on Rails helpers behind the scenes to render its helpers, editing the Formstrap helpers is straightforward.
