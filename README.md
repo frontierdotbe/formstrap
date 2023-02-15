@@ -1,4 +1,4 @@
-# Custom Columns
+# Formstrap
 An extensive Bootstrap form library to power your Ruby On Rails application.
 
 ## Installation
