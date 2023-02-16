@@ -1,20 +1,20 @@
 require_relative "lib/headmin/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "headmin"
+  spec.name = "formstrap"
   spec.version = Headmin::VERSION
   spec.authors = ["Jef Vlamings"]
   spec.email = ["vlamingsjef@gmail.com"]
 
-  spec.summary = "Admin component library"
-  spec.description = "A complete library of commonly used components to build an admin interface in your Ruby on Rails project."
-  spec.homepage = "https://github.com/insiting/headmin"
+  spec.summary = "Bootstrap-powered Form Helpers"
+  spec.description = "An extensive Bootstrap form library to power your Ruby On Rails application."
+  spec.homepage = "https://github.com/frontierdotbe/formstrap"
   spec.license = "MIT"
   spec.required_ruby_version = Gem::Requirement.new(">= 3.0.0")
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/insiting/headmin"
-  spec.metadata["changelog_uri"] = "https://github.com/insiting/headmin/releases"
+  spec.metadata["source_code_uri"] = "https://github.com/frontierdotbe/formstrap"
+  spec.metadata["changelog_uri"] = "https://github.com/frontierdotbe/formstrap/releases"
 
   # Specify which files should be added to the gem when it is released.
   # The `git ls-files -z` loads the files in the RubyGem that have been added into git.
@@ -27,10 +27,10 @@ Gem::Specification.new do |spec|
 
   # Uncomment to register a new dependency of your gem
   # spec.add_dependency "example-gem", "~> 1.0"
-  spec.add_runtime_dependency "closure_tree", "~> 7.4"
-  spec.add_runtime_dependency "inline_svg", "~> 1.7"
-  spec.add_runtime_dependency "redcarpet", "~> 3.5"
-  spec.add_runtime_dependency "rouge", "~> 3.28"
+  # spec.add_runtime_dependency "closure_tree", "~> 7.4"
+  # spec.add_runtime_dependency "inline_svg", "~> 1.7"
+  # spec.add_runtime_dependency "redcarpet", "~> 3.5"
+  # spec.add_runtime_dependency "rouge", "~> 3.28"
 
   # For more information and examples about making a new gem, checkout our
   # guide at: https://bundler.io/guides/creating_gem.html

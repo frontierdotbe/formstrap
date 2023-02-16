@@ -13,8 +13,8 @@ const externalUrlPlugin = {
 }
 
 esbuild.build({
-  entryPoints: ['src/scss/headmin.scss'],
-  outfile: 'app/assets/stylesheets/headmin.css',
+  entryPoints: ['src/scss/formstrap.scss'],
+  outfile: 'app/assets/stylesheets/formstrap.css',
   bundle: true,
   watch: watch,
   allowOverwrite: true,

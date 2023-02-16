@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in headmin.gemspec
+# Specify your gem's dependencies in formstrap.gemspec
 gemspec
 
 gem "capybara", ">= 3.26"

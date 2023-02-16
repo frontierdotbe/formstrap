@@ -23,7 +23,7 @@ import TableActionsController from './controllers/table_actions_controller'
 import TableController from './controllers/table_controller'
 import TextareaController from './controllers/textarea_controller'
 
-export class Headmin {
+export class Formstrap {
   static start () {
     window.Stimulus = window.Stimulus || Application.start()
     Stimulus.register('autocomplete', AutocompleteController)

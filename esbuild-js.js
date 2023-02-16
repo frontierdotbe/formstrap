@@ -2,8 +2,8 @@ const esbuild = require('esbuild')
 const watch = process.argv.includes('-w')
 
 esbuild.build({
-  entryPoints: ['src/js/headmin.js'],
-  outfile: 'app/assets/javascripts/headmin.js',
+  entryPoints: ['src/js/formstrap.js'],
+  outfile: 'app/assets/javascripts/formstrap.js',
   bundle: true,
   allowOverwrite: true,
   format: 'esm',

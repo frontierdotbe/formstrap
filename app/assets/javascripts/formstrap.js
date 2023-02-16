@@ -4962,7 +4962,7 @@ Controller.blessings = [ClassPropertiesBlessing, TargetPropertiesBlessing, Value
 Controller.targets = [];
 Controller.values = {};
 
-// app/assets/javascripts/headmin/controllers/autocomplete_controller.js
+// app/assets/javascripts/formstrap/controllers/autocomplete_controller.js
 var autocomplete_controller_default = class extends Controller {
   static get targets() {
     return ["input", "dropdown", "dropdownItem"];
@@ -7378,7 +7378,7 @@ Sortable.mount(new AutoScrollPlugin());
 Sortable.mount(Remove, Revert);
 var sortable_esm_default = Sortable;
 
-// app/assets/javascripts/headmin/controllers/blocks_controller.js
+// app/assets/javascripts/formstrap/controllers/blocks_controller.js
 var blocks_controller_default = class extends Controller {
   static get targets() {
     return ["templateBlock", "block", "blocks", "templateEmpty", "button", "buttons"];
@@ -7455,7 +7455,7 @@ var blocks_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/date_range_controller.js
+// app/assets/javascripts/formstrap/controllers/date_range_controller.js
 var date_range_controller_default = class extends Controller {
   update(event) {
     const flatpickr2 = event.target._flatpickr;
@@ -7487,7 +7487,7 @@ var date_range_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/dropzone_controller.js
+// app/assets/javascripts/formstrap/controllers/dropzone_controller.js
 var dropzone_controller_default = class extends Controller {
   static get targets() {
     return ["input"];
@@ -7511,7 +7511,7 @@ var dropzone_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/file_preview_controller.js
+// app/assets/javascripts/formstrap/controllers/file_preview_controller.js
 var file_preview_controller_default = class extends Controller {
   static get targets() {
     return ["thumbnails", "template", "input", "placeholder", "thumbnail", "thumbnailDestroy"];
@@ -7706,7 +7706,7 @@ var file_preview_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/filter_controller.js
+// app/assets/javascripts/formstrap/controllers/filter_controller.js
 var filter_controller_default = class extends Controller {
   static get targets() {
     return ["button", "popup", "conditional", "operator", "value", "hidden", "wrapper", "template", "row"];
@@ -7793,7 +7793,7 @@ var filter_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/filter_row_controller.js
+// app/assets/javascripts/formstrap/controllers/filter_row_controller.js
 var filter_row_controller_default = class extends Controller {
   static get targets() {
     return ["original", "operator", "null"];
@@ -7860,7 +7860,7 @@ var filter_row_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/filters_controller.js
+// app/assets/javascripts/formstrap/controllers/filters_controller.js
 var filters_controller_default = class extends Controller {
   static get targets() {
     return ["form", "list", "input", "template", "button", "menuItem"];
@@ -10076,7 +10076,7 @@ var Dutch = {
 fp.l10ns.nl = Dutch;
 var nl_default = fp.l10ns;
 
-// app/assets/javascripts/headmin/config/i18n.js
+// app/assets/javascripts/formstrap/config/i18n.js
 var i18n_default = class {
   static get locale() {
     if (window.I18n === void 0) {
@@ -10089,7 +10089,7 @@ var i18n_default = class {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/flatpickr_controller.js
+// app/assets/javascripts/formstrap/controllers/flatpickr_controller.js
 var flatpickr_controller_default = class extends Controller {
   connect() {
     const options = { ...this.defaultOptions(), ...this.options() };
@@ -10117,14 +10117,14 @@ var flatpickr_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/hello_controller.js
+// app/assets/javascripts/formstrap/controllers/hello_controller.js
 var hello_controller_default = class extends Controller {
   connect() {
     this.element.textContent = "Hello world";
   }
 };
 
-// app/assets/javascripts/headmin/controllers/infinite_scroller_controller.js
+// app/assets/javascripts/formstrap/controllers/infinite_scroller_controller.js
 var infinite_scroller_controller_default = class extends Controller {
   connect() {
     this.clickWhenInViewport();
@@ -10147,7 +10147,7 @@ var infinite_scroller_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/media_controller.js
+// app/assets/javascripts/formstrap/controllers/media_controller.js
 var media_controller_default = class extends Controller {
   static get targets() {
     return ["item", "template", "thumbnails", "modalButton", "placeholder", "count", "editButton", "validationInput"];
@@ -10331,7 +10331,7 @@ var media_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/media_modal_controller.js
+// app/assets/javascripts/formstrap/controllers/media_modal_controller.js
 var media_modal_controller_default = class extends Controller {
   static get targets() {
     return ["idCheckbox", "item", "form", "selectButton", "placeholder", "count"];
@@ -15496,14 +15496,14 @@ var Toast = class extends BaseComponent {
 enableDismissTrigger(Toast);
 defineJQueryPlugin(Toast);
 
-// app/assets/javascripts/headmin/controllers/notification_controller.js
+// app/assets/javascripts/formstrap/controllers/notification_controller.js
 var notification_controller_default = class extends Controller {
   connect() {
     new Toast(this.element, {});
   }
 };
 
-// app/assets/javascripts/headmin/controllers/popup_controller.js
+// app/assets/javascripts/formstrap/controllers/popup_controller.js
 var popup_controller_default = class extends Controller {
   static get targets() {
     return ["popup", "button"];
@@ -15560,7 +15560,7 @@ var popup_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/redactorx_controller.js
+// app/assets/javascripts/formstrap/controllers/redactorx_controller.js
 var redactorx_controller_default = class extends Controller {
   connect() {
     this.initRedactor();
@@ -15590,7 +15590,7 @@ var redactorx_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/remote_modal_controller.js
+// app/assets/javascripts/formstrap/controllers/remote_modal_controller.js
 var remote_modal_controller_default = class extends Controller {
   connect() {
     this.modal = new Modal(this.element);
@@ -15598,7 +15598,7 @@ var remote_modal_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/repeater_controller.js
+// app/assets/javascripts/formstrap/controllers/repeater_controller.js
 var repeater_controller_default = class extends Controller {
   static get values() {
     return {
@@ -15713,7 +15713,7 @@ var repeater_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/select_controller.js
+// app/assets/javascripts/formstrap/controllers/select_controller.js
 var import_tom_select = __toESM(require_tom_select_complete());
 var select_controller_default = class extends Controller {
   connect() {
@@ -15756,7 +15756,7 @@ var select_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/table_actions_controller.js
+// app/assets/javascripts/formstrap/controllers/table_actions_controller.js
 var table_actions_controller_default = class extends Controller {
   static get targets() {
     return ["wrapper", "form", "select", "method", "button", "idInput", "counter"];
@@ -15846,7 +15846,7 @@ var table_actions_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/table_controller.js
+// app/assets/javascripts/formstrap/controllers/table_controller.js
 var table_controller_default = class extends Controller {
   static get values() {
     return {
@@ -15949,7 +15949,7 @@ var table_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/headmin/controllers/textarea_controller.js
+// app/assets/javascripts/formstrap/controllers/textarea_controller.js
 var textarea_controller_default = class extends Controller {
   static get targets() {
     return ["textarea", "count"];
@@ -15989,8 +15989,8 @@ function onVisible(element, callback) {
   }).observe(element);
 }
 
-// app/assets/javascripts/headmin/index.js
-var Headmin = class {
+// app/assets/javascripts/formstrap/index.js
+var Formstrap = class {
   static start() {
     window.Stimulus = window.Stimulus || Application.start();
     Stimulus.register("autocomplete", autocomplete_controller_default);
@@ -16018,7 +16018,7 @@ var Headmin = class {
   }
 };
 export {
-  Headmin
+  Formstrap
 };
 /*!
   * Bootstrap v5.1.3 (https://getbootstrap.com/)

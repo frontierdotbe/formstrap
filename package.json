@@ -1,18 +1,18 @@
 {
-  "name": "headmin",
-  "version": "0.6.2",
-  "description": "Admin component library",
-  "module": "app/assets/javascripts/headmin.js",
-  "main": "app/assets/javascripts/headmin.js",
-  "sass": "app/assets/stylesheets/headmin.scss",
-  "style": "app/assets/stylesheets/headmin.css",
+  "name": "formstrap",
+  "version": "0.1",
+  "description": "Bootstrap-powered Form Helpers",
+  "module": "app/assets/javascripts/formstrap.js",
+  "main": "app/assets/javascripts/formstrap.js",
+  "sass": "app/assets/stylesheets/formstrap.scss",
+  "style": "app/assets/stylesheets/formstrap.css",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/insiting/headmin.git"
+    "url": "git+https://github.com/frontierdotbe/formstrap.git"
   },
   "keywords": [
-    "headmin",
-    "insiting"
+    "formstrap",
+    "frontier"
   ],
   "author": "Jef Vlamings <vlamingsjef@gmail.com>",
   "license": "MIT",
@@ -37,7 +37,7 @@
   },
   "standard": {
     "ignore": [
-      "headmin.js"
+      "formstrap.js"
     ]
   },
   "scripts": {
