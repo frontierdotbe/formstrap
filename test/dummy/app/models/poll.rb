@@ -1,6 +1,5 @@
 class Poll < ApplicationRecord
   extend Enumerize
-  include Headmin::Fieldable
 
   # Configuration
   acts_as_list

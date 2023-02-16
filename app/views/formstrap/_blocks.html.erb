@@ -18,7 +18,7 @@
   #   Limit the types of blocks
   #   <%= render "formstrap/blocks", form: form, names: %w(text text_image list) %#>
 
-  blocks = Headmin::Form::BlocksView.new(local_assigns)
+  blocks = Formstrap::BlocksView.new(local_assigns)
   @lookup_context.prefixes = @lookup_context.prefixes + blocks.prefixes
 %>
 

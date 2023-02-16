@@ -26,7 +26,7 @@
   #   <%= form_with do |form| %#>
   #     <%= render "formstrap/text", form: form, attribute: :title %#>
   #   <% end %#>
-  text = Headmin::Form::TextView.new(local_assigns)
+  text = Formstrap::TextView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", text.wrapper_options do %>

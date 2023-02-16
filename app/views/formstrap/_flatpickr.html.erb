@@ -27,7 +27,7 @@
   #     <%= render "formstrap/date", form: form, attribute: :date_of_birth %#>
   #   <% end %#>
 
-  flatpickr = Headmin::Form::FlatpickrView.new(local_assigns)
+  flatpickr = Formstrap::FlatpickrView.new(local_assigns)
 %>
 
 <%= render "formstrap/date", flatpickr.options %>

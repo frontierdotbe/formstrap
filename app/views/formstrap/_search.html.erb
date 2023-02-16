@@ -27,7 +27,7 @@
   #     <%= render "formstrap/search", form: form, attribute: "basic_example" %#>
   #   <% end %#>
 
-  search = Headmin::Form::SearchView.new(local_assigns)
+  search = Formstrap::SearchView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", search.wrapper_options do %>

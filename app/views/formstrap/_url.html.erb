@@ -27,7 +27,7 @@
   #     <%= render "formstrap/url", form: form, attribute: :website_url %#>
   #   <% end %#>
 
-  url = Headmin::Form::UrlView.new(local_assigns)
+  url = Formstrap::UrlView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", url.wrapper_options do %>

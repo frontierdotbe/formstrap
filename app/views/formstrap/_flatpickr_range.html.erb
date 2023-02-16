@@ -23,7 +23,7 @@
   #     <%= render "formstrap/flatpickr_range", form: form, start: {attribute: :start_date}, end: {attribute: :end_date} %#>
   #   <% end %#>
 
-  flatpickr_range = Headmin::Form::FlatpickrRangeView.new(local_assigns)
+  flatpickr_range = Formstrap::FlatpickrRangeView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", flatpickr_range.wrapper_options do %>

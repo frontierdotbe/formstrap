@@ -14,15 +14,3 @@ Dir["#{Rails.root}/db/seeds/**/*.rb"].each { |file| load file }
 
 # Disable mails in seeds
 ActionMailer::Base.perform_deliveries = false
-
-title("Users")
-seed_users
-
-title("Pages")
-seed_pages
-
-title("Polls")
-seed_polls(10)
-
-title("Settings")
-seed_settings

@@ -23,7 +23,7 @@
   #     <%= render "formstrap/checkbox", form: form, attribute: :active %#>
   #   <% end %#>
 
-  checkbox = Headmin::Form::CheckboxView.new(local_assigns)
+  checkbox = Formstrap::CheckboxView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", checkbox.wrapper_options do %>

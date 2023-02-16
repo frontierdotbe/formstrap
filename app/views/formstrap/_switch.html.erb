@@ -23,7 +23,7 @@
   #     <%= render "formstrap/switch", form: form, attribute: :active %#>
   #   <% end %#>
 
-  switch = Headmin::Form::SwitchView.new(local_assigns)
+  switch = Formstrap::SwitchView.new(local_assigns)
 %>
 
 <%= render "formstrap/checkbox", switch.options %>

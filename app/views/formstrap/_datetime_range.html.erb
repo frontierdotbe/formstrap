@@ -26,7 +26,7 @@
   #     <%= render "formstrap/datetime_range", form: form, start: {attribute: :start_date}, end: {attribute: :end_date} %#>
   #   <% end %#>
 
-  datetime_range = Headmin::Form::DatetimeRangeView.new(local_assigns)
+  datetime_range = Formstrap::DatetimeRangeView.new(local_assigns)
 %>
 
 <div class="row">

@@ -27,13 +27,13 @@
   #     <%= render "formstrap/file", form: form, attribute: :file %#>
   #   <% end %#>
 
-  file = Headmin::Form::FileView.new(local_assigns)
+  file = Formstrap::FileView.new(local_assigns)
 %>
 
-<%= render "headmin/forms/wrapper", file.wrapper_options do %>
-  <%= render "headmin/forms/label", file.label_options if file.prepend_label? %>
+<%= render "formstrap/wrapper", file.wrapper_options do %>
+  <%= render "formstrap/label", file.label_options if file.prepend_label? %>
   <div <%= tag.attributes(file.dropzone_options) %>>
-    <%= render "headmin/forms/input_group", file.input_group_options do %>
+    <%= render "formstrap/input_group", file.input_group_options do %>
 
       <% if file.preview %>
         <div class="h-form-file-thumbnails" data-file-preview-target="thumbnails">
@@ -88,7 +88,7 @@
       <%= form.file_field(attribute, file.input_options) %>
     <% end %>
   </div>
-  <%= render "headmin/forms/validation", file.validation_options if file.validate? %>
-  <%= render "headmin/forms/hint", file.hint_options if file.hint? %>
-  <%= render "headmin/forms/label", file.label_options if file.append_label? %>
+  <%= render "formstrap/validation", file.validation_options if file.validate? %>
+  <%= render "formstrap/hint", file.hint_options if file.hint? %>
+  <%= render "formstrap/label", file.label_options if file.append_label? %>
 <% end %>

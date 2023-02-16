@@ -25,7 +25,7 @@
   #     <%= render "formstrap/media", form: form, attribute: :file %#>
   #   <% end %#>
 
-  media = Headmin::Form::MediaView.new(local_assigns)
+  media = Formstrap::MediaView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", media.wrapper_options do %>

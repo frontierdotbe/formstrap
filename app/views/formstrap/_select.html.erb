@@ -28,7 +28,7 @@
   #     <%= render "formstrap/select", form: form, attribute: :color, collection: %w[red green blue] %#>
   #   <% end %#>
 
-  select = Headmin::Form::SelectView.new(local_assigns)
+  select = Formstrap::SelectView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", select.wrapper_options do %>

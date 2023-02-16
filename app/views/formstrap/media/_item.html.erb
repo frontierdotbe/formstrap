@@ -11,7 +11,7 @@
   # * +height+ - Height of the thumbnail
   #
 
-  media_item = Headmin::Form::MediaItemView.new(local_assigns)
+  media_item = Formstrap::MediaItemView.new(local_assigns)
 %>
 
 <div class="h-form-file-thumbnail media-drag-sort-handle" title="<%= "#{media_item.filename} (#{media_item.size})" %>" data-media-target="item">

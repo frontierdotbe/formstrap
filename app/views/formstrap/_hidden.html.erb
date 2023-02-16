@@ -16,7 +16,7 @@
   #     <%= render "formstrap/hidden", form: form, attribute: :id %#>
   #   <% end %#>
 
-  hidden = Headmin::Form::HiddenView.new(local_assigns)
+  hidden = Formstrap::HiddenView.new(local_assigns)
 %>
 
 <%= form.hidden_field(attribute, hidden.input_options) %>

@@ -1,8 +1,8 @@
-require_relative "lib/headmin/version"
+require_relative "lib/formstrap/version"
 
 Gem::Specification.new do |spec|
   spec.name = "formstrap"
-  spec.version = Headmin::VERSION
+  spec.version = Formstrap::VERSION
   spec.authors = ["Jef Vlamings"]
   spec.email = ["vlamingsjef@gmail.com"]
 

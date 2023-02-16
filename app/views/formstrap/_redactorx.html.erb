@@ -25,7 +25,7 @@
   #     <%= render "formstrap/redactorx", form: form, attribute: :text %#>
   #   <% end %#>
 
-  redactor = Headmin::Form::RedactorxView.new(local_assigns)
+  redactor = Formstrap::RedactorxView.new(local_assigns)
 %>
 
 <%= render "formstrap/textarea", redactor.options %>

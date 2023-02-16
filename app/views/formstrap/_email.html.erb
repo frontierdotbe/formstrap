@@ -27,7 +27,7 @@
   #     <%= render "formstrap/email", form: form, attribute: :email_address %#>
   #   <% end %#>
 
-  email = Headmin::Form::EmailView.new(local_assigns)
+  email = Formstrap::EmailView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", email.wrapper_options do %>

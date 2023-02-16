@@ -21,7 +21,7 @@
   #     <%= render "formstrap/color", form: form, attribute: :active %#>
   #   <% end %#>
 
-  color = Headmin::Form::ColorView.new(local_assigns)
+  color = Formstrap::ColorView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", color.wrapper_options do %>

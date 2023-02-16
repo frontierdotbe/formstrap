@@ -26,7 +26,7 @@
   #     <%= render "formstrap/datetime", form: form, attribute: :deadline %#>
   #   <% end %#>
 
-  datetime = Headmin::Form::DatetimeView.new(local_assigns)
+  datetime = Formstrap::DatetimeView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", datetime.wrapper_options do %>

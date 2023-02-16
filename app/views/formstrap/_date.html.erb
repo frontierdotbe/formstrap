@@ -26,7 +26,7 @@
   #     <%= render "formstrap/date", form: form, attribute: :date_of_birth %#>
   #   <% end %#>
 
-  date = Headmin::Form::DateView.new(local_assigns)
+  date = Formstrap::DateView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", date.wrapper_options do %>

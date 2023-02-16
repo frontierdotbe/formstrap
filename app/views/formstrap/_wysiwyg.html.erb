@@ -22,7 +22,7 @@
   #     <%= render "formstrap/redactorx", form: form, attribute: :text %#>
   #   <% end %#>
 
-  wysiwyg = Headmin::Form::WysiwygView.new(local_assigns)
+  wysiwyg = Formstrap::WysiwygView.new(local_assigns)
 %>
 
 <%= render "formstrap/redactorx", wysiwyg.options %>

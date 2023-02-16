@@ -1,5 +1,5 @@
 <%
-  # name: headmin/forms/fields/group
+  # name: formstrap/fields/group
   #
   # ==== Options
   # * +form+ - Form object
@@ -9,16 +9,16 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= render "headmin/forms/fields/group", form: form, name: :button do |group| %#>
+  #   <%= render "formstrap/fields/group", form: form, name: :button do |group| %#>
   #     <div class="row">
   #       <div class="col-md-6">
-  #         <%= render "headmin/forms/fields/text", form: group, name: :name do |field, attribute, label| %#>
-  #           <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %#>
+  #         <%= render "formstrap/fields/text", form: group, name: :name do |field, attribute, label| %#>
+  #           <%= render "formstrap/text", form: field, attribute: attribute, label: label %#>
   #         <% end %#>
   #       </div>
   #       <div class="col-md-6">
-  #         <%= render "headmin/forms/fields/text", form: group, name: :url do |field, attribute, label| %#>
-  #           <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %#>
+  #         <%= render "formstrap/fields/text", form: group, name: :url do |field, attribute, label| %#>
+  #           <%= render "formstrap/text", form: field, attribute: attribute, label: label %#>
   #         <% end %#>
   #       </div>
   #     </div>
@@ -31,9 +31,9 @@
 %>
 
 <% if named %>
-  <%= render "headmin/forms/fields/base", form: form, name: name, field_type: :group do |group, field_label| %>
+  <%= render "formstrap/fields/base", form: form, name: name, field_type: :group do |group, field_label| %>
     <% if show_label %>
-      <%= render "headmin/forms/label", form: form, attribute: :value, text: label || field_label %>
+      <%= render "formstrap/label", form: form, attribute: :value, text: label || field_label %>
     <% end %>
 
     <% if wrapper %>

@@ -25,7 +25,7 @@
   #     <%= render "formstrap/textarea", form: form, attribute: :text %#>
   #   <% end %#>
 
-  textarea = Headmin::Form::TextareaView.new(local_assigns)
+  textarea = Formstrap::TextareaView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", textarea.wrapper_options do %>

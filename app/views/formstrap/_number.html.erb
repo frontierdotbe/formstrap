@@ -26,7 +26,7 @@
   #     <%= render "formstrap/number", form: form, attribute: :number %#>
   #   <% end %#>
 
-  number = Headmin::Form::NumberView.new(local_assigns)
+  number = Formstrap::NumberView.new(local_assigns)
 %>
 
 <%= render "formstrap/wrapper", number.wrapper_options do %>

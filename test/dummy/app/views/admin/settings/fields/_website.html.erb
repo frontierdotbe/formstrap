@@ -1,7 +1,0 @@
-<%= render "headmin/forms/fields/text", form: form, name: :banner_text do |field, attribute, label| %>
-  <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %>
-<% end %>
-
-<%= render "headmin/forms/fields/text", form: form, name: :primary_color do |field, attribute, label| %>
-  <%= render "headmin/forms/select", form: field, attribute: attribute, label: label, collection: ["red", "blue", "green", "yellow", "orange", "purple"], prepend: bootstrap_icon("eyedropper") %>
-<% end %>

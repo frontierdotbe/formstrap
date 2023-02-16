@@ -18,5 +18,5 @@
   #   <%= render "formstrap/label", form: form, attribute: :image %#>
 %>
 
-<% label = Headmin::Form::LabelView.new(local_assigns) %>
+<% label = Formstrap::LabelView.new(local_assigns) %>
 <%= form.label label.attribute, label.text, label.options %>

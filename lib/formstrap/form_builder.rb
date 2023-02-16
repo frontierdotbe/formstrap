@@ -107,6 +107,10 @@ module Formstrap
       render_input(:redactorx, attribute, options)
     end
 
+    def search(attribute, options = {})
+      render_input(:search, attribute, options)
+    end
+
     def select(attribute, formstrap: true, **options)
       if formstrap
         render_input(:select, attribute, options)
