@@ -1,0 +1,66 @@
+// Bootstrap icons
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css");
+
+// Bootstrap
+@import "headmin/vendor/bootstrap/scss/functions";
+@import "headmin/vendor/bootstrap/scss/functions";
+@import "headmin/vendor/bootstrap/scss/functions";
+@import "headmin/vendor/bootstrap/scss/variables";
+@import "headmin/vendor/bootstrap/scss/mixins";
+@import "headmin/vendor/bootstrap/scss/utilities";
+@import "headmin/overrides/bootstrap";
+@import "headmin/vendor/bootstrap/scss/root";
+@import "headmin/vendor/bootstrap/scss/reboot";
+@import "headmin/vendor/bootstrap/scss/type";
+@import "headmin/vendor/bootstrap/scss/images";
+@import "headmin/vendor/bootstrap/scss/containers";
+@import "headmin/vendor/bootstrap/scss/grid";
+@import "headmin/vendor/bootstrap/scss/tables";
+@import "headmin/vendor/bootstrap/scss/forms";
+@import "headmin/vendor/bootstrap/scss/buttons";
+@import "headmin/vendor/bootstrap/scss/transitions";
+@import "headmin/vendor/bootstrap/scss/dropdown";
+@import "headmin/vendor/bootstrap/scss/button-group";
+@import "headmin/vendor/bootstrap/scss/nav";
+@import "headmin/vendor/bootstrap/scss/navbar";
+@import "headmin/vendor/bootstrap/scss/card";
+@import "headmin/vendor/bootstrap/scss/accordion";
+@import "headmin/vendor/bootstrap/scss/breadcrumb";
+@import "headmin/vendor/bootstrap/scss/pagination";
+@import "headmin/vendor/bootstrap/scss/badge";
+@import "headmin/vendor/bootstrap/scss/alert";
+@import "headmin/vendor/bootstrap/scss/progress";
+@import "headmin/vendor/bootstrap/scss/list-group";
+@import "headmin/vendor/bootstrap/scss/close";
+@import "headmin/vendor/bootstrap/scss/toasts";
+@import "headmin/vendor/bootstrap/scss/modal";
+@import "headmin/vendor/bootstrap/scss/tooltip";
+@import "headmin/vendor/bootstrap/scss/popover";
+@import "headmin/vendor/bootstrap/scss/carousel";
+@import "headmin/vendor/bootstrap/scss/spinners";
+@import "headmin/vendor/bootstrap/scss/helpers";
+@import "headmin/vendor/bootstrap/scss/utilities/api";
+
+// Tom select
+@import "headmin/vendor/tom-select-bootstrap";
+
+// Flatpickr
+@import "headmin/vendor/flatpickr";
+
+// Redactor
+@import "headmin/vendor/redactorx";
+@import "headmin/overrides/redactorx";
+
+// Headmin
+@import "headmin/filters";
+@import "headmin/forms";
+@import "headmin/general";
+@import "headmin/layout";
+@import "headmin/login";
+@import "headmin/table";
+@import "headmin/utilities";
+@import "headmin/filter";
+@import "headmin/media";
+@import "headmin/popup";
+@import "headmin/thumbnail";
+@import "headmin/syntax";

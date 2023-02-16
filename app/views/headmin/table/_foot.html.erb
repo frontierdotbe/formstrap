@@ -1,0 +1,19 @@
+<%#
+    headmin/table/foot
+    accepts block: true
+    parameters: none
+%>
+
+<% content_for :table_foot do %>
+  <%= yield %>
+<% end %>
+
+<tfoot class="table-light">
+<tr>
+  <% if content_for(:table_foot).present? %>
+    <%= content_for :table_foot %>
+  <% else %>
+    <%= content_for :table_head %>
+  <% end %>
+</tr>
+</tfoot>

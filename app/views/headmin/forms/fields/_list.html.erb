@@ -1,0 +1,31 @@
+<%
+  # name: headmin/forms/fields/list
+  #
+  # ==== Options
+  # * +form+ - Form object
+  # * +name+ - Name for the field
+  # * +label+ - Text to show as label. Label will be hidden if value is false
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "headmin/forms/fields/list", form: form, name: :websites do |list| %#>
+  #     <%= render "headmin/forms/fields/text", form: list, name: :url do |field, attribute, label| %#>
+  #       <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %#>
+  #     <% end %#>
+  #   <% end %#>
+
+  label = local_assigns.has_key?(:label) ? label : nil
+  show_label = label != false
+%>
+
+<%= render "headmin/forms/fields/base", form: form, name: name, field_type: :list do |list, field_label| %>
+  <div class="mb-3">
+    <%= render "headmin/forms/repeater", form: list, attribute: :fields, label: show_label ? label || field_label : false, flush: false do |field| %>
+
+      <%= field.hidden_field :field_type, value: :list_item %>
+      <%= field.hidden_field :name, value: :list_item %>
+
+      <%= yield field %>
+    <% end %>
+  </div>
+<% end %>

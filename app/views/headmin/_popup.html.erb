@@ -1,0 +1,32 @@
+<%
+  # headmin/popup
+  #
+  # ==== Options
+  # * +id</tt> - Identifier for this popup
+  #
+  # ==== Examples
+  #   To trigger this popup create an element with a data attribute like this
+  #
+  #   <button data-popup-id="popupId">open Popup</button>
+  #   <%= render "headmin/popup", id: "popupId" do %#>
+  #     popup Content
+  #   <% end %#>
+  #
+  #   If you want to pass a click event to an element inside the popup without opening the popup you can use the
+  #   "data-popup-pass-thru" attribute.
+  #
+  #   <button data-popup-id="popupId" data-popup-pass-thru="#link">open Popup</button>
+  #   <%= render "headmin/popup", id: "popupId" do %#>
+  #     <a href="https://example.com" id="link">
+  #   <% end %#>
+  data = local_assigns.has_key?(:data) ? data : {}
+
+  options = {
+    class: ["h-popup", "closed"],
+    data: data.merge("popup-target": "popup", "popup-id": id)
+  }
+%>
+
+<%= content_tag(:div, options) do %>
+  <%= yield %>
+<% end %>

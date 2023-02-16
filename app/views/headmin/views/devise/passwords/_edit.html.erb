@@ -1,0 +1,12 @@
+<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put}) do |f| %>
+  <%= render "headmin/views/devise/shared/error_messages", resource: resource %>
+
+  <%= f.hidden_field :reset_password_token %>
+
+  <%= render "headmin/forms/password", form: f, attribute: :password, required: true, float: true %>
+  <%= render "headmin/forms/password", form: f, attribute: :password_confirmation, required: true, float: true %>
+
+  <%= f.submit t(".change_password"), class: "btn btn-lg btn-primary w-100" %>
+
+  <%= render "headmin/views/devise/shared/links" %>
+<% end %>

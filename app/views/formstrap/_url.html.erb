@@ -1,0 +1,43 @@
+<%
+  # formstrap/url
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +collection+ - Values to be suggested while typing. Can be an collection array or a remote URL.
+  # * +float+ - Use floating labels. Defaults to false
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +list+ - Options are passed through options_for_select
+  # * +plaintext+ - Render input as plain text.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/url
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/url
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/url_field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/url", form: form, attribute: :website_url %#>
+  #   <% end %#>
+
+  url = Headmin::Form::UrlView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", url.wrapper_options do %>
+  <%= render "formstrap/label", url.label_options if url.prepend_label? %>
+  <%= render "formstrap/input_group", url.input_group_options do %>
+    <%= form.url_field(url.attribute, url.input_options) %>
+    <%= render "formstrap/datalist", url.datalist_options if url.datalist? %>
+    <%= render "formstrap/autocomplete", url.autocomplete_options if url.autocomplete? %>
+  <% end %>
+  <%= render "formstrap/validation", url.validation_options if url.validate? %>
+  <%= render "formstrap/hint", url.hint_options if url.hint? %>
+  <%= render "formstrap/label", url.label_options if url.append_label? %>
+<% end %>

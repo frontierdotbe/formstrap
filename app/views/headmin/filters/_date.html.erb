@@ -1,0 +1,24 @@
+<%
+  # headmin/filters/date
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute to be filtered
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +name+ - Name of the filter parameter
+  # * +label+ - Display label
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "headmin/filters", url: admin_orders_path do |form| %#>
+  #     <%= render "headmin/filters/date", form: form, attribute: :created_at %#>
+  #   <% end  %#>
+
+  date = Headmin::Filter::DateView.new(local_assigns.merge(params: params))
+%>
+
+<%= render "headmin/filters/base", date.base_options do |value| %>
+  <%= render "headmin/forms/date", date.input_options.merge({value: value}) %>
+  <%= render "headmin/forms/date_range", date.input_options.merge({start: {value: value.class.to_s == "Range" ? value.first : value}, end: {value: value.class.to_s == "Range" ? value.last : value}}) %>
+<% end %>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>">
+<head>
+  <title>Admin</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_link_tag "admin", "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags "admin" %>
+</head>
+<body>
+<%= render "headmin/layout/main" do %>
+  <%= render "headmin/layout/sidebar", logo: image_tag("frontier.png", style: "max-width: 80%; height: auto") do %>
+    <%= render "headmin/layout/sidebar/nav" do %>
+      <%= render "headmin/nav/item", name: t("admin.dashboard.title"), url: admin_root_path, icon: "speedometer" %>
+      <%= render "headmin/nav/item", name: Page.model_name.human(count: 2), url: admin_pages_path, icon: "book" %>
+      <%= render "headmin/nav/item", name: Poll.model_name.human(count: 2), url: admin_polls_path, icon: "clipboard-data" %>
+      <%= render "headmin/nav/item", name: Question.model_name.human(count: 2), url: admin_questions_path, icon: "question-circle" %>
+      <%= render "headmin/nav/item", name: User.model_name.human(count: 2), url: admin_users_path, icon: "people-fill" %>
+      <%= render "headmin/nav/item", name: Setting.model_name.human(count: 2), url: admin_settings_path, icon: "gear-wide-connected" %>
+      <div class="d-block d-md-none">
+        <%= render "headmin/nav/item/locale" %>
+        <%= render "headmin/nav/item/devise" %>
+      </div>
+    <% end %>
+  <% end %>
+  <%= render "headmin/layout/body" do %>
+    <%= render "headmin/layout/header" do %>
+      <%= render "headmin/dropdown/locale" %>
+      <%= render "headmin/dropdown/devise" %>
+    <% end %>
+    <%= render "headmin/layout/content" do %>
+      <%= render "headmin/notifications" %>
+      <%= yield %>
+    <% end %>
+    <%= render "headmin/layout/footer", class: "text-secondary" do %>
+      <%= bootstrap_icon("question-circle") %>
+      <a class="text-secondary" href="mailto:info@insiting.com" title="<%= t(".help") %>">
+        <%= t(".help") %>
+      </a>
+    <% end %>
+  <% end %>
+<% end %>
+</body>
+</html>

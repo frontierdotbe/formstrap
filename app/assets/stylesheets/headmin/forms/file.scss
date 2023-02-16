@@ -1,0 +1,81 @@
+.h-form-file {
+  .h-form-file-thumbnails {
+    margin-bottom: map-get($spacers, 2);
+  }
+
+  &.h-dropzone {
+    padding: map-get($spacers, 2);
+
+    .h-form-file-thumbnails {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.h-form-file-thumbnails {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: map-get($spacers, 2);
+
+  a, a:link, a:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}
+
+.h-form-file-thumbnail {
+  position: relative;
+  pointer-events: initial !important;
+  display: flex;
+
+  &:hover {
+    .h-form-file-thumbnail-actions {
+      display: block;
+    }
+  }
+}
+
+.h-form-file-thumbnail-actions {
+  display: none;
+}
+
+.h-form-file-thumbnail-remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: $danger;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: $border-radius-pill;
+  z-index: 3;
+  cursor: pointer;
+
+  &:hover {
+    background: tint-color($danger, $btn-hover-bg-tint-amount)
+  }
+}
+
+.h-form-file-thumbnail-edit {
+  position: absolute;
+  top: 5px;
+  right: 35px;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: $border-radius-pill;
+  z-index: 3;
+  cursor: pointer;
+  color: white !important;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 1);
+  }
+}

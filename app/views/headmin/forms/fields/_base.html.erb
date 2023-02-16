@@ -1,0 +1,25 @@
+<%
+  # name: headmin/forms/fields/base
+  #
+  # ==== Options
+  # * +form+ - Form object
+  # * +name+ - Name for the field
+  # * +field_type+ - Type of the field. Options: [:text, :image, :file, :list, :group]
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "headmin/forms/fields/base", form: form, field_type: :text, name: name do |field, label| %#>
+  #     <%= render "headmin/forms/text", form: field, attribute: :value, label: label %#>
+  #   <% end %#>
+  field = form.object.fields.detect { |field| field.name.to_s == name.to_s }
+  field = field ? field : form.object.fields.new(field_type: field_type, name: name)
+  label = t("attributes.#{name.to_s.parameterize}", default: field.name.to_s)
+%>
+
+<%= form.fields_for :fields, field do |ff| %>
+  <%= ff.hidden_field :id %>
+  <%= ff.hidden_field :name %>
+  <%= ff.hidden_field :field_type %>
+
+  <%= yield ff, label %>
+<% end %>

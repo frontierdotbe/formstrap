@@ -1,0 +1,45 @@
+<%
+  # formstrap/blocks
+  #
+  # ==== Required parameters
+  # * +form</tt> - Form object
+  # * +names</tt> - Names of block templates that can be added
+  #
+  # ==== Optional parameters
+  # * +paths</tt> - Directories where to look for block templates
+  #
+  # ==== Examples
+  #   Basic version. (looks in views/admin/blocks, views/blocks or views directory )
+  #   <%= render "formstrap/blocks", form: form, names: %w(text image button) %#>
+  #
+  #   Define one ore more path where the templates could be located:
+  #   <%= render "formstrap/blocks", form: form, names: %w(text image button), paths: %w(admin/pages/blocks) %#>
+  #
+  #   Limit the types of blocks
+  #   <%= render "formstrap/blocks", form: form, names: %w(text text_image list) %#>
+
+  blocks = Headmin::Form::BlocksView.new(local_assigns)
+  @lookup_context.prefixes = @lookup_context.prefixes + blocks.prefixes
+%>
+
+<%= render "formstrap/repeater", blocks.repeater_options do |block_form, template| %>
+  <% name = template || block_form.object.name %>
+  <!-- Name input of the block -->
+  <%= block_form.hidden_field :name, value: name %>
+
+  <!-- Render block form fields -->
+  <div class="<%= block_form.object.visible ? "" : "opacity-50" %>">
+    <%= render name, form: block_form %>
+  </div>
+  <% badge_style = blocks.badge_style(block_form.object) %>
+
+  <!-- Label -->
+  <span class="position-absolute top-0 end-0 badge rounded-0 d-flex align-items-center gap-2 bg-danger <%= badge_style %>">
+    <%= t("blocks.#{name}", default: name).humanize %>
+    <button type="button" class="btn p-0 <%= badge_style %>" data-bs-toggle="modal" data-bs-target="#modal-block-<%= block_form.object.id %>">
+      <%= bootstrap_icon("gear") %>
+    </button>
+  </span>
+
+  <%= render "formstrap/blocks/modal", form: block_form, name: name %>
+<% end %>

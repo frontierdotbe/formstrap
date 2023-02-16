@@ -1,0 +1,29 @@
+nl:
+  headmin:
+    table:
+      actions:
+        apply: Toepassen
+        items_html:
+          zero: '<b>Zonder</b> items'
+          one: 'Met <b>1</b> item'
+          other: 'Met <b>%{count}</b> items'
+        selection: Selecteer een actie
+        export:
+          button: Exporteren
+        delete:
+          button: Verwijderen
+          confirm: Ben je zeker dat je de geselecteerde items wilt verwijderen?
+      body:
+        association:
+          items:
+            one: 1 item
+            other: '%{count} items'
+        boolean:
+          true: Ja
+          false: Nee
+        date:
+          empty: Nvt.
+          format: '%d-%m-%Y %H:%M'
+        empty: Geen resultaten gevonden
+        image:
+          open: Openen

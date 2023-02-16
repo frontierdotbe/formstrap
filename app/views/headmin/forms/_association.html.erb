@@ -1,0 +1,30 @@
+<%
+  # headmin/forms/association
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the association
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +collection+ - Values to create option tags for
+  #
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "headmin/forms/association", form: form, attribute: :product %#>
+  #   <% end %#>
+
+  association = Headmin::Form::AssociationView.new(local_assigns)
+
+%>
+
+<%= render "headmin/forms/wrapper", association.wrapper_options do %>
+  <%= render "headmin/forms/label", association.label_options if association.prepend_label? %>
+  <%= render "headmin/forms/input_group", association.input_group_options do %>
+    <%= form.select(association.attribute_with_id, association.collection, association.select_options, association.input_options) %>
+  <% end %>
+  <%= render "headmin/forms/validation", association.validation_options if association.validate? %>
+  <%= render "headmin/forms/hint", association.hint_options if association.hint? %>
+  <%= render "headmin/forms/label", association.label_options if association.append_label? %>
+<% end %>

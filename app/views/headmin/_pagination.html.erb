@@ -1,0 +1,18 @@
+<%
+  # headmin/notifications
+  #
+  # ==== Options
+  # * +collection</tt> - Kaminari collection that accepts a method .total_count
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "headmin/pagination, collection: @pages" %#>
+%>
+
+<div class="d-flex flex-row-reverse flex-md-row align-items-center justify-content-between justify-content-md-end my-1">
+  <% content_for :collection_total_count, collection.total_count.to_s unless content_for?(:collection_total_count) %>
+  <div class="ms-2 me-md-2 text-secondary flex-grow-1 flex-shrink-0">
+    <%= t(".items", count: content_for(:collection_total_count).to_i) %>
+  </div>
+  <%= paginate collection, views_prefix: "headmin/pagination" %>
+</div>

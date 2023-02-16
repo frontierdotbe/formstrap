@@ -1,0 +1,41 @@
+<%
+  # formstrap/number
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +float+ - Use floating labels. Defaults to false
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +list+ - Options are passed through options_for_select
+  # * +plaintext+ - Render input as plain text.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/number
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/number
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/number_field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/number", form: form, attribute: :number %#>
+  #   <% end %#>
+
+  number = Headmin::Form::NumberView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", number.wrapper_options do %>
+  <%= render "formstrap/label", number.label_options if number.prepend_label? %>
+  <%= render "formstrap/input_group", number.input_group_options do %>
+    <%= form.number_field(number.attribute, number.input_options) %>
+    <%= render "formstrap/datalist", number.datalist_options if number.datalist? %>
+  <% end %>
+  <%= render "formstrap/validation", number.validation_options if number.validate? %>
+  <%= render "formstrap/hint", number.hint_options if number.hint? %>
+  <%= render "formstrap/label", number.label_options if number.append_label? %>
+<% end %>

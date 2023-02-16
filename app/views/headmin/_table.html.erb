@@ -1,0 +1,26 @@
+<%
+  # headmin/table
+  #
+  # ==== Options
+  # * +sort_url</tt> - Url to post object ids to in the order of positions
+  #
+  # ==== Examples
+  #   <%= render "headmin/table", sort_url: positions_admin_categories_path do %#>
+  #     table content here
+  #   <% end %#>
+
+  sort_url = local_assigns.has_key?(:sort_url) ? sort_url : nil
+  total_count = content_for(:collection_total_count).to_i || nil
+%>
+
+<div class="h-table card my-2 shadow-sm <%= "table-drag-sort" if sort_url %>" data-sort-url="<%= sort_url %>">
+  <div class="table-responsive">
+    <table class="table table-hover m-0"
+           data-controller="table"
+           data-table-target="table"
+           data-table-url-value="<%= sort_url %>"
+           data-table-count-value="<%= total_count %>">
+      <%= yield %>
+    </table>
+  </div>
+</div>

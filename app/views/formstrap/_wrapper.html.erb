@@ -1,0 +1,8 @@
+<% wrapper = Headmin::Form::WrapperView.new(local_assigns) %>
+<% if wrapper.bypass %>
+  <%= yield %>
+<% else %>
+  <div <%= tag.attributes(wrapper.options) %>>
+    <%= yield %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+.body {
+  background: $card-cap-bg;
+  height: 100vh;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+}
+
+.content {
+  flex-grow: 1
+}

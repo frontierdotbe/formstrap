@@ -1,0 +1,17 @@
+<%#
+    headmin/layout/footer
+    accepts block: yes
+    parameters: none
+%>
+
+<div class="footer pb-3">
+  <div class="container-fluid">
+    <hr>
+    <div class="text-secondary">
+      Headmin v.<%= Headmin::VERSION %>
+      <span class="float-end">
+        <%= yield unless content_for(:layout).eql?(yield) %>
+      </span>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,53 @@
+{
+  "name": "headmin",
+  "version": "0.6.2",
+  "description": "Admin component library",
+  "module": "app/assets/javascripts/headmin.js",
+  "main": "app/assets/javascripts/headmin.js",
+  "sass": "app/assets/stylesheets/headmin.scss",
+  "style": "app/assets/stylesheets/headmin.css",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/insiting/headmin.git"
+  },
+  "keywords": [
+    "headmin",
+    "insiting"
+  ],
+  "author": "Jef Vlamings <vlamingsjef@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/insiting/headmin/issues"
+  },
+  "homepage": "https://github.com/insiting/headmin#readme",
+  "dependencies": {
+    "@hotwired/stimulus": "^3.0",
+    "@hotwired/stimulus-webpack-helpers": "^1.0",
+    "@popperjs/core": "^2.11.2",
+    "bootstrap": "^5.1.3",
+    "flatpickr": "^4.6.9",
+    "sortablejs": "^1.14.0",
+    "tom-select": "^2.0.0",
+    "yarn": "^1.22.18"
+  },
+  "devDependencies": {
+    "esbuild": "^0.14.11",
+    "esbuild-sass-plugin": "^2.0.3",
+    "standard": "^16.0.4"
+  },
+  "standard": {
+    "ignore": [
+      "headmin.js"
+    ]
+  },
+  "scripts": {
+    "lint": "standard --fix",
+    "build:css": "node esbuild-css.js",
+    "build:js": "node esbuild-js.js",
+    "build": "yarn lint && yarn build:css && yarn build:js",
+    "watch:css": "node esbuild-css.js -w",
+    "watch:js": "node esbuild-js.js -w",
+    "watch": "yarn watch:css & yarn watch:js",
+    "dev": "yarn watch"
+  }
+}

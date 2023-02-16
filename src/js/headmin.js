@@ -1,0 +1,1 @@
+export {Headmin} from "../../app/assets/javascripts/headmin/index"

@@ -1,0 +1,23 @@
+<%
+  # headmin/filters/boolean
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute to be filtered
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +name+ - Name of the filter parameter
+  # * +label+ - Display label
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "headmin/filters", url: admin_orders_path do |form| %#>
+  #     <%= render "headmin/filters/boolean", form: form, attribute: :published %#>
+  #   <% end  %#>
+
+  boolean = Headmin::Filter::BooleanView.new(local_assigns.merge(params: params))
+%>
+
+<%= render "headmin/filters/base", boolean.base_options do |value| %>
+  <%= render "headmin/forms/select", boolean.input_options.merge(selected: value) %>
+<% end %>

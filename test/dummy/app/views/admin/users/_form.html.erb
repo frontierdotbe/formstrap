@@ -1,0 +1,50 @@
+<%= render "headmin/form", model: [:admin, @user] do |form| %>
+  <%= render "headmin/breadcrumbs" %>
+  <%= render "headmin/heading" do %>
+    <%= render "headmin/heading/title", title: @user.name, new_link: (new_admin_user_path if @user.persisted?) %>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-9">
+      <%= render "headmin/forms/errors", form: form %>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= t("admin.users.form.info") %>
+          </h5>
+          <p class="cart-text text-secondary">
+            <%= t("admin.users.form.info_text") %>
+          </p>
+          <%= render "headmin/forms/media", form: form, attribute: :avatar, required: true %>
+          <%= render "headmin/forms/text", form: form, attribute: :first_name, required: true %>
+          <%= render "headmin/forms/text", form: form, attribute: :last_name, required: true %>
+          <%= render "headmin/forms/text", form: form, attribute: :email, required: true %>
+          <%= render "headmin/forms/checkbox", form: form, attribute: :blocked %>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= t("admin.users.form.security") %>
+          </h5>
+          <p class="cart-text text-secondary">
+            <%= t("admin.users.form.security_text") %>
+          </p>
+          <%= form.hidden_field :skip_password_validation, value: form.object.persisted? %>
+          <%= render "headmin/forms/password", form: form, attribute: :password %>
+          <%= render "headmin/forms/password", form: form, attribute: :password_confirmation %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <%= render "headmin/forms/media", form: form, attribute: :documents, sort: false %>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3">
+      <%= render "admin/shared/actions", form: form %>
+    </div>
+  </div>
+<% end %>

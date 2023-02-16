@@ -1,0 +1,47 @@
+<%
+  # headmin/table/actions
+  #
+  # The form action url is dynamically set when switching between actions.
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "headmin/table/actions" do %#>
+  #     <%= render "headmin/table/actions/delete", url: destroy_admin_pages_path %#>
+  #   <% end %#>
+
+%>
+
+<% content_for :table_actions do %>
+  <th class="h-table-actions d-none" data-controller="table-actions" data-table-actions-target="wrapper" data-table-target="actions">
+    <%= form_with url: "", data: { "table-actions-target": "form" } do |form| %>
+      <%= form.hidden_field :id, value: "", "data-table-actions-target": "idInput" %>
+      <%= form.hidden_field :authenticity_token, value: form_authenticity_token %>
+      <%= form.hidden_field :_method, value: "POST", "data-table-actions-target": "method" %>
+      <%= query_parameter_fields(form) %>
+
+      <div class="row g-1">
+        <div class="col-6 col-sm-auto">
+          <div class="d-flex align-items-center gap-3">
+            <label class="text-nowrap"
+              data-table-actions-target="counter"
+              data-items-zero="<%= t(".items_html", count: 0) %>"
+              data-items-one="<%= t(".items_html", count: 1) %>"
+              data-items-other="<%= t(".items_html", count: 2) %>"
+            >
+              <%= t(".items_html", count: 0) %>
+            </label>
+            <select class="form-select me-1" data-table-actions-target="select" data-action="change->table-actions#update">
+              <option disabled selected="selected"><%= t(".selection") %></option>
+              <%= yield %>
+            </select>
+          </div>
+        </div>
+        <div class="col-6 col-sm-auto">
+          <button class="btn h-btn-outline-light w-100" type="submit" data-table-actions-target="button" disabled>
+            <%= t(".apply") %>
+          </button>
+        </div>
+      </div>
+    <% end %>
+  </th>
+<% end %>

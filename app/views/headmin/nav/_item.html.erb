@@ -1,0 +1,35 @@
+<%
+  # headmin/nav/item
+  #
+  # ==== Options
+  # * +name</tt> - Name of the nav item
+  # * +url</tt> - URL for this nav item
+  # * +icon</tt> - Optional Bootstrap icon name
+  # * +locked</tt> - Item becomes unclickable and a lock icon appears at the end of the item
+  # * +active</tt> - Set to true if this nav item needs to be highlighted
+  #
+  # ==== Examples
+  #   Basic version.
+  #   <%= render "headmin/nav/item", name: "Dashboard", url: admin_root_path %#>
+  #
+  #   With icon
+  #   <%= render "headmin/nav/item", name: "Dashboard", url: admin_root_path, icon: "speedometer" %#>
+
+  name = local_assigns.has_key?(:name) ? name : ""
+  icon = local_assigns.has_key?(:icon) ? icon : nil
+  url = local_assigns.has_key?(:url) ? url : request.url
+  locked = local_assigns.has_key?(:locked) ? locked : false
+  active = local_assigns.has_key?(:active) ? active : current_url?(url)
+%>
+
+<li class="nav-item">
+  <a class="nav-link d-flex align-items-center <%= "active" if active %> <%= "disabled" if locked %>" aria-current="page" href="<%= url %>">
+    <%= bootstrap_icon(icon, class: "me-2") if icon %>
+    <span class="d-block d-md-none d-lg-block">
+      <%= name %>
+    </span>
+    <% if locked %>
+      <%= bootstrap_icon("lock", class: "fs-6 ms-2") %>
+    <% end %>
+  </a>
+</li>

@@ -1,0 +1,2 @@
+class HeadminController < ApplicationController
+end

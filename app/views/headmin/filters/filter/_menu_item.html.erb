@@ -1,0 +1,15 @@
+<%#
+    headmin/filters/filter/menu_item
+    accepts block: no
+    parameters:
+      name: (string) Name of the parameter
+      label: (string) Display name
+%>
+
+<% menu_item = Headmin::Filter::MenuItemView.new(local_assigns) %>
+
+<li>
+  <a class="dropdown-item" href="#" data-filters-target="menuItem" data-action="click->filters#add" data-filter-name="<%= menu_item.name %>">
+    <%= menu_item.label %>
+  </a>
+</li>

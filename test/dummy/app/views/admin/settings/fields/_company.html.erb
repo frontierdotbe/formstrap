@@ -1,0 +1,32 @@
+<%= render "headmin/forms/fields/text", form: form, name: :name do |field, attribute, label| %>
+  <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %>
+<% end %>
+
+<%= render "headmin/forms/fields/file", form: form, name: :image do |field, attribute, label| %>
+  <%= render "headmin/forms/file", form: field, attribute: attribute, label: label, preview: true %>
+<% end %>
+
+<%= render "headmin/forms/fields/list", form: form, name: :addresses do |item| %>
+  <div class="row">
+    <div class="col-md-8">
+      <%= render "headmin/forms/fields/text", form: item, name: :street do |field, attribute, label| %>
+        <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <%= render "headmin/forms/fields/text", form: item, name: :street_number do |field, attribute, label| %>
+        <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %>
+      <% end %>
+    </div>
+    <div class="col-md-4">
+      <%= render "headmin/forms/fields/text", form: item, name: :postal_code do |field, attribute, label| %>
+        <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %>
+      <% end %>
+    </div>
+    <div class="col-md-8">
+      <%= render "headmin/forms/fields/text", form: item, name: :city do |field, attribute, label| %>
+        <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %>
+      <% end %>
+    </div>
+  </div>
+<% end %>

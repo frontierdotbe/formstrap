@@ -1,0 +1,21 @@
+.sidebar {
+  font-size: $font-size-base * 1.1;
+  a, button {
+    color: $gray-400;
+  }
+  .nav-pills .nav-link.active {
+    background: $gray-900;
+  }
+  .dropdown-menu {
+    background: $gray-900;
+  }
+}
+
+.nav-brand {
+  svg, img {
+    max-width: 100%;
+  }
+  svg {
+    fill: $white;
+  }
+}

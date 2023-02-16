@@ -1,0 +1,34 @@
+<%
+  # formstrap/checkbox
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +checked_value+ - Value for checked state
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +unchecked_value+ - Value for unchecked state
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/checkbox
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/check_box
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/checkbox", form: form, attribute: :active %#>
+  #   <% end %#>
+
+  checkbox = Headmin::Form::CheckboxView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", checkbox.wrapper_options do %>
+  <%= form.check_box(checkbox.attribute, checkbox.input_options, checkbox.checked_value, checkbox.unchecked_value) %>
+  <%= render "formstrap/label", checkbox.label_options if checkbox.label? %>
+  <%= render "formstrap/validation", checkbox.validation_options if checkbox.validate? %>
+  <%= render "formstrap/hint", checkbox.hint_options if checkbox.hint? %>
+<% end %>

@@ -1,0 +1,23 @@
+wb = xlsx_package.workbook
+wb.add_worksheet(name: "Polls") do |sheet|
+  sheet.add_row(
+    [
+      Poll.human_attribute_name(:id),
+      Poll.human_attribute_name(:name),
+      Poll.human_attribute_name(:poll_type),
+      Poll.human_attribute_name(:created_at),
+      Poll.human_attribute_name(:updated_at)
+    ]
+  )
+  @polls.each do |product|
+    sheet.add_row(
+      [
+        product.id,
+        product.name,
+        product.poll_type_text,
+        product.created_at,
+        product.updated_at
+      ]
+    )
+  end
+end

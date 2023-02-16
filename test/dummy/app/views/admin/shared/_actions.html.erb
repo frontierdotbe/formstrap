@@ -1,0 +1,30 @@
+<div class="card forms-actions shadow-sm mb-3">
+  <div class="card-body">
+    <h5 class="card-title"><%= t(".title") %></h5>
+    <p class="card-text"><%= t(".description") %></p>
+
+    <% if form.object.persisted? %>
+      <dl>
+        <dt><%= form.object.class.human_attribute_name(:created_at) %></dt>
+        <dd><%= form.object.created_at.strftime(t(".format")) %></dd>
+        <dt><%= form.object.class.human_attribute_name(:updated_at) %></dt>
+        <dd><%= form.object.updated_at.strftime(t(".format")) %></dd>
+      </dl>
+    <% end %>
+
+    <%= yield %>
+
+    <div class="d-grid">
+      <%= link_to([:admin, form.object], class: "btn btn-outline-danger", "data-turbo-method": "delete", "data-turbo-confirm": t(".confirm")) do %>
+        <%= bootstrap_icon("trash") %>
+        <%= t(".destroy.title") %>
+      <% end %>
+    </div>
+    <hr>
+    <div class="d-grid">
+      <%= form.button type: :submit, class: "btn btn-lg btn-primary" do  %>
+        <%= t(".save.title")  %>
+      <% end %>
+    </div>
+  </div>
+</div>

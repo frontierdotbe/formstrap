@@ -1,0 +1,10 @@
+<%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: {method: :post}) do |f| %>
+  <%= render "headmin/views/devise/shared/error_messages", resource: resource %>
+
+  <%= render "headmin/forms/email", form: f, attribute: :email, required: true, float: true %>
+
+  <%= f.submit t(".resend"), class: "btn btn-lg btn-primary w-100" %>
+
+  <%= render "headmin/views/devise/shared/links" %>
+
+<% end %>

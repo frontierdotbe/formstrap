@@ -1,0 +1,59 @@
+<%= render "headmin/index" do %>
+  <%= render "headmin/heading" do %>
+    <%= render "headmin/heading/title", title: breadcrumbs.last&.name, new_link: new_admin_poll_path %>
+  <% end %>
+  <%= render "headmin/table/header" do %>
+    <%= render "headmin/filters", url: admin_polls_path do |form| %>
+      <%= render "headmin/filters/association", form: form, attribute: :questions %>
+      <%= render "headmin/filters/text", form: form, attribute: :title, association: :questions %>
+      <%= render "headmin/filters/number", form: form, attribute: :points, association: :questions %>
+      <%= render "headmin/filters/date", form: form, attribute: :created_at, association: :questions %>
+      <%= render "headmin/filters/text", form: form, attribute: :name %>
+      <%= render "headmin/filters/association_count", form: form, association: :questions %>
+      <%= render "headmin/filters/association_count", form: form, association: :survey %>
+      <%= render "headmin/filters/date", form: form, attribute: :created_at %>
+      <%= render "headmin/filters/flatpickr", form: form, attribute: :end_date %>
+      <%= render "headmin/filters/boolean", form: form, attribute: :digital %>
+      <%= render "headmin/filters/options", form: form, attribute: :poll_type, collection: Poll.poll_type.options %>
+    <% end %>
+    <%= render "headmin/pagination", collection: @polls %>
+  <% end %>
+  <%= render "headmin/table", sort_url: positions_admin_polls_path do %>
+    <%= render "headmin/table/actions" do %>
+      <%= render "headmin/table/actions/action", name: "Flash", url: flash_admin_polls_path, method: :post %>
+      <%= render "headmin/table/actions/export", url: export_admin_polls_path %>
+      <%= render "headmin/table/actions/delete", url: destroy_admin_polls_path %>
+    <% end %>
+    <%= render "headmin/table/head" do %>
+      <%= render "headmin/table/head/sort" %>
+      <%= render "headmin/table/head/id" %>
+      <%= render "headmin/table/head/cell", value: Poll.human_attribute_name(:name), sort: :name %>
+      <%= render "headmin/table/head/cell", value: Poll.human_attribute_name(:poll_type), sort: :poll_type %>
+      <%= render "headmin/table/head/cell", value: Poll.human_attribute_name(:questions), sort: :questions %>
+      <%= render "headmin/table/head/cell", value: Poll.human_attribute_name(:digital), sort: :digital %>
+      <%= render "headmin/table/head/cell", value: Poll.human_attribute_name(:end_date), sort: :end_date %>
+      <%= render "headmin/table/head/cell", value: Poll.human_attribute_name(:created_at), sort: :created_at %>
+      <%= render "headmin/table/head/cell", value: Poll.human_attribute_name(:updated_at), sort: :updated_at %>
+    <% end %>
+    <%= render "headmin/table/body" do %>
+      <% @polls.each do |poll| %>
+        <%= render "headmin/table/body/row" do %>
+          <%= render "headmin/table/body/sort", value: poll.id %>
+          <%= render "headmin/table/body/id", value: poll.id %>
+          <%= render "headmin/table/body/string", value: poll.name, url: admin_poll_path(poll) %>
+          <%= render "headmin/table/body/string", value: poll.poll_type_text %>
+          <%= render "headmin/table/body/association", value: poll.questions %>
+          <%= render "headmin/table/body/boolean", value: poll.digital %>
+          <%= render "headmin/table/body/date", format: "%d-%m-%Y", value: poll.end_date %>
+          <%= render "headmin/table/body/date", value: poll.created_at %>
+          <%= render "headmin/table/body/date", value: poll.updated_at %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%= render "headmin/table/foot" %>
+  <% end %>
+  <%= render "headmin/table/footer" do %>
+    <%= render "headmin/pagination/per_page" %>
+    <%= render "headmin/pagination", collection: @polls %>
+  <% end %>
+<% end %>

@@ -1,0 +1,16 @@
+<%#
+    headmin/table/body/string
+    accepts block: no
+    parameters:
+      value: (string) Displays value
+%>
+
+<td>
+  <% if defined?(url) && url %>
+    <a href="<%= url %>" title="<% t(".open") %>">
+      <%= value %>
+    </a>
+  <% else %>
+    <%= value %>
+  <% end %>
+</td>

@@ -1,0 +1,54 @@
+en:
+  attributes:
+    addresses: Addresses
+    banner_text: Banner text
+    blocked: Blocked
+    button: Button
+    count: Count
+    city: City
+    created_at: Created
+    date: Date
+    digital: Digital
+    documents: Documents
+    email: Email
+    end_date: End date
+    fields: Fields
+    first_name: First name
+    gallery: Gallery
+    image: Image
+    last_name: Last name
+    list: List
+    name: Name
+    parent: Belongs to
+    period: Period
+    points: Points
+    poll: Poll
+    poll_type: Type
+    position: Position
+    postal_code: Postal code
+    primary_color: Primary color
+    questions: Questions
+    role: Role
+    slug: Slug
+    street: Street name
+    street_number: Street number
+    text: Text
+    title: Title
+    updated_at: Updated
+    value: Value
+  helpers:
+    label:
+      attribute: Attribute
+      date: Date
+      email: Email
+      end_date: Until
+      file: File
+      files: Files
+      image: Image
+      list: List
+      number: Number
+      password: Password
+      period: Period
+      start_date: From
+      text: Text
+      url: URL

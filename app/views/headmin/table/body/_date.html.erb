@@ -1,0 +1,11 @@
+<%#
+    headmin/table/body/date
+    accepts block: no
+    parameters:
+      value: (DateTime) Date to be displayed
+%>
+
+<% format = defined?(format) && format ? format : t(".format") %>
+<td>
+  <%= value ? l(value, format: format) : t(".empty") %>
+</td>

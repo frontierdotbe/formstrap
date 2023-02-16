@@ -1,0 +1,41 @@
+<%
+  # headmin/forms/date
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +float+ - Use floating labels. Defaults to false
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +list+ - Options are passed through options_for_select
+  # * +plaintext+ - Render input as plain text.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/date
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/date
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/date_field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "headmin/forms/date", form: form, attribute: :date_of_birth %#>
+  #   <% end %#>
+
+  date = Headmin::Form::DateView.new(local_assigns)
+%>
+
+<%= render "headmin/forms/wrapper", date.wrapper_options do %>
+  <%= render "headmin/forms/label", date.label_options if date.prepend_label? %>
+  <%= render "headmin/forms/input_group", date.input_group_options do %>
+    <%= form.date_field(date.attribute, date.input_options) %>
+    <%= render "headmin/forms/datalist", date.datalist_options if date.datalist? %>
+  <% end %>
+  <%= render "headmin/forms/validation", date.validation_options if date.validate? %>
+  <%= render "headmin/forms/hint", date.hint_options if date.hint? %>
+  <%= render "headmin/forms/label", date.label_options if date.append_label? %>
+<% end %>

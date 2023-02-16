@@ -1,0 +1,5 @@
+<%= turbo_stream.prepend "thumbnails" do %>
+  <% @blobs.each do |blob| %>
+    <%= render "headmin/media/thumbnail", blob: blob %>
+  <% end %>
+<% end %>

@@ -1,0 +1,21 @@
+<%#
+    headmin/layout/sidebar/menu/account
+    accepts block: yes
+    parameters:
+      scope: (symbol) devise scope, i.e. ":users" => current_user
+%>
+
+<% scope = local_assigns.has_key?(:scope) ? scope : "users" %>
+<% singular = scope.to_s.singularize.to_sym %>
+<% user = send("current_#{singular}") %>
+
+<%= render "headmin/dropdown", class: "nav-item" do %>
+  <%= render "headmin/dropdown/button", class: "nav-link", id: "nav-item-devise" do %>
+    <%= user.to_s %>
+  <% end %>
+  <%= render "headmin/dropdown/list", id: "nav-item-devise" do %>
+    <%= render "headmin/dropdown/item", name: t("headmin.nav.item.devise.edit_profile"), url: polymorphic_path([:edit, :admin, user]) %>
+    <%= render "headmin/dropdown/divider" %>
+    <%= render "headmin/dropdown/item", name: t("headmin.nav.item.devise.log_out"), url: polymorphic_path([:destroy, singular, :session]), data: { "turbo-method": "delete" } %>
+  <% end %>
+<% end %>

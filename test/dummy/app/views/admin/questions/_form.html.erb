@@ -1,0 +1,29 @@
+<%= render "headmin/form", model: [:admin, @question] do |form| %>
+  <%= render "headmin/breadcrumbs" %>
+  <%= render "headmin/heading" do %>
+    <%= render "headmin/heading/title", title: @question.title, new_link: (new_admin_question_path if @question.persisted?) %>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-9">
+      <%= render "headmin/forms/errors", form: form %>
+
+      <div class="card mb-3 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= t("admin.questions.form.info") %>
+          </h5>
+          <p class="cart-text text-secondary">
+            <%= t("admin.questions.form.info_text") %>
+          </p>
+          <%= form.text :title, required: true %>
+          <%= form.association_field :poll, required: true %>
+          <%= form.number :points, required: true %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <%= render "admin/shared/actions", form: form %>
+    </div>
+  </div>
+<% end %>

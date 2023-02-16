@@ -1,0 +1,12 @@
+.form-label[required="required"], .form-check-label[required="required"] {
+  &:after {
+    content: ' *';
+    color: $danger;
+  }
+}
+
+@import "forms/autocomplete";
+@import "forms/file";
+@import "forms/media";
+@import "forms/repeater";
+@import "forms/search";

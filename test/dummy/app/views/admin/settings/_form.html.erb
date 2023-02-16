@@ -1,0 +1,34 @@
+<%= render "headmin/form", model: [:admin, @setting] do |form| %>
+  <%= render "headmin/breadcrumbs" %>
+  <%= render "headmin/heading" do %>
+    <%= render "headmin/heading/title", title: @setting.name %>
+  <% end %>
+  <div class="row">
+    <div class="col-lg-9">
+      <%= render "headmin/forms/errors", form: form %>
+
+      <div class="card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">
+            <%= t("admin.settings.form.info") %>
+          </h5>
+          <p class="cart-text text-secondary">
+            <%= t("admin.settings.form.info_text") %>
+          </p>
+          <%= render "headmin/forms/text", form: form, attribute: :name, required: true %>
+          <%= render "headmin/forms/date", form: form, attribute: :created_at, required: true, prepend: bootstrap_icon("calendar") %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <%= render "admin/settings/fields/#{@setting.handle}", form: form %>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <%= render "admin/shared/actions", form: form %>
+    </div>
+  </div>
+<% end %>

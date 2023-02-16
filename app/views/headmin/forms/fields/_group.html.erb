@@ -1,0 +1,52 @@
+<%
+  # name: headmin/forms/fields/group
+  #
+  # ==== Options
+  # * +form+ - Form object
+  # * +name+ - Name for the field
+  # * +label+ - Text to show as label. Label will be hidden if value is false
+  # * +named+ - Whether a group has to be wrapped around the passed block. If false, no group will be wrapped around the passed block.
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "headmin/forms/fields/group", form: form, name: :button do |group| %#>
+  #     <div class="row">
+  #       <div class="col-md-6">
+  #         <%= render "headmin/forms/fields/text", form: group, name: :name do |field, attribute, label| %#>
+  #           <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %#>
+  #         <% end %#>
+  #       </div>
+  #       <div class="col-md-6">
+  #         <%= render "headmin/forms/fields/text", form: group, name: :url do |field, attribute, label| %#>
+  #           <%= render "headmin/forms/text", form: field, attribute: attribute, label: label %#>
+  #         <% end %#>
+  #       </div>
+  #     </div>
+  #   <% end %#>
+
+  label = local_assigns.has_key?(:label) ? label : nil
+  wrapper = local_assigns.has_key?(:wrapper) ? local_assigns[:wrapper] : true
+  named = local_assigns.has_key?(:named) ? local_assigns[:named] : true
+  show_label = label != false
+%>
+
+<% if named %>
+  <%= render "headmin/forms/fields/base", form: form, name: name, field_type: :group do |group, field_label| %>
+    <% if show_label %>
+      <%= render "headmin/forms/label", form: form, attribute: :value, text: label || field_label %>
+    <% end %>
+
+    <% if wrapper %>
+      <ul class="list-group mb-3">
+        <li class="list-group-item">
+          <%= yield group %>
+        </li>
+      </ul>
+    <% else %>
+      <%= yield group %>
+    <% end %>
+  <% end %>
+
+<% else %>
+  <%= yield form %>
+<% end %>

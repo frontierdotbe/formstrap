@@ -1,0 +1,23 @@
+<%
+  # formstrap/hidden
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/hidden
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/hidden
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/hidden_field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/hidden", form: form, attribute: :id %#>
+  #   <% end %#>
+
+  hidden = Headmin::Form::HiddenView.new(local_assigns)
+%>
+
+<%= form.hidden_field(attribute, hidden.input_options) %>
+

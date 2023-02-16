@@ -1,0 +1,8 @@
+<select class="form-select" data-filter-row-target="null" data-action="change->filter#updateHiddenValue" data-filter-target="value">
+  <option value="1" <%= value == 1 ? "selected" : "" %>>
+    <%= t("headmin.filters.values.yes") %>
+  </option>
+  <option value="0" <%= value == 0 ? "selected" : "" %>>
+    <%= t("headmin.filters.values.no") %>
+  </option>
+</select>

@@ -1,0 +1,21 @@
+<%#
+    headmin/table/body
+    accepts block: true
+    parameters: none
+%>
+
+<% content_for :table_body do %>
+  <%= yield %>
+<% end %>
+
+<tbody data-table-target="body">
+  <% if content_for(:table_body).present? %>
+    <%= content_for :table_body %>
+  <% else %>
+    <tr>
+      <td colspan="100%">
+        <%= t(".empty") %>
+      </td>
+    </tr>
+  <% end %>
+</tbody>

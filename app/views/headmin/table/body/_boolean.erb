@@ -1,0 +1,16 @@
+<%#
+    headmin/table/body/boolean
+    accepts block: no
+    parameters:
+      value: (boolean) Displays value
+%>
+
+<td>
+  <% if value %>
+    <%= bootstrap_icon("check-circle-fill", class: "text-success") %>&nbsp;
+    <%= t(".true") %>
+  <% else %>
+    <%= bootstrap_icon("x-circle-fill", class: "text-secondary") %>&nbsp;
+    <%= t(".false") %>
+  <% end %>
+</td>

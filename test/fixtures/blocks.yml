@@ -1,0 +1,11 @@
+intro:
+  name: intro
+  blockable: welcome (Post)
+
+body:
+  name: body
+  blockable: welcome (Post)
+
+outro:
+  name: outro
+  blockable: welcome (Post)

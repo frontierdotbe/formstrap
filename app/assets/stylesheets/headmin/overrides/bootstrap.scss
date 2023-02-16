@@ -1,0 +1,73 @@
+// Colors
+$white: #ffffff;
+$gray-50: #f9fafb;
+$gray-100: #f8f9fa;
+$gray-200: #e5e7eb;
+$gray-300: #d1d5db;
+$gray-400: #9ca3af;
+$gray-500: #6b7280;
+$gray-600: #4b5563;
+$gray-700: #374151;
+$gray-800: #1f2937;
+$gray-900: #14171b;
+$black: #000000;
+
+// General
+$enable-shadows: true;
+
+// Typography
+$font-size-base: 0.9rem;
+$font-size-xs: $font-size-base * .75;
+$input-font-size: $font-size-base;
+$form-select-font-size: $font-size-base;
+$btn-font-size: $font-size-base;
+
+// Tables
+$table-striped-bg: $gray-100;
+$table-border-color: $gray-200;
+$table-group-separator-color: $gray-200;
+$table-hover-bg: $gray-100;
+$table-color: $gray-500;
+$table-th-font-weight: $headings-font-weight;
+$table-cell-padding-x: 1rem;
+$table-cell-padding-y: 0.8rem;
+
+// Breadcrumbs
+$breadcrumb-margin-bottom: 0.3rem;
+$breadcrumb-font-size: $font-size-sm;
+$breadcrumb-divider-color: $gray-300;
+$breadcrumb-active-color: $gray-300;
+
+// Pagination
+$pagination-color: $body-color;
+$pagination-active-bg: $gray-100;
+$pagination-active-color: $black;
+$pagination-active-border-color: $gray-400;
+$pagination-hover-color: $black;
+$pagination-focus-color: $black;
+
+// Buttons
+$btn-link-color: $gray-500;
+
+// Form
+$input-group-addon-bg: $gray-100;
+
+// Mark
+$mark-bg: #ffec89;
+
+// Utilities
+$custom-utilities: (
+        "font-weight": (
+                property: font-weight,
+                class: fw,
+                values: (
+                        medium: $headings-font-weight,
+                        light: $font-weight-light,
+                        lighter: $font-weight-lighter,
+                        normal: $font-weight-normal,
+                        bold: $font-weight-bold,
+                        bolder: $font-weight-bolder
+                )
+        ),
+);
+$utilities: map-merge($utilities, $custom-utilities);

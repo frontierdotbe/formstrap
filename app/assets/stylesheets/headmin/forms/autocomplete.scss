@@ -1,0 +1,21 @@
+.h-autocomplete {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  z-index: $zindex-dropdown;
+  width: 100%;
+  @include reset-text();
+  @include font-size($dropdown-font-size);
+  word-wrap: break-word;
+  background-color: $dropdown-bg;
+  background-clip: padding-box;
+  border-radius: $dropdown-border-radius !important;
+  @include box-shadow($dropdown-box-shadow);
+  border: $dropdown-border-width solid $dropdown-border-color;
+  overflow: hidden;
+
+  .list-group-flush {
+    margin: 0;
+    padding: 0;
+  }
+}

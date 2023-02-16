@@ -1,0 +1,24 @@
+nl:
+  headmin:
+    media:
+      modal:
+        close: Sluiten
+        limits: "minimum: %{min} and maximum: %{max}"
+        maximum: " van %{count}"
+        placeholder: Upload je eerste bestand naar de mediabibliotheek
+        select: Selecteer
+        title:
+          one: Selecteer bestand
+          other: Selecteer bestanden
+        unlimited: onbeperkt
+        upload: Nieuwe bestanden uploaden
+      media_item_modal:
+        attachment_used_by: Gebruikt door
+        close: Sluiten
+        dimensions: Afmetingen
+        edit: Media item wijzigen
+        not_analysed: Nog niet geanalyseerd
+        size: Grootte
+        type: Bestandstype
+        update: Update
+        uploaded_at: Geüpload op

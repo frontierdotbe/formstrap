@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="<%= I18n.locale %>" data-controller="headmin">
+<head>
+  <title>Admin</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+
+  <%= stylesheet_pack_tag "admin", media: "all", "data-turbo-track": "reload" %>
+  <%= javascript_pack_tag "admin", "data-turbo-track": "reload" %>
+</head>
+
+<body>
+<%= render "headmin/layout/main" do %>
+  <%= render "headmin/layout/sidebar", logo: inline_svg_tag("logo.svg") do %>
+    <%= render "headmin/layout/sidebar/menu" do %>
+      <%= render "headmin/layout/sidebar/menu/item", name: t(".dashboard"), link: admin_root_path, icon: "speedometer" %>
+      <div class="d-block d-md-none">
+        <%= render "headmin/layout/sidebar/menu/locale" do end %>
+        <%= render "headmin/layout/sidebar/menu/account" do end %>
+      </div>
+    <% end %>
+  <% end %>
+  <%= render "headmin/layout/body" do %>
+    <%= render "headmin/layout/header" do %>
+      <%= render "headmin/layout/header/locale" do end %>
+      <%= render "headmin/layout/header/account" do end %>
+    <% end %>
+    <%= render "headmin/layout/content" do %>
+      <%= render "headmin/notifications" %>
+      <%= yield %>
+    <% end %>
+    <%= render "headmin/layout/footer", class: "text-secondary" do %>
+      <%= bootstrap_icon("question-circle") %>
+      <a class="text-secondary" href="mailto:info@insiting.com" title="<%= t(".help") %>">
+        <%= t(".help") %>
+      </a>
+    <% end %>
+  <% end %>
+<% end %>
+</body>
+</html>

@@ -1,0 +1,23 @@
+en:
+  headmin:
+    pagination:
+      infinite:
+        load_more: Load more
+      per_page:
+        title: items per page
+      items:
+        one: 1 item
+        other: '%{count} items'
+      kaminari:
+        first_page:
+          button: "&laquo;"
+        gap:
+          button: ...
+        last_page:
+          button: "&raquo;"
+        next_page:
+          button: "&rsaquo;"
+        paginator:
+          title: 'Pagination'
+        prev_page:
+          button: "&lsaquo;"

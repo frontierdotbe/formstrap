@@ -1,0 +1,25 @@
+<%
+  # headmin/blocks
+  #
+  # ==== Required parameters
+  # * +blockable</tt> - Object with blocks association
+  #
+  # ==== Optional parameters
+  # * +paths</tt> - Directories where to look for block templates
+  #
+  # ==== Examples
+  #   Basic version. (looks in views/website/blocks, views/blocks or views directory )
+  #   <%= render "headmin/blocks", blockable: @page %#>
+  #
+  #   Define one ore more path where the templates could be located:
+  #   <%= render "headmin/blocks", blockable: @page, paths: %w(website/pages/blocks) %#>
+
+  blocks = Headmin::BlocksView.new(local_assigns)
+  @lookup_context.prefixes = blocks.prefixes + @lookup_context.prefixes
+%>
+
+<% blockable.blocks.visible.order(:position).each do |block| %>
+  <div class="block block-<%= block.name.dasherize %>" id="<%= block.handle.present? ? block.handle : "block-#{block.id}" %>">
+    <%= render block.name, block: block %>
+  </div>
+<% end %>

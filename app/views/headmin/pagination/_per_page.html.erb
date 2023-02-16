@@ -1,0 +1,18 @@
+<% per_page = params[:per_page] ? params[:per_page].to_i : 24 %>
+
+<div class="d-flex flex-row-reverse flex-md-row align-items-center justify-content-between justify-content-md-end my-1">
+  <ul class="pagination pagination-sm my-0" role="group" aria-label="...">
+    <li class="page-item <%= "active" if per_page == 12 %>">
+      <%= link_to 12, url_for(params.merge(per_page: 12)), class: "page-link" %>
+    </li>
+    <li class="page-item <%= "active" if per_page == 24 %>">
+      <%= link_to 24, url_for(params.merge(per_page: nil)), class: "page-link" %>
+    </li>
+    <li class="page-item <%= "active" if per_page == 48 %>">
+      <%= link_to 48, url_for(params.merge(per_page: 48)), class: "page-link" %>
+    </li>
+  </ul>
+  <div class="d-none d-md-block ms-2 me-md-2 text-secondary">
+    <%= t(".title") %>
+  </div>
+</div>

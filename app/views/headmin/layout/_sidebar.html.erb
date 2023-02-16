@@ -1,0 +1,20 @@
+<%#
+    headmin/layout/sidebar
+    accepts block: yes
+    parameters:
+      logo: image path to logo
+%>
+
+<div class="sidebar col-sm-12 col-md-1 col-lg-2 bg-dark overflow-y d-print-none">
+  <nav class="navbar navbar-expand-md navbar-dark bg-dark w-100 h-100 flex-md-column">
+    <a href="<%= local_assigns[:url] %>" class="nav-brand mb-4 mt-3 me-lg-auto">
+      <%= local_assigns[:logo] %>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#sidebar-nav" aria-controls="sidebar-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-nav navbar-collapse collapse flex-column align-items-start justify-content-start w-100 h-100" id="sidebar-nav">
+      <%= yield %>
+    </div>
+  </nav>
+</div>

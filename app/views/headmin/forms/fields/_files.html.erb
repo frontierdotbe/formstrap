@@ -1,0 +1,17 @@
+<%
+  # name: headmin/forms/fields/file
+  #
+  # ==== Options
+  # * +form+ - Form object
+  # * +name+ - Name for the field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "headmin/forms/fields/file", form: group, name: :file do |field, attribute, label| %#>
+  #     <%= render "headmin/forms/file", form: field, attribute: attribute, label: label %#>
+  #   <% end %#>
+%>
+
+<%= render "headmin/forms/fields/base", form: form, field_type: :files, name: name do |field, label| %>
+  <% yield field, :files, label %>
+<% end %>

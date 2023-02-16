@@ -1,0 +1,27 @@
+<%
+  # headmin/breadcrumbs
+  #
+  # ==== Options
+  # * +breadcrumbs</tt> - Object with blocks association
+  #
+  # ==== Examples
+  #   Basic version. This will use the publicly available `breadcrumbs` variable
+  #   <%= render "headmin/breadcrumbs" %#>
+%>
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <% breadcrumb_count = breadcrumbs.count %>
+    <% breadcrumbs.each_with_index do |breadcrumb, index| %>
+      <% last = (index == breadcrumb_count - 1) %>
+      <li class="breadcrumb-item text-muted" aria-current="<%= last ? "page" : nil %>">
+        <% if last %>
+          <%= breadcrumb.name %>
+        <% else %>
+          <%= link_to_unless_current(breadcrumb.name, breadcrumb.path, class: "text-muted text-decoration-none") %>
+        <% end %>
+      </li>
+    <% end %>
+    <li>&nbsp;</li>
+  </ol>
+</nav>

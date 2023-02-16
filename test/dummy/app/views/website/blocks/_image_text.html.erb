@@ -1,0 +1,12 @@
+<% fields = block.fields_hash %>
+
+<div class="container-lg">
+  <div class="row">
+    <div class="col-md-6">
+      <%= image_tag fields[:image], class: "img-fluid" %>
+    </div>
+    <div class="col-md-6 d-flex align-items-center">
+      <%= fields[:text] %>
+    </div>
+  </div>
+</div>

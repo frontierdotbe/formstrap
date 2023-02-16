@@ -1,0 +1,6 @@
+en:
+  headmin:
+    dropdown:
+      devise:
+        edit_profile: Edit profile
+        log_out: Log out

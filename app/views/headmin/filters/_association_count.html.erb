@@ -1,0 +1,28 @@
+<%
+  # headmin/filters/association_count
+  #
+  # ==== Required parameters
+  # * +association+ - Name of the association that has to be counted
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +label+ - Display label
+  # * +name+ - Name of the filter parameter
+  #
+  # ==== Examples
+  #   Basic version (one-to-many)
+  #   <%= render "headmin/filters", url: admin_orders_path do |form| %#>
+  #     <%= render "headmin/filters/association_count", form: form, association: :beverages %#>
+  #   <% end  %#>
+  #
+  #   Basic version (one-to-one)
+  #   <%= render "headmin/filters", url: admin_orders_path do |form| %#>
+  #     <%= render "headmin/filters/association_count", form: form, association: :beverage %#>
+  #   <% end  %#>
+
+  number = Headmin::Filter::AssociationCountView.new(local_assigns.merge(params: params))
+%>
+
+<%= render "headmin/filters/base", number.base_options do |value| %>
+  <%= render "headmin/forms/number", number.input_options.merge({value: value}) %>
+<% end %>

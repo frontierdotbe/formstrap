@@ -1,0 +1,7 @@
+<% fields = block.fields_hash %>
+
+<div class="container-lg">
+  <% fields[:list].each do |button| %>
+    <%= render "website/fields/button", button: button %>
+  <% end %>
+</div>

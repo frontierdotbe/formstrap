@@ -1,0 +1,17 @@
+<%#
+    headmin/layout/sidebar/menu/locale
+    accepts block: no
+    parameters: none
+%>
+
+<%= render "headmin/dropdown", class: "nav-item" do %>
+  <%= render "headmin/dropdown/button", class: "nav-link", id: "nav-item-locale" do %>
+    <%= bootstrap_icon("globe", class: "me-2") %>
+    <%= t("language_name", locale: ::I18n.locale) %>
+  <% end %>
+  <%= render "headmin/dropdown/list", id: "nav-item-locale" do %>
+    <% I18n.available_locales.each do |locale| %>
+      <%= render "headmin/dropdown/item", name: t("language_name", locale: locale), url: url_for({locale: locale.to_s}) %>
+    <% end %>
+  <% end %>
+<% end %>

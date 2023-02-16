@@ -1,0 +1,24 @@
+<%
+  # headmin/filters/association
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute to be filtered
+  # * +collection+ - Values to create option tags for
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +label+ - Display label
+  # * +name+ - Name of the filter parameter
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "headmin/filters", url: admin_orders_path do |form| %#>
+  #     <%= render "headmin/filters/association", form: form, attribute: :product %#>
+  #   <% end  %#>
+
+  association = Headmin::Filter::AssociationView.new(local_assigns.merge(params: params))
+%>
+
+<%= render "headmin/filters/base", association.base_options do |value| %>
+  <%= render "headmin/forms/select", association.input_options.merge(selected: value) %>
+<% end %>

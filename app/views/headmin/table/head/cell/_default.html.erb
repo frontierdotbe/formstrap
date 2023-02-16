@@ -1,0 +1,7 @@
+<% if key.present? %>
+  <a href="<%= url_for(params.merge(key => "asc").permit!) %>">
+    <%= title %>
+  </a>
+<% else %>
+  <%= title %>
+<% end %>

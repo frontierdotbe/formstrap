@@ -1,0 +1,107 @@
+.h-filter {
+  position: relative;
+}
+
+.h-filter-popup {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 2px;
+  padding: 10px;
+  background: $white;
+  z-index: $zindex-popover;
+  width: $popover-max-width;
+  @include reset-text();
+  @include font-size($popover-font-size);
+  word-wrap: break-word;
+  background-color: $popover-bg;
+  background-clip: padding-box;
+  @include border-radius($popover-border-radius);
+  @include box-shadow($popover-box-shadow);
+
+  &.closed {
+    display: none;
+  }
+}
+
+.h-filter-row {
+  padding: 0.5rem 0 0.5rem 0;
+  position: relative;
+  flex-wrap: unset;
+  display: flex;
+  gap: 10px;
+
+  &:first-child {
+    padding-top: 0
+  }
+
+  &:hover {
+    .h-filter-add-input, .h-filter-remove-input {
+      display: block;
+    }
+  }
+
+  input, select:not(.h-filter-operator) {
+    min-width: 200px;
+  }
+}
+
+.h-filter-operator {
+  width: 62px;
+}
+
+.h-filter-conditional {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  select {
+    width: 50px;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: calc(50% - 1px);
+    left: 0;
+    width: calc(50% - 35px);
+    height: 1px;
+    background: $popover-border-color;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: calc(50% - 1px);
+    left: calc(50% + 35px);
+    width: calc(50% - 35px);
+    height: 1px;
+    background: $popover-border-color;
+  }
+}
+
+.h-filter-remove {
+  border-left: 1px solid $gray-300;
+  padding-left: 8px;
+  margin-left: 2px;
+
+  i::before {
+    font-size: 0.8em;
+  }
+}
+
+.h-filter-add-input {
+  position: absolute !important;
+  top: calc(100% - 12px);
+  left: calc(50% - 17px);
+  z-index: 9;
+  display: none;
+}
+
+.h-filter-remove-input {
+  position: absolute !important;
+  top: calc(50% - 15px);
+  left: calc(100% - 4px);
+  z-index: 9;
+  display: none;
+}

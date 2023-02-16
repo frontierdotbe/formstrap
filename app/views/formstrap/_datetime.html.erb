@@ -1,0 +1,41 @@
+<%
+  # formstrap/datetime
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +float+ - Use floating labels. Defaults to false
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +list+ - Options are passed through options_for_select
+  # * +plaintext+ - Render input as plain text.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/datetime
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/datetime-local
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/datetime_field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/datetime", form: form, attribute: :deadline %#>
+  #   <% end %#>
+
+  datetime = Headmin::Form::DatetimeView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", datetime.wrapper_options do %>
+  <%= render "formstrap/label", datetime.label_options if datetime.prepend_label? %>
+  <%= render "formstrap/input_group", datetime.input_group_options do %>
+    <%= form.datetime_field(datetime.attribute, datetime.input_options) %>
+    <%= render "formstrap/datalist", datetime.datalist_options if datetime.datalist? %>
+  <% end %>
+  <%= render "formstrap/validation", datetime.validation_options if datetime.validate? %>
+  <%= render "formstrap/hint", datetime.hint_options if datetime.hint? %>
+  <%= render "formstrap/label", datetime.label_options if datetime.append_label? %>
+<% end %>

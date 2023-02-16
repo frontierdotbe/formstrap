@@ -1,0 +1,17 @@
+<%
+  # headmin/table/body/row
+  #
+  # ==== Options
+  # * +class</tt> - Custom class names to add to the table row
+  #
+  # ==== Examples
+  #   <%= render "headmin/table/body/row" do %#>
+  #     <%= render "headmin/table/body/id", value: page.id %#>
+  #     <%= render "headmin/table/body/string", value: page.title %#>
+  #   <% end %#>
+
+  class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : false
+%>
+<tr class="<%= class_names %>" data-table-target="row">
+  <%= yield %>
+</tr>

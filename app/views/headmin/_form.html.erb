@@ -1,0 +1,65 @@
+<%
+  # headmin/form
+  #
+  # ==== Options
+  # * +model+ - A model to infer :url and :scope
+  # * +scope+ - The scope to prefix input field names with
+  # * +url+ - The URL the form submits to
+  # * +format+ - The format of the route the form submits to
+  # * +namespace+ - A namespace for your form to ensure uniqueness of id attributes on form elements
+  # * +method+ - The method to use when submitting the form
+  # * +authenticity_token+ - Authenticity token to use in the form
+  # * +local+ - By default form submits are remote and unobtrusive XHRs
+  # * +skip_enforcing_utf8+ - If set to true, a hidden input with name utf8 is not output
+  # * +builder+ - Override the object used to build the form
+  # * +html+ - Other optional HTML attributes for the form tag
+  # * +id+ - Optional HTML id attribute
+  # * +class+ - Optional HTML class attribute
+  # * +data+ - Optional HTML data attributes
+  #
+  # === Examples
+  #   Basic version
+  #   <%= render "headmin/form", model: @product do |form| %#>
+  #     Form content
+  #   <% end %#>
+  #
+  #   Specify URL to post to
+  #   <%= render "headmin/form", model: @product, url: admin_products_path do |form| %#>
+  #     Form content
+  #   <% end %#>
+
+  model = local_assigns.has_key?(:model) ? local_assigns[:model] : nil
+  scope = local_assigns.has_key?(:scope) ? local_assigns[:scope] : nil
+  url = local_assigns.has_key?(:url) ? local_assigns[:url] : nil
+  format = local_assigns.has_key?(:format) ? local_assigns[:format] : nil
+
+  namespace = local_assigns.has_key?(:namespace) ? namespace : nil
+  method = local_assigns.has_key?(:method) ? method : nil
+  authenticity_token = local_assigns.has_key?(:authenticity_token) ? authenticity_token : nil
+  local = local_assigns.has_key?(:local) ? local : true
+  skip_enforcing_utf8 = local_assigns.has_key?(:skip_enforcing_utf8) ? skip_enforcing_utf8 : nil
+  #builder = local_assigns.has_key?(:builder) ? builder : nil
+  html = local_assigns.has_key?(:html) ? html : {}
+  id = local_assigns.has_key?(:id) ? id : nil
+  option_class = local_assigns.has_key?(:class) ? local_assigns[:class] : nil
+  data = local_assigns.has_key?(:data) ? data : nil
+
+  options = {
+    namespace: namespace,
+    method: method,
+    authenticity_token: authenticity_token,
+    local: local,
+    skip_enforcing_utf8: skip_enforcing_utf8,
+    #builder: builder,
+    html: html,
+    id: id,
+    class: option_class,
+    data: data
+  }
+%>
+
+<div class="container py-4">
+  <%= formstrap_form_with model: model, scope: scope, url: url, format: format, **options do |form| %>
+    <%= yield(form) %>
+  <% end %>
+</div>

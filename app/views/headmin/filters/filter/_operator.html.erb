@@ -1,0 +1,16 @@
+<%#
+    headmin/filters/filter/button
+    accepts block: no
+    parameters:
+
+%>
+
+<% operators = Headmin::Filter::OperatorView.new(local_assigns) %>
+
+<select class="h-filter-operator form-select" data-action="change->filter#updateHiddenValue" data-filter-target="operator" data-filter-row-target="operator">
+  <% operators.allowed_operators.each do |operator| %>
+    <option value="<%= operator.to_s %>" <%= operators.selected == operator.to_s ? "selected" : "" %>>
+      <%= raw(operators.operator_symbol[operator.to_sym]) %>
+    </option>
+  <% end %>
+</select>

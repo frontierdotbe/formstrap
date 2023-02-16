@@ -1,0 +1,15 @@
+intro_title:
+  fieldable: intro (Block)
+  name: title
+  field_type: text
+  value: Welcome to our blog
+
+intro_text:
+  fieldable: intro (Block)
+  name: text
+  field_type: text
+  value: Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ornare velit a viverra viverra. Nullam vel enim ipsum. Phasellus a enim viverra, condimentum arcu vel, imperdiet purus. Nullam imperdiet sodales orci, a blandit nisi rutrum sed. Etiam sit amet vestibulum nisl, eu scelerisque augue. Vivamus nunc ante, accumsan sed finibus non, dapibus vel enim. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce vitae hendrerit erat. Sed blandit, dui eu posuere blandit, risus sapien convallis quam, sit amet efficitur purus lectus sed tortor. Curabitur tempor turpis non enim pharetra, nec commodo mauris scelerisque.
+
+image:
+  name: image
+  field_type: text

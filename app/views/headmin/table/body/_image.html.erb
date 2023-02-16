@@ -1,0 +1,18 @@
+<%#
+    headmin/table/body/text
+    accepts block: no
+    parameters:
+      value: (activestorage) image
+%>
+
+<td class="h-table-cell-image">
+  <% if value&.attached? %>
+    <% if defined?(url) && url %>
+      <%= link_to url, title: t(".open") do %>
+        <%= image_tag value.variant(resize_to_fill: [34, 34]), width: 34, height: 34, alt: value.filename, title: value.filename %>
+      <% end %>
+    <% else %>
+      <%= image_tag value.variant(resize_to_fill: [34, 34]), width: 34, height: 34, alt: value.filename, title: value.filename %>
+    <% end %>
+  <% end %>
+</td>
