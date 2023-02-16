@@ -1,35 +1,51 @@
 # Formstrap
+
 An extensive Bootstrap form library to power your Ruby On Rails application.
 
 ## Installation
+
 Add this line to your application's gemfile ```./Gemfile```
+
 ```bash
 gem 'formstrap'
 ```
 
-Do we import bootstrap somehow or is this an installation step (like in bootstrap_form?)
-
 Afterwards, run:
+
 ```bash
 bundle
 ```
 
 ## Usage
+
 ### Getting started
+
 Use the Formstrap helpers ```formstrap_form_for``` or ```formstrap_form_with``` instead of the Ruby on Rails helpers
 ```form_for``` or ```form_with```.
 
 An example:
+
 ```erb
 <%= formstrap_form_for(@user) do |f| %>
-  <%= f.email :email %>
-  <%= f.password :password %>
-  <%= f.checkbox :remember_me %>
+  <%= f.email :email, required: true %>
+  <%= f.password :password, required: true %>
+  <%= f.checkbox :remember_me, required: true %>
   <%= f.submit "Log In" %>
 <% end %>
 ```
 
-As you might have noticed, Formstrap uses different form helpers than Ruby on Rails. An overview is provided, alongside with the method one can use to access the Ruby on Rails helpers:
+As you might have noticed, Formstrap uses different named form helpers than Ruby on Rails.
+
+If the original Rails helper needs to be accessed, it can be accessed by:
+
+```erb
+<%= formstrap_for_for(@user) do |f| %>
+  <%= f.text :name, formstrap: false %>
+  <%= f.text_field :name %>
+<% end %>
+```
+
+An overview of all the Formstrap / Ruby on Rails form helpers:
 
 | Type              | Formstrap helpers | Ruby on Rails helpers                       |
 |-------------------|-------------------|---------------------------------------------|
@@ -56,50 +72,44 @@ As you might have noticed, Formstrap uses different form helpers than Ruby on Ra
 | URL               | url               | url formstrap: false or url_field           |
 | WYSIWYG *         | wysiwyg           | N/A                                         |
 
+\* Formstrap provides the implementation of these 3rd party libraries, however it is up to the user to provide the
+correct assets.
 
-[//]: # (| Type              | Formstrap helpers | Ruby on Rails helpers      |)
-[//]: # (|-------------------|-------------------|----------------------------|)
-[//]: # (| Association       | association       | N/A                        |)
-[//]: # (| Checkbox          | checkbox          | checkbox_without_formstrap |)
-[//]: # (| Color             | color             | color_without_formstrap    |)
-[//]: # (| Date              | date              | date_without_formstrap     |)
-[//]: # (| Date range        | date_range        | N/A                        |)
-[//]: # (| Datetime          | datetime          | datetime_without_formstrap |)
-[//]: # (| Datetime range    | datetime_range    | N/A                        |)
-[//]: # (| Email             | email             | email_without_formstrap    |)
-[//]: # (| File              | file              | file_without_formstrap     |)
-[//]: # (| Flatpickr *       | flatpickr         | N/A                        |)
-[//]: # (| Flatpickr range * | flatpickr_range   | N/A                        |)
-[//]: # (| Hidden            | hidden            | hidden_without_formstrap   |)
-[//]: # (| Media             | media             | N/A                        |)
-[//]: # (| Number            | number            | number_without_formstrap   |)
-[//]: # (| Password          | password          | password_without_formstrap |)
-[//]: # (| RedactorX *       | redactorx         | N/A                        |)
-[//]: # (| Select            | select            | select_without_formstrap   |)
-[//]: # (| Switch            | switch            | N/A                        |)
-[//]: # (| Text              | text              | text_without_formstrap     |)
-[//]: # (| Textarea          | textarea          | textarea_without_formstrap |)
-[//]: # (| URL               | url               | url_without_formstrap      |)
-[//]: # (| WYSIWYG *         | wysiwyg           | N/A                        |)
-
-\* Formstrap provides the implementation of these 3rd party libraries, however it is up to the user to provide the correct assets
-
+As you might have noticed, Formstrap provides more helpers than what is standard in Ruby on Rails, e.g. ```Media```, ```Date range```, ```RedactorX``` ...
 
 ### Altering Formstrap helpers
-Because Formstrap uses html and Ruby on Rails helpers behind the scenes to render its helpers, editing the Formstrap helpers is straightforward.
 
-As Formstrap is an engine, its views are within the gem. In order to have a copy of the views inside your application, run: 
+Because Formstrap uses html and Ruby on Rails helpers behind the scenes to render its helpers, editing the Formstrap
+helpers is straightforward.
+
+As Formstrap is an engine, its views are within the gem. In order to have a copy of the views inside your application,
+run:
+
 ```bash
 rails generate formstrap:views
 ```
-This will create a map ```./views/formstrap```, in which all the views (and its helpers) are copied in and can thus be altered.
+
+This will create a directory ```./views/formstrap```, in which all the views (and its helpers) are copied in and can thus be
+inspected / altered. Because Formstrap is an engine, the application's local files take precedence over the engine's files.
+
+Note that on new releases, one can once more run:
+
+```bash
+rails generate formstrap:views
+```
+
+To get new or updated versions of the helpers. **This will override the files that are already present (and which might contain your personal adjustments)**.
 
 ### Extending Formstrap helpers
+
 Extending Formstrap helpers is straightforward.
 
-Copy your custom Formstrap (e.g. map) helper into the map ```./views/formstrap```. Afterwards, this view is accessible by:
+Add your custom Formstrap (e.g. map) helper into the map ```./views/formstrap```. Formstrap makes it possible to access this helper is by its filename.
+
 
 ```erb
+<%# custom Formstrap helper file: ./views/formstrap/_map.html.erb %>
+
 <%= formstrap_form_for(@user) do |f| %>
     <%= f.map :address %>
 <% end %>
