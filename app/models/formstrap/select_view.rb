@@ -4,9 +4,9 @@ module Formstrap
     include Formstrap::InputGroupable
     include Formstrap::Labelable
     include Formstrap::Listable
-    include Formstrap::Form::Placeholderable
-    include Formstrap::Form::Validatable
-    include Formstrap::Form::Wrappable
+    include Formstrap::Placeholderable
+    include Formstrap::Validatable
+    include Formstrap::Wrappable
 
     def input_options
       keys = attributes - %i[append attribute collection float form input_group include_blank label prepend validate selected tags wrapper]

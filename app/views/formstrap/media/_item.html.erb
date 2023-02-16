@@ -26,7 +26,7 @@
 
   <div class="h-form-file-thumbnail-actions">
     <!-- Edit -->
-    <a href="<%= headmin_media_item_url(id: media_item.id) %>" class="h-form-file-thumbnail-edit" data-turbo-frame="remote_modal" data-media-target="editButton">
+    <a href="<%= formstrap_media_item_path(id: media_item.id) %>" class="h-form-file-thumbnail-edit" data-turbo-frame="remote_modal" data-media-target="editButton">
       <%= bootstrap_icon("pencil") %>
     </a>
 

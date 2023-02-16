@@ -1,5 +1,5 @@
 class Formstrap::MediaController < FormstrapController
-  include Headmin::Pagination
+  include Formstrap::Pagination
   layout false
 
   def index

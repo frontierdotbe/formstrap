@@ -1,0 +1,11 @@
+<%= turbo_stream.append "thumbnails" do %>
+  <% @blobs.each do |blob| %>
+    <%= turbo_frame_tag blob, src: headmin_media_item_thumbnail_path(blob), loading: "lazy" do %>
+      <%= render 'thumbnail' %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.replace "infinite" do %>
+    <%= render "headmin/pagination/infinite", items: @blobs %>
+<% end %>
