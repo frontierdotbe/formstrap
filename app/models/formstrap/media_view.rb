@@ -1,11 +1,11 @@
 module Formstrap
   class MediaView < ViewModel
     include Rails.application.routes.url_helpers
-    include Formstrap::Form::Hintable
-    include Formstrap::Form::Labelable
-    include Formstrap::Form::Placeholderable
-    include Formstrap::Form::Validatable
-    include Formstrap::Form::Wrappable
+    include Formstrap::Hintable
+    include Formstrap::Labelable
+    include Formstrap::Placeholderable
+    include Formstrap::Validatable
+    include Formstrap::Wrappable
 
     def input_group_options
       default_input_group_options
