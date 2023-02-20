@@ -1,0 +1,83 @@
+.h-form-file {
+  --fs-file-spacer-2: 1rem * .5;
+
+  .h-form-file-thumbnails {
+    margin-bottom: var(--fs-file-spacer-2);
+  }
+
+  &.h-dropzone {
+    padding: var(--fs-file-spacer-2);
+
+    .h-form-file-thumbnails {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.h-form-file-thumbnails {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--fs-file-spacer-2);
+
+  a, a:link, a:hover {
+    color: inherit;
+    text-decoration: inherit;
+  }
+}
+
+.h-form-file-thumbnail {
+  position: relative;
+  pointer-events: initial !important;
+  display: flex;
+
+  &:hover {
+    .h-form-file-thumbnail-actions {
+      display: block;
+    }
+  }
+}
+
+.h-form-file-thumbnail-actions {
+  display: none;
+}
+
+.h-form-file-thumbnail-remove {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: var(--bs-danger);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  border-radius: var(--bs-border-radius-pill);
+  z-index: 3;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.h-form-file-thumbnail-edit {
+  position: absolute;
+  top: 5px;
+  right: 35px;
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--bs-border-radius-pill);
+  z-index: 3;
+  cursor: pointer;
+  color: white !important;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 1);
+  }
+}
