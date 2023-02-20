@@ -1,7 +1,0 @@
-nl:
-  headmin:
-    nav:
-      item:
-        devise:
-          edit_profile: Profiel bewerken
-          log_out: Afmelden
