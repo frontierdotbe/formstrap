@@ -1,14 +1,14 @@
 <%= turbo_frame_tag "modal_content" do %>
-  <%= form_with url: headmin_media_item_url(id: @blob.id), model: @blob do |form| %>
+  <%= formstrap_form_with url: formstrap_media_item_url(id: @blob.id), model: @blob do |form| %>
     <div class="modal-header">
       <h5 class="modal-title"><%= t(".edit") %></h5>
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(".close") %>"></button>
     </div>
     <div class="modal-body">
-      <%= render "headmin/notifications" %>
+      <%= render "formstrap/shared/notifications" %>
       <div class="row">
         <div class="col-4">
-          <%= render "headmin/thumbnail", file: @blob %>
+          <%= render "formstrap/shared/thumbnail", file: @blob %>
         </div>
         <div class="col-8 d-flex flex-column justify-content-center">
           <p class="small text-secondary m-0">
@@ -39,7 +39,7 @@
       </div>
       <div class="row mt-3">
         <div class="col-12">
-          <%= render "headmin/forms/text", form: form, attribute: :filename, append: "." + form.object.filename.to_s.rpartition(".").last, value: form.object.filename.to_s.rpartition(".").first %>
+          <%= form.text :filename, append: "." + form.object.filename.to_s.rpartition(".").last, value: form.object.filename.to_s.rpartition(".").first %>
         </div>
       </div>
       <% attachments = @blob.attachments.not_a_variant.all %>

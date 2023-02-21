@@ -12,9 +12,9 @@
 
     <!-- Label -->
     <label for="media-item-<%= blob.id %>">
-      <%= render "headmin/thumbnail", file: blob %>
+      <%= render "formstrap/shared/thumbnail", file: blob %>
     </label>
   </div>
 <% else %>
-  <%= render "headmin/thumbnail", file: nil %>
+  <%= render "formstrap/shared/thumbnail", file: nil %>
 <% end %>

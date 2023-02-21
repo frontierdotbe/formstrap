@@ -13,7 +13,6 @@ export default class extends Controller {
   connect () {
     this.validate()
     this.updateCount()
-    console.log("hello")
   }
 
   // Actions

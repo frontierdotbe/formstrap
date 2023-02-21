@@ -21,7 +21,7 @@
   <%= form.hidden_field(:_destroy) %>
 
   <a href="<%= media_item.url %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
-    <%= render "headmin/thumbnail", media_item.thumbnail_options %>
+    <%= render "formstrap/shared/thumbnail", media_item.thumbnail_options %>
   </a>
 
   <div class="h-form-file-thumbnail-actions">

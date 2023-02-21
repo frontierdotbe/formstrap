@@ -10,7 +10,7 @@
       <div class="modal-body">
         <%= turbo_frame_tag "thumbnails", class: "d-flex flex-wrap gap-2" do %>
           <% @blobs.each do |blob| %>
-            <%= turbo_frame_tag blob, src: headmin_media_item_thumbnail_path(blob), loading: "lazy" do %>
+            <%= turbo_frame_tag blob, src: formstrap_media_item_thumbnail_path(blob), loading: "lazy" do %>
               <%= render "thumbnail" %>
             <% end %>
           <% end %>
@@ -19,11 +19,11 @@
           </div>
         <% end %>
         <div class="mt-3">
-          <%= render "headmin/pagination/infinite", items: @blobs %>
+          <%= render "formstrap/pagination/infinite", items: @blobs %>
         </div>
       </div>
       <div class="modal-footer">
-        <%= form_with url: headmin_new_media_path, multipart: true, data: {"media-modal-target": "form"}, class: "me-auto" do |form| %>
+        <%= form_with url: formstrap_new_media_path, multipart: true, data: {"media-modal-target": "form"}, class: "me-auto" do |form| %>
           <%= form.label :files, class: "btn h-btn-outline-light" do %>
             <%= bootstrap_icon("upload") %>
             <%= t(".upload") %>

@@ -1,0 +1,7 @@
+<% auto_load = local_assigns.has_key?(:auto_load) ? local_assigns[:auto_load] : true %>
+
+<% unless items.page(params[:page]).last_page? %>
+  <div id="infinite">
+    <%= link_to t(".load_more"), path_to_next_page(items), class: "btn btn-primary", data: {turbo_stream: true, controller: auto_load ? "infinite-scroller" : ""} %>
+  </div>
+<% end %>

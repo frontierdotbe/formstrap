@@ -11146,7 +11146,6 @@ var media_modal_controller_default = class extends Controller {
   connect() {
     this.validate();
     this.updateCount();
-    console.log("hello");
   }
   select() {
     this.dispatchSelectionEvent();

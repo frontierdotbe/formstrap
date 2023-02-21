@@ -41,7 +41,7 @@
     <!-- Placeholder -->
     <div class="<%= "d-none" if media.attachments.any? %>" data-media-target="placeholder">
       <a href="<%= formstrap_media_url(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept) %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
-        <%= render "headmin/thumbnail", media.thumbnail_options %>
+        <%= render "formstrap/shared/thumbnail", media.thumbnail_options %>
       </a>
     </div>
   </div>
