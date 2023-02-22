@@ -116,3 +116,105 @@ Add your custom Formstrap (e.g. map) helper into the map ```./views/formstrap```
 <% end %>
 ```
 
+## Development
+
+For development purposes it's helpful to have both the test project and Formstrap located in the same directory.
+
+In Gemfile
+
+```ruby
+gem "formstrap", path: "../formstrap"
+```
+
+In package.json
+
+```json
+{
+  "dependencies": {
+    "formstrap": "link:../formstrap"
+  }
+}
+```
+
+To see frontend changes update live in development run
+```shell
+# Watches changes and builds them on-the-fly
+yarn dev
+```
+
+### Javascript
+
+When adding new dependencies, make sure you add them to the `package.json` file as well as the `importmap.rb` file.
+
+## Testing
+
+Run tests with
+
+```shell
+rake test
+```
+
+Or to run a single file
+```shell
+rake test TEST=path/to/test/file.rb
+```
+
+If you want to test a specific feature in a staging environment without releasing the gem, you can refer to the remote
+repo in your Gemfile and package.json.
+
+In Gemfile
+
+```ruby
+gem 'formstrap', git: 'git@github.com:frontierdotbe/formstrap.git', branch: 'feature/test'
+```
+
+In package.json
+
+```json
+{
+  "dependencies": {
+    "formstrap": "ssh://git@github.com:frontierdotbe/formstrap.git#feature/test"
+  }
+}
+
+```
+
+## Releasing
+
+After integration a new feature of fixing a bug, first commit and push your changes.
+
+Update the gem
+
+```shell
+# First bundle if new runtime dependencies were added
+$ bundle
+
+# Update the version number, push commits and tag the release
+$ gem bump -v {patch,minor,major,...} --push --tag
+
+# Release to Rubygems and create a Github release tag
+$ gem release
+```
+
+Update the node package
+
+```shell
+# Manually update the version number in package.json
+$ yarn build 
+$ npm publish --access public
+```
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/frontierdotbe/formstrap. This project is intended
+to be a safe, welcoming space for collaboration, and contributors are expected to adhere to
+the [code of conduct](https://github.com/frontierdotbe/formstrap/blob/master/CODE_OF_CONDUCT.md).
+
+## License
+
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+
+## Code of Conduct
+
+Everyone interacting in the Formstrap project's codebases, issue trackers, chat rooms and mailing lists is expected to
+follow the [code of conduct](https://github.com/frontierdotbe/formstrap/blob/master/CODE_OF_CONDUCT.md).
