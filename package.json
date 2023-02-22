@@ -1,5 +1,5 @@
 {
-  "name": "formstrap",
+  "name": "@frontierdotbe/formstrap",
   "version": "0.1",
   "description": "Bootstrap-powered Form Helpers",
   "module": "app/assets/javascripts/formstrap.js",
