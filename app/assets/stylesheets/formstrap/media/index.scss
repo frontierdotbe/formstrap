@@ -1,0 +1,9 @@
+.media-modal {
+  .h-thumbnail {
+    cursor: pointer;
+  }
+
+  input[type="checkbox"]:checked + label .h-thumbnail {
+    background-color: #0d6efd;
+  }
+}

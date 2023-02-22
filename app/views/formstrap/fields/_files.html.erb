@@ -1,0 +1,17 @@
+<%
+  # name: formstrap/fields/file
+  #
+  # ==== Options
+  # * +form+ - Form object
+  # * +name+ - Name for the field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "formstrap/fields/file", form: group, name: :file do |field, attribute, label| %#>
+  #     <%= render "formstrap/file", form: field, attribute: attribute, label: label %#>
+  #   <% end %#>
+%>
+
+<%= render "formstrap/fields/base", form: form, field_type: :files, name: name do |field, label| %>
+  <% yield field, :files, label %>
+<% end %>

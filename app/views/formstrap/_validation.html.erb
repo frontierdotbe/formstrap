@@ -1,0 +1,18 @@
+<%
+  # formstrap/validation
+  #
+  # ==== Required parameters
+  # * +id+ - Form object
+  # * +message+ - Name of the attribute of the form model
+  #
+  # ==== Optional parameters
+  # * +valid+ - Show success message when true, failure message when false (default: true)
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "formstrap/validation", id: id, message: message %#>
+%>
+
+<div class="<%= valid ? "valid-feedback" : "invalid-feedback" %>" id="<%= id %>">
+  <%= message %>
+</div>

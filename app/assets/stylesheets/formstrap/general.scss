@@ -1,0 +1,18 @@
+html {
+  height: 100%;
+}
+
+.list-group-item {
+  --fs-list-group-active-color: #fff;
+  &.active {
+    .text-muted {
+      color: var(--fs-list-group-active-color) !important;
+    }
+  }
+}
+
+mark {
+  --fs-mark-padding: .1875em;
+  padding: 0;
+  box-shadow: 0 var(--fs-mark-padding) 0 var(--bs-yellow), 0 calc(-1 * #{var(--fs-mark-padding)}) 0 var(--bs-yellow);
+}

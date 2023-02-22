@@ -1,0 +1,24 @@
+en:
+  formstrap:
+    media:
+      modal:
+        close: Close
+        limits: "minimum: %{min} en maximum: %{max}"
+        maximum: " of %{count}"
+        placeholder: Upload your first file to the media library
+        select: Select
+        title:
+          one: Select at least 1 file
+          other: Select at least %{count} files
+        unlimited: unlimited
+        upload: Upload new files
+      media_item_modal:
+        attachment_used_by: Used by
+        close: Close
+        dimensions: Dimensions
+        edit: Edit Media item
+        not_analysed: Not yet analysed
+        size: Size
+        type: File type
+        update: Update
+        uploaded_at: Uploaded at

@@ -1,0 +1,42 @@
+<%
+  # formstrap/text
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +collection+ - Values to be suggested while typing. Can be an collection array or a remote URL.
+  # * +float+ - Use floating labels. Defaults to false
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +list+ - Options are passed through options_for_select
+  # * +plaintext+ - Render input as plain text.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/text
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/text
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/text_field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/text", form: form, attribute: :title %#>
+  #   <% end %#>
+  text = Formstrap::TextView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", text.wrapper_options do %>
+  <%= render "formstrap/label", text.label_options if text.prepend_label? %>
+  <%= render "formstrap/input_group", text.input_group_options do %>
+    <%= form.text_field(text.attribute, text.input_options) %>
+    <%= render "formstrap/datalist", text.datalist_options if text.datalist? %>
+    <%= render "formstrap/autocomplete", text.autocomplete_options if text.autocomplete? %>
+  <% end %>
+  <%= render "formstrap/validation", text.validation_options if text.validate? %>
+  <%= render "formstrap/hint", text.hint_options if text.hint? %>
+  <%= render "formstrap/label", text.label_options if text.append_label? %>
+<% end %>

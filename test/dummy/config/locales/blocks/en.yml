@@ -1,0 +1,11 @@
+en:
+  blocks:
+    button: Button
+    gallery: Gallery
+    image: Image
+    image_full_width: Image full width
+    image_text: Image text
+    list: List
+    text: Text
+    text_image: Text image
+

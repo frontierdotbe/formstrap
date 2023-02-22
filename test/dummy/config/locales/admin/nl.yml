@@ -1,0 +1,52 @@
+nl:
+  admin:
+    dashboard:
+      title: Dashboard
+    flash:
+      created: "'%{name}' werd aangemaakt"
+      destroyed: "'%{name}' werd verwijderd"
+      flashed_all:
+        one: "1 %{name} werd geselecteerd"
+        other: "%{count} %{name} werden geselecteerd"
+      destroyed_all:
+        one: "1 %{name} werd verwijdered"
+        other: "%{count} %{name} werden verwijderd"
+      exported_all:
+        one: "1 %{name} werd geëxporteerd"
+        other: "%{count} %{name} werden geëxporteerd"
+      updated: "'%{name}' werd aangepast"
+    new: Nieuw
+    pages:
+      form:
+        info: Algemeen
+        info_text: Basisinformatie over deze pagina
+    polls:
+      form:
+        info: Algemeen
+        info_text: Basisinformatie over deze enquête
+    questions:
+      form:
+        info: Algemeen
+        info_text: Basisinformatie over deze vraag
+    settings:
+      form:
+        info: Algemeen
+        info_text: Basisinformatie over deze instellingen
+    shared:
+      actions:
+        description: Status & zichtbaarheid
+        destroy:
+          title: Verwijderen
+          confirm: Ben je zeker dat je dit wil verwijderen?
+        format: '%d-%m-%Y %H:%M'
+        save:
+          title: Opslaan
+        title: Status
+        view:
+          title: Bekijken
+    users:
+      form:
+        info: Accountgegevens
+        info_text: Gegevens over het account van deze gebruiker
+        security: Beveiliging
+        security_text: Wachtwoordgegevens van deze gebruiker

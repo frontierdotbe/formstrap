@@ -1,0 +1,10 @@
+nl:
+  blocks:
+    button: Knop
+    gallery: Galerij
+    image: Afbeelding
+    image_full_width: Afbeelding volledige breedte
+    image_text: Afbeelding tekst
+    list: Lijst
+    text: Tekst
+    text_image: Tekst afbeelding

@@ -1,0 +1,32 @@
+nl:
+  activerecord:
+    models:
+      block:
+        one: Blok
+        other: Blokken
+      field:
+        one: Veld
+        other: Velden
+      page:
+        one: Pagina
+        other: Pagina's
+      poll:
+        one: Enquête
+        other: Enquêtes
+      question:
+        one: Vraag
+        other: Vragen
+      setting:
+        one: Instelling
+        other: Instellingen
+      user:
+        one: Gebruiker
+        other: Gebruikers
+
+  enumerize:
+    poll:
+      poll_type:
+        general: Algemeen
+        fun: Plezier
+        personal: Persoonlijk
+        work: Werk

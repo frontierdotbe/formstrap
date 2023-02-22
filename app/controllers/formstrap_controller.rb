@@ -1,0 +1,2 @@
+class FormstrapController < ApplicationController
+end

@@ -1,0 +1,128 @@
+<%
+  # formstrap/repeater
+  #
+  # ==== Options
+  # * +form+ -  Form object
+  # * +attribute+ - Name of the attribute of the form model
+  # * +header+ - Name of the template to use as header
+  # * +label+ - Text to show as label. Label will be hidden if value is false
+  # * +templates+ - List of all views that can be used as a template for a new block
+  # * +flush+ - Set to true if you want the list items to sit flush with its parent.
+  # * +row+ - Pass hash with options to pass to the row template.
+  #
+  # ==== Examples
+  #   # Basic version
+  #   <% render "formstrap/repeater", form: form, attribute: :questions do |question| %#>
+  #     <% render "admin/questions/fields, form: :question" %#>
+  #   <% end %#>
+  #
+  #   # Let list group sit flush within its container
+  #   <% render "formstrap/repeater", form: form, attribute: :questions, flush: true do |question| %#>
+  #     <% render "admin/questions/fields, form: :question" %#>
+  #   <% end %#>
+  #
+  #   # With fixed header row. A header row can be used to show the labels, so you can omit them in the repeated fields
+  #   <% render "formstrap/repeater", form: form, attribute: :questions, header: "admin/questions/header" do |question| %#>
+  #     <% render "admin/questions/fields, form: :question" %#>
+  #   <% end %#>
+  #
+  #   # Allow more than one type of fields to be inserted. You must specify the templates as an array of view paths
+  #   <% templates = ["admin/questions/fields/type_1", "admin/questions/fields/type_2"] %#>
+  #   <% render "formstrap/repeater", form: form, attribute: :questions, templates: templates do |question| %#>
+  #     <% render "admin/questions/fields, form: :question" %#>
+  #   <% end %#>
+
+  label = local_assigns.has_key?(:label) ? label : nil
+  required = local_assigns.has_key?(:required) ? required : false
+  header = local_assigns.has_key?(:header) ? header : nil
+  templates = local_assigns.has_key?(:templates) ? templates : []
+  flush = local_assigns.has_key?(:flush) ? flush : true
+  row_options = local_assigns.has_key?(:row) ? row : {}
+
+  template_names = templates.map { |template| File.basename(template, ".html.erb") }
+  template_names = template_names.any? ? template_names : ["new"]
+  object_model = form.object.class
+  association_model = object_model.reflect_on_association(attribute).class_name.constantize
+  association_object = association_model.new
+  with_positions = association_object.attributes.keys.include?("position")
+
+  # We sort the collection with ruby to prevent a new query to be made that would dispose of nested object in memory
+  associations = form.object.send(attribute)
+  associations = with_positions ? associations.sort_by{|resource| resource.position} : associations
+  repeater_id = form.object_id
+  pass_thru = template_names.count == 1 ? "[data-template-name=\"#{template_names.first}\"]" : nil
+  show_label = label != false
+%>
+
+<!-- Label -->
+<% if show_label %>
+  <%= render "formstrap/label", form: form, attribute: attribute, text: label, required: required %>
+<% end %>
+
+<ul class="repeater list-group <%= "list-group-flush" if flush %> mb-3" data-controller="repeater" data-repeater-target="list" data-repeater-id-value="<%= repeater_id %>">
+
+  <!-- Header -->
+  <% if header %>
+    <li class="list-group-item">
+      <%= render header %>
+    </li>
+  <% end %>
+
+  <!-- Rows -->
+  <%= form.fields_for attribute, associations do |ff| %>
+    <%= render "formstrap/repeater/row", row_options.merge(pass_thru: pass_thru, form: ff, repeater_id: repeater_id) do %>
+      <%= yield(ff) %>
+    <% end %>
+  <% end %>
+
+  <!-- Footer -->
+  <li class="list-group-item d-flex justify-content-between align-items-center" data-repeater-target="footer">
+
+    <!-- Empty notice -->
+    <div class="text-secondary invisible" data-repeater-target="empty">
+      <%= t(".empty") %>
+    </div>
+
+    <!-- Button -->
+    <div
+       class="btn btn-sm h-btn-outline-light"
+       data-repeater-target="addButton"
+       data-popup-target="button"
+       data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
+       data-popup-pass-thru="<%= pass_thru %>"
+       data-action="click->repeater#resetButtonIndices click->popup#open"
+    >
+      <%= bootstrap_icon("plus") %>
+      <%= t(".add", name: association_model.model_name.human) %>
+    </div>
+
+    <!-- Popup  -->
+    <%= render "formstrap/shared/popup", id: "repeater-buttons-#{repeater_id}" do %>
+      <div class="d-grid gap-2">
+        <% template_names.each do |name| %>
+          <div
+             class="btn btn-sm h-btn-outline-light"
+             data-popup-target="button"
+             data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
+             data-action="click->repeater#addRow click->popup#close"
+             data-row-index=""
+             data-template-name="<%= name %>"
+          >
+            <%= t("blocks.#{name}", default: name).humanize %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
+    <!-- Templates -->
+    <% template_names.each do |name| %>
+      <template data-repeater-target="template" data-template-name="<%= name %>" data-template-id-regex="<%= association_object.object_id %>">
+        <%= form.fields_for attribute, association_object, child_index: association_object.object_id do |ff| %>
+          <%= render "formstrap/repeater/row", row_options.merge(form: ff, pass_thru: pass_thru, repeater_id: repeater_id) do %>
+            <% yield(ff, name) %>
+          <% end %>
+        <% end %>
+      </template>
+    <% end %>
+  </li>
+</ul>

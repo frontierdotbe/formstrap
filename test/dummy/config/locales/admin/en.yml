@@ -1,0 +1,52 @@
+en:
+  admin:
+    dashboard:
+      title: Dashboard
+    flash:
+      created: "'%{name}' was created"
+      destroyed: "'%{name}' was destroyed"
+      flashed_all:
+        one: "1 %{name} was selected"
+        other: "%{count} %{name} were selected"
+      destroyed_all:
+        one: "1 %{name} was destroyed"
+        other: "%{count} %{name} were destroyed"
+      exported_all:
+        one: "1 %{name} was exported"
+        other: "%{count} %{name} were exported"
+      updated: "'%{name}' was updated"
+    new: New
+    pages:
+      form:
+        info: General
+        info_text: Basic information about this page
+    polls:
+      form:
+        info: General
+        info_text: Basic information about this poll
+    questions:
+      form:
+        info: General
+        info_text: Basic information about this question
+    settings:
+      form:
+        info: General
+        info_text: Basic information about these settings
+    shared:
+      actions:
+        description: Status & visibility
+        destroy:
+          title: Delete
+          confirm: Are you sure you want to delete this?
+        format: '%m-%d-%Y %H:%M'
+        save:
+          title: Save
+        title: Status
+        view:
+          title: View
+    users:
+      form:
+        info: User info
+        info_text: Basic information about this user
+        security: Security
+        security_text: Password settings for this user

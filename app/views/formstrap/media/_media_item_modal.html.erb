@@ -1,0 +1,77 @@
+<%= turbo_frame_tag "modal_content" do %>
+  <%= formstrap_form_with url: formstrap_media_item_url(id: @blob.id), model: @blob do |form| %>
+    <div class="modal-header">
+      <h5 class="modal-title"><%= t(".edit") %></h5>
+      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(".close") %>"></button>
+    </div>
+    <div class="modal-body">
+      <%= render "formstrap/shared/notifications" %>
+      <div class="row">
+        <div class="col-4">
+          <%= render "formstrap/shared/thumbnail", file: @blob %>
+        </div>
+        <div class="col-8 d-flex flex-column justify-content-center">
+          <p class="small text-secondary m-0">
+            <strong><%= t(".uploaded_at") %>:</strong>
+            <%= l(@blob.created_at, format: :long) %>
+          </p>
+          <p class="small text-secondary m-0">
+            <strong><%= t(".type") %>:</strong>
+            <%= @blob.content_type %>
+          </p>
+          <p class="small text-secondary m-0">
+            <strong><%= t(".dimensions") %>:</strong>
+            <% if @blob.metadata[:width] && @blob.metadata[:height] %>
+              <%= "#{@blob.metadata[:width]}px x #{@blob.metadata[:height]}px" %>
+            <% else %>
+              <%= t(".not_analysed") %>
+            <% end %>
+          </p>
+          <p class="small text-secondary m-0">
+            <strong><%= t(".size") %>:</strong>
+            <% if @blob.byte_size > 0 %>
+              <%= number_to_human_size(@blob.byte_size) %>
+            <% else %>
+              <%= t(".not_analysed") %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+      <div class="row mt-3">
+        <div class="col-12">
+          <%= form.text :filename, append: "." + form.object.filename.to_s.rpartition(".").last, value: form.object.filename.to_s.rpartition(".").first %>
+        </div>
+      </div>
+      <% attachments = @blob.attachments.not_a_variant.all %>
+      <% if attachments.any? %>
+        <hr>
+        <h6><%= t(".attachment_used_by") %>:</h6>
+        <table class="table table-sm">
+          <tbody>
+          <% attachments.each do |attachment| %>
+            <% context_resource = attachment.record_hierarchy.last %>
+            <% context_resource_path = polymorphic_path([:admin, context_resource]) rescue nil %>
+            <tr>
+              <td width="40%">
+                <% if context_resource_path.present? %>
+                  <%= link_to truncate(context_resource.to_s), context_resource_path, title: context_resource %>
+                <% else %>
+                  <%= context_resource %>
+                <% end %>
+              </td>
+              <td width="25%"><%= "#{context_resource.model_name.human(count: 1)} (#{attachment.class.human_attribute_name(attachment.name.to_sym)})" %></td>
+              <td width="35%">
+                <small class="text-secondary"><%= l(attachment.created_at, format: :long) %></small>
+              </td>
+            </tr>
+          <% end %>
+          </tbody>
+        </table>
+      <% end %>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(".close") %></button>
+      <%= form.submit t(".update"), class: "btn btn-primary" %>
+    </div>
+  <% end %>
+<% end %>

@@ -1,0 +1,3 @@
+<%= turbo_frame_tag "remote_modal" do %>
+  <%= render "formstrap/media/modal", blobs: @blobs, mimetypes: @mimetypes, name: params[:name], min: params[:min], max: params[:max] %>
+<% end %>

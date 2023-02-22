@@ -1,0 +1,1 @@
+export {Formstrap} from "../../app/assets/javascripts/formstrap/index"

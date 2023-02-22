@@ -1,0 +1,22 @@
+<%
+  # name: formstrap/label
+  #
+  # ==== Required parameters
+  # * +form+ - Form object
+  # * +attribute+ - Name of the attribute of the form model
+  #
+  # ==== Optional parameters
+  # * +text+ - Custom label to be used instead of the attribute
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/label
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/label
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= render "formstrap/label", form: form, attribute: :image %#>
+%>
+
+<% label = Formstrap::LabelView.new(local_assigns) %>
+<%= form.label label.attribute, label.text, label.options %>

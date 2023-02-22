@@ -1,0 +1,40 @@
+<%
+  # formstrap/flatpickr_range
+  #
+  # ==== Required parameters
+  # * +form+ - Form object
+  # * +start+ - Hash with all options for the start date input (:attribute is required)
+  # * +end+ - Hash with all options for the end date input (:attribute is required)
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +float+ - Use floating labels. Defaults to false
+  # * +flatpickr+ - Hash with all options you can pass to flatpickr JS config
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +list+ - Options are passed through options_for_select
+  # * +plaintext+ - Render input as plain text.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/flatpickr_range", form: form, start: {attribute: :start_date}, end: {attribute: :end_date} %#>
+  #   <% end %#>
+
+  flatpickr_range = Formstrap::FlatpickrRangeView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", flatpickr_range.wrapper_options do %>
+  <%= render "formstrap/label", flatpickr_range.label_options if flatpickr_range.prepend_label? %>
+  <%= render "formstrap/input_group", flatpickr_range.input_group_options do %>
+    <%= form.date_field(flatpickr_range.attribute, flatpickr_range.input_options) %>
+    <%= form.hidden_field(flatpickr_range.start[:attribute], flatpickr_range.start_options) %>
+    <%= form.hidden_field(flatpickr_range.end[:attribute], flatpickr_range.end_options) %>
+  <% end %>
+  <%= render "formstrap/validation", flatpickr_range.validation_options if flatpickr_range.validate? %>
+  <%= render "formstrap/hint", flatpickr_range.hint_options if flatpickr_range.hint? %>
+  <%= render "formstrap/datalist", flatpickr_range.datalist_options if flatpickr_range.datalist? %>
+  <%= render "formstrap/label", flatpickr_range.label_options if flatpickr_range.append_label? %>
+<% end %>

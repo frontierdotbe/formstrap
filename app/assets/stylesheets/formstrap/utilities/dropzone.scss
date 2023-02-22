@@ -1,0 +1,72 @@
+.h-dropzone {
+  --fs-input-btn-focus-blur: 0;
+  --fs-input-btn-focus-width: .25rem;
+  --fs-input-btn-focus-color-opacity: .25;
+
+  position: relative;
+  border: 2px dashed var(--bs-gray-400);
+  border-radius: var(--bs-border-radius);
+
+  // Direct children
+  & > *:not(.form-control) {
+    margin: 0.5rem;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  &.dragover, &:hover {
+    border-color: var(--bs-gray-400);
+  }
+
+  &.dragover {
+    input[type="file"] {
+      z-index: 3
+    }
+  }
+
+  &.focus, &.dragover {
+    border-color: var(--bs-primary-border-subtle);
+    outline: 0;
+    box-shadow: var(--bs-box-shadow);
+
+    &.is-valid {
+      border-color: var(--bs-success);
+      box-shadow: 0 0 var(--fs-input-btn-focus-blur) var(--fs-input-btn-focus-width) rgba(var(--bs-success), var(--fs-input-btn-focus-color-opacity));
+    }
+
+    &.is-invalid {
+      border-color: var(--bs-danger);
+      box-shadow: 0 0 var(--fs-input-btn-focus-blur) var(--fs-input-btn-focus-width) rgba(var(--bs-danger), var(--fs-input-btn-focus-color-opacity));
+    }
+  }
+
+  .form-control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border: none;
+    box-shadow: none;
+    text-indent: -100vw;
+    color: transparent;
+    background: none
+  }
+
+  &.is-invalid {
+    border-color: var(--bs-danger);
+  }
+
+  &.is-valid {
+    border-color: var(--bs-success);
+  }
+}
+
+.h-dropzone-placeholder {
+  color: var(--bs-gray-600);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}

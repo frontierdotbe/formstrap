@@ -65,6 +65,7 @@ An overview of all the Formstrap / Ruby on Rails form helpers:
 | Number            | number            | number formstrap: false or number_field     |
 | Password          | password          | password formstrap: false or password_field |
 | RedactorX *       | redactorx         | N/A                                         |
+| Search            | search            | N/A                                         |
 | Select            | select            | select formstrap: false                     |
 | Switch            | switch            | N/A                                         |
 | Text              | text              | text formstrap: false or text_field         |

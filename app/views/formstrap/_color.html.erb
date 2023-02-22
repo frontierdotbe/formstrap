@@ -1,0 +1,32 @@
+<%
+  # formstrap/color
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/color
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/color
+  # https://apidock.com/rails/v5.2.3/ActionView/Helpers/FormHelper/color_field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/color", form: form, attribute: :active %#>
+  #   <% end %#>
+
+  color = Formstrap::ColorView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", color.wrapper_options do %>
+  <%= render "formstrap/label", color.label_options if color.label? %>
+  <%= form.color_field(color.attribute, color.input_options) %>
+  <%= render "formstrap/validation", color.validation_options if color.validate? %>
+  <%= render "formstrap/hint", color.hint_options if color.hint? %>
+<% end %>
