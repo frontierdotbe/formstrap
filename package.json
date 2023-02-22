@@ -17,9 +17,9 @@
   "author": "Jef Vlamings <vlamingsjef@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/insiting/headmin/issues"
+    "url": "https://github.com/frontierdotbe/formstrap/issues"
   },
-  "homepage": "https://github.com/insiting/headmin#readme",
+  "homepage": "https://github.com/frontierdotbe/formstrap#readme",
   "dependencies": {
     "@hotwired/stimulus": "^3.0",
     "@hotwired/stimulus-webpack-helpers": "^1.0",
