@@ -16,7 +16,7 @@ esbuild.build({
   entryPoints: ['src/scss/formstrap.scss'],
   outfile: 'app/assets/stylesheets/formstrap.css',
   bundle: true,
-  watch: watch,
+  watch,
   allowOverwrite: true,
   plugins: [
     externalUrlPlugin,

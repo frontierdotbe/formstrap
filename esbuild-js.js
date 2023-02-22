@@ -7,5 +7,5 @@ esbuild.build({
   bundle: true,
   allowOverwrite: true,
   format: 'esm',
-  watch: watch
+  watch
 }).catch((e) => console.error(e.message))
