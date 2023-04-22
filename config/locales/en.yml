@@ -1,6 +1,9 @@
 en:
   language_name: English
-
   date:
     formats:
       default: "%d/%m/%Y"
+  formstrap:
+    pagination:
+      infinite:
+        load_more: Load more
