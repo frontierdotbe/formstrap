@@ -152,13 +152,7 @@ module Formstrap
     end
 
     def render_input(name, attribute, options)
-      # ToDo: Find a way to import the host of the application
-      renderer = ApplicationController.renderer.new(
-        http_host: "headmin.test",
-        https: true
-      )
-
-      renderer.render(template: "formstrap/_#{name}", locals: {form: self, attribute: attribute, **options})
+      @template.render("formstrap/#{name}", form: self, attribute: attribute, **options)
     end
 
     def method_missing(name, *args, &block)
