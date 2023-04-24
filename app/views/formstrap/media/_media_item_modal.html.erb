@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "modal_content" do %>
-  <%= formstrap_form_with url: formstrap_media_item_url(id: @blob.id), model: @blob do |form| %>
+  <%= formstrap_form_with url: formstrap_media_item_path(id: @blob.id), model: @blob do |form| %>
     <div class="modal-header">
       <h5 class="modal-title"><%= t(".edit") %></h5>
       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(".close") %>"></button>

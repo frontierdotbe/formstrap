@@ -10974,7 +10974,8 @@ var media_controller_default = class extends Controller {
   syncIds() {
     const ids = this.activeIds();
     this.modalButtonTargets.forEach((button) => {
-      const url = new URL(button.getAttribute("href"));
+      const sourceLocation = location.protocol + "//" + location.host;
+      const url = new URL(button.getAttribute("href"), sourceLocation);
       url.searchParams.delete("ids[]");
       ids.forEach((id) => {
         url.searchParams.append("ids[]", id);

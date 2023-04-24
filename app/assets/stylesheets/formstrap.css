@@ -1312,7 +1312,7 @@ span.flatpickr-weekday {
   padding: 0;
 }
 .h-form-file {
-  --fs-file-spacer-2: 1rem * .5;
+  --fs-file-spacer-2: calc(1rem * .5);
 }
 .h-form-file .h-form-file-thumbnails {
   margin-bottom: var(--fs-file-spacer-2);
@@ -1324,6 +1324,7 @@ span.flatpickr-weekday {
   margin-bottom: 0;
 }
 .h-form-file-thumbnails {
+  --fs-file-spacer-2: calc(1rem * .5);
   position: relative;
   display: flex;
   flex-wrap: wrap;

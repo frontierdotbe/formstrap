@@ -31,7 +31,8 @@ export default class extends Controller {
     const ids = this.activeIds()
 
     this.modalButtonTargets.forEach((button) => {
-      const url = new URL(button.getAttribute('href'))
+      const sourceLocation = location.protocol + '//' + location.host
+      const url = new URL(button.getAttribute('href'), sourceLocation)
 
       // Remove all ids[]
       url.searchParams.delete('ids[]')

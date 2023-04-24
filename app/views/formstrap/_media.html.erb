@@ -35,12 +35,12 @@
 
     <!-- Render previews for attachments -->
     <%= form.fields_for(media.nested_attribute, media.association_object) do |ff| %>
-      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_url(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept)) %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept)) %>
     <% end %>
 
     <!-- Placeholder -->
     <div class="<%= "d-none" if media.attachments.any? %>" data-media-target="placeholder">
-      <a href="<%= formstrap_media_url(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept) %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
+      <a href="<%= formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept) %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
         <%= render "formstrap/shared/thumbnail", media.thumbnail_options %>
       </a>
     </div>
@@ -50,7 +50,7 @@
   <% association_object = ActiveStorage::Attachment.new %>
   <template data-media-target="template" data-template-id-regex="<%= association_object.object_id %>">
     <%= form.fields_for(media.nested_attribute, ActiveStorage::Attachment.new, child_index: association_object.object_id) do |ff| %>
-      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_url(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept)) %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept)) %>
     <% end %>
   </template>
 
