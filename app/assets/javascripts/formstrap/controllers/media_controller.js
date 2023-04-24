@@ -31,7 +31,7 @@ export default class extends Controller {
     const ids = this.activeIds()
 
     this.modalButtonTargets.forEach((button) => {
-      const sourceLocation = location.protocol + '//' + location.host
+      const sourceLocation = window.location.protocol + '//' + window.location.host
       const url = new URL(button.getAttribute('href'), sourceLocation)
 
       // Remove all ids[]
