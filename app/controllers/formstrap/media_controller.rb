@@ -3,14 +3,11 @@ class Formstrap::MediaController < FormstrapController
   layout false
 
   def index
-    @blobs =
-      ActiveStorage::Blob
-        .not_attached_to_variant
-        .by_mimetypes_string(media_params[:mimetype])
-        .order(created_at: :desc)
-        .group(:id)
-        .all
-    @blobs = paginate(@blobs)
+    blobs = ActiveStorage::Blob
+    blobs = filter(blobs)
+    blobs = sort(blobs)
+    blobs = blobs.group(:id)
+    @blobs = paginate(blobs)
     @mimetypes = media_params[:mimetype]
 
     respond_to do |format|
@@ -51,14 +48,41 @@ class Formstrap::MediaController < FormstrapController
 
   private
 
+  def filter(blobs)
+    blobs = filter_unattached(blobs)
+    blobs = filter_by_mimetype(blobs, media_params[:mimetype]) if media_params[:mimetype].present?
+    blobs = filter_excluded_models(blobs, media_params[:exclude_models]) if media_params[:exclude_models].present?
+    blobs
+  end
+
+  def filter_unattached(blobs)
+    blobs.not_attached_to_variant
+  end
+
+  def filter_by_mimetype(blobs, mimetype)
+    blobs.by_mimetypes_string(mimetype)
+  end
+
+  def filter_excluded_models(blobs, model_names = [])
+    blobs.not_attached_to(model_names)
+  end
+
+  def sort(blobs)
+    blobs.order(created_at: :desc)
+  end
+
   def media_params
     params.permit(
-      :min,
       :max,
-      :name,
       :mimetype,
+      :min,
+      :name,
+      :page,
+      :page_start,
+      :per_page,
       ids: [],
-      files: []
+      files: [],
+      exclude_models: []
     )
   end
 

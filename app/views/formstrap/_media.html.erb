@@ -15,6 +15,7 @@
   # * +wrapper+ - Hash with all options for the surrounding html tag
   # * +width+ - Width of the thumbnail
   # * +height+ - Height of the thumbnail
+  # * +exclude_models+ - Array of model names to exclude from selection (e.g. ["User", "Company"])
   #
   # ==== References
   # https://headmin.dev/docs/forms/media
@@ -35,12 +36,12 @@
 
     <!-- Render previews for attachments -->
     <%= form.fields_for(media.nested_attribute, media.association_object) do |ff| %>
-      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept)) %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept, exclude_models: media.exclude_models)) %>
     <% end %>
 
     <!-- Placeholder -->
     <div class="<%= "d-none" if media.attachments.any? %>" data-media-target="placeholder">
-      <a href="<%= formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept) %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
+      <a href="<%= formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept, exclude_models: media.exclude_models) %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
         <%= render "formstrap/shared/thumbnail", media.thumbnail_options %>
       </a>
     </div>
@@ -50,7 +51,7 @@
   <% association_object = ActiveStorage::Attachment.new %>
   <template data-media-target="template" data-template-id-regex="<%= association_object.object_id %>">
     <%= form.fields_for(media.nested_attribute, ActiveStorage::Attachment.new, child_index: association_object.object_id) do |ff| %>
-      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept)) %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept, exclude_models: media.exclude_models)) %>
     <% end %>
   </template>
 
