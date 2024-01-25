@@ -52,6 +52,7 @@ class Formstrap::MediaController < FormstrapController
     blobs = filter_unattached(blobs)
     blobs = filter_by_mimetype(blobs, media_params[:mimetype]) if media_params[:mimetype].present?
     blobs = filter_excluded_models(blobs, media_params[:exclude_models]) if media_params[:exclude_models].present?
+    blobs = filter_search(blobs, media_params[:search]) if media_params[:search].present?
     blobs
   end
 
@@ -67,6 +68,10 @@ class Formstrap::MediaController < FormstrapController
     blobs.not_attached_to(model_names)
   end
 
+  def filter_search(blobs, search)
+    blobs.where("filename like ?", "%#{search}%") 
+  end
+
   def sort(blobs)
     blobs.order(created_at: :desc)
   end
@@ -77,6 +82,7 @@ class Formstrap::MediaController < FormstrapController
       :mimetype,
       :min,
       :name,
+      :search,
       :page,
       :page_start,
       :per_page,

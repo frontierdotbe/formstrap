@@ -5,7 +5,18 @@
         <h5 class="modal-title">
           <%= t(".title", count: min.to_i < 1 ? 1 : min.to_i) %>
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(".close") %>"></button>
+        <%= form_with url: formstrap_media_path, method: :get, data: {turbo_frame: "remote_modal"} do |form| %>
+          <%= form.hidden_field :name, value: request.query_parameters["name"] %>
+          <%= form.hidden_field "ids[]", value: request.query_parameters["ids"] %>
+          <%= form.hidden_field :min, value: request.query_parameters["min"] %>
+          <%= form.hidden_field :max, value: request.query_parameters["max"] %>
+          <%= form.hidden_field :mimetype, value: request.query_parameters["mimetype"] %>
+          <%= form.hidden_field "exclude_models[]", value: request.query_parameters["exclude_models"] %>
+          <div class="modal-search">
+            <input type="formstrap/text" name="search"><button type="submit" class="btn btn-primary">Search</button>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(".close") %>"></button>
+          </div>
+        <% end %>
       </div>
       <div class="modal-body">
         <%= turbo_frame_tag "thumbnails", class: "d-flex flex-wrap gap-2" do %>
