@@ -6,6 +6,8 @@ en:
         limits: "minimum: %{min} en maximum: %{max}"
         maximum: " of %{count}"
         placeholder: Upload your first file to the media library
+        search: Search
+        search_no_results: No search results found
         select: Select
         title:
           one: Select at least 1 file

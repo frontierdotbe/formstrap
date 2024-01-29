@@ -68,8 +68,8 @@ class Formstrap::MediaController < FormstrapController
     blobs.not_attached_to(model_names)
   end
 
-  def filter_search(blobs, search)
-    blobs.where("filename like ?", "%#{search}%") 
+  def filter_search(blobs, string)
+    blobs.search(string)
   end
 
   def sort(blobs)
