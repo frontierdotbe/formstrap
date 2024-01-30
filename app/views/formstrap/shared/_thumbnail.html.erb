@@ -21,7 +21,7 @@
   #
   #   Custom (bootstrap) icon
   #   <%= render "formstrap/shared/thumbnail", file: file, icon: "file-earmark-excel" %#>
-  thumbnail = Admin::ThumbnailView.new(local_assigns)
+  thumbnail = Formstrap::ThumbnailView.new(local_assigns)
 %>
 
 <div class="<%= thumbnail.class_names %>">
