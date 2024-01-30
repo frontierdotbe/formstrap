@@ -84,7 +84,7 @@ module Formstrap
       end
     end
 
-    def is_svg?
+    def svg?
       blob&.content_type == "image/svg+xml"
     end
 

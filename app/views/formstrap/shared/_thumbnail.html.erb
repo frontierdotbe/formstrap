@@ -28,7 +28,7 @@
   <div class="h-thumbnail-bg" style="min-width: <%= thumbnail.width || 100 %>px; min-height: <%= thumbnail.height || 100 %>px;">
     <% if thumbnail.variable? && !thumbnail.icon? %>
       <%= image_tag(thumbnail.file.variant(thumbnail.variant_options)) %>
-    <% elsif thumbnail.is_svg? %>
+    <% elsif thumbnail.svg? %>
       <%= thumbnail.inline_svg %>
     <% else %>
       <%= bootstrap_icon(thumbnail.icon_name, class: "h-thumbnail-icon") %>
