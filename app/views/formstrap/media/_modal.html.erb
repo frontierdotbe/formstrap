@@ -5,7 +5,26 @@
         <h5 class="modal-title">
           <%= t(".title", count: min.to_i < 1 ? 1 : min.to_i) %>
         </h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(".close") %>"></button>
+
+        <div class="modal-header-actions d-flex align-items-center gap-3">
+          <%= formstrap_form_with url: formstrap_media_path, method: :get, data: {turbo_frame: "remote_modal", media_modal_target: "search"}, class: "modal-search d-flex gap-1" do |form| %>
+            <%= form.hidden_field :name, value: request.query_parameters["name"] %>
+            <%= form.hidden_field :min, value: request.query_parameters["min"] %>
+            <%= form.hidden_field :max, value: request.query_parameters["max"] %>
+            <%= form.hidden_field :mimetype, value: request.query_parameters["mimetype"] %>
+            <%= form.hidden_field "exclude_models[]", value: request.query_parameters["exclude_models"] %>
+
+            <% if request.query_parameters["ids"] %>
+              <% request.query_parameters["ids"].each do |id| %>
+                <%= form.hidden_field "ids[]", value: id, data: {media_modal_target: "searchId"} %>
+              <% end %>
+            <% end %>
+
+            <%= form.search :search, value: request.query_parameters["search"], class: "form-control", label: false, wrapper: {class: ""}, placeholder: t(".search")  %>
+          <% end %>
+
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(".close") %>"></button>
+        </div>
       </div>
       <div class="modal-body">
         <%= turbo_frame_tag "thumbnails", class: "d-flex flex-wrap gap-2" do %>
@@ -14,16 +33,24 @@
               <%= render "thumbnail" %>
             <% end %>
           <% end %>
-          <div data-media-modal-target="placeholder" class="<%= "d-none" if !@blobs.empty? %>">
+
+          <div data-media-modal-target="placeholder" class="<%= "d-none" if !@blobs.empty? && request.request_parameters["search"].nil? %>">
             <p><%= t(".placeholder") %></p>
           </div>
+
+          <div data-media-modal-target="search_no_results" class="<%= "d-none" if !@blobs.empty? || request.request_parameters["search"].present? %>">
+            <p><%= t(".search_no_results") %></p>
+          </div>
         <% end %>
-        <div class="mt-3">
-          <%= render "formstrap/pagination/infinite", items: @blobs %>
-        </div>
+
+        <% unless @blobs.empty? %>
+          <div class="mt-3">
+            <%= render "formstrap/pagination/infinite", items: @blobs %>
+          </div>
+        <% end %>
       </div>
       <div class="modal-footer">
-        <%= form_with url: formstrap_new_media_path, multipart: true, data: {"media-modal-target": "form"}, class: "me-auto" do |form| %>
+        <%= form_with url: formstrap_new_media_path, multipart: true, data: {"media-modal-target": "form", turbo_frame: "remote_modal"}, class: "me-auto" do |form| %>
           <%= form.label :files, class: "btn h-btn-outline-light" do %>
             <%= bootstrap_icon("upload") %>
             <%= t(".upload") %>

@@ -11139,7 +11139,7 @@ var media_controller_default = class extends Controller {
 // app/assets/javascripts/formstrap/controllers/media_modal_controller.js
 var media_modal_controller_default = class extends Controller {
   static get targets() {
-    return ["idCheckbox", "item", "form", "selectButton", "placeholder", "count"];
+    return ["idCheckbox", "item", "form", "selectButton", "placeholder", "count", "search", "searchId"];
   }
   static get values() {
     return { ids: Array };
@@ -11154,6 +11154,7 @@ var media_modal_controller_default = class extends Controller {
   submitForm() {
     this.hidePlaceholder();
     this.triggerFormSubmission();
+    this.search("");
   }
   inputChange(event) {
     this.handleIdsUpdate(event.target);
@@ -11161,6 +11162,11 @@ var media_modal_controller_default = class extends Controller {
   }
   hidePlaceholder() {
     this.placeholderTarget.classList.add("d-none");
+  }
+  search(string) {
+    const search = this.searchTarget.querySelector("input[name='search']");
+    search.value = string;
+    this.searchTarget.requestSubmit();
   }
   handleIdsUpdate(element) {
     if (element.checked) {
@@ -11172,6 +11178,7 @@ var media_modal_controller_default = class extends Controller {
         return element.value !== value;
       });
     }
+    this.handleSearchdIdsUpdate();
   }
   itemTargetConnected(element) {
     this.updateItem(element.querySelector("input"));
@@ -11254,6 +11261,28 @@ var media_modal_controller_default = class extends Controller {
   }
   updateCount() {
     this.countTarget.innerHTML = this.selectedItemsCount();
+  }
+  handleSearchdIdsUpdate() {
+    this.deleteSearchIdInputs();
+    this.createSearchIdInputs();
+  }
+  deleteSearchIdInputs() {
+    for (const searchId of this.searchIdTargets) {
+      searchId.remove();
+    }
+  }
+  createSearchIdInputs() {
+    for (const id of this.idsValue) {
+      this.createSearchIdInput(id);
+    }
+  }
+  createSearchIdInput(value) {
+    const input = document.createElement("input");
+    input.type = "hidden";
+    input.name = "ids[]";
+    input.setAttribute("data-media-modal-target", "searchId");
+    input.value = value;
+    this.searchTarget.appendChild(input);
   }
 };
 

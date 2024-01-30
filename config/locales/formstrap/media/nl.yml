@@ -6,6 +6,8 @@ nl:
         limits: "minimum: %{min} and maximum: %{max}"
         maximum: " van %{count}"
         placeholder: Upload je eerste bestand naar de mediabibliotheek
+        search: Zoeken
+        search_no_results: Geen resultaten gevonden
         select: Selecteer
         title:
           one: Selecteer bestand
