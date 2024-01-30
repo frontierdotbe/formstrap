@@ -7,10 +7,10 @@
         </h5>
 
         <div class="modal-header-actions d-flex align-items-center gap-3">
-          <%= form_with url: formstrap_media_path, method: :get, data: {turbo_frame: "remote_modal", media_modal_target: "search"}, class: "modal-search d-flex gap-1" do |form| %>
+          <%= formstrap_form_with url: formstrap_media_path, method: :get, data: {turbo_frame: "remote_modal", media_modal_target: "search"}, class: "modal-search d-flex gap-1" do |form| %>
             <%= form.hidden_field :name, value: request.query_parameters["name"] %>
             <%= form.hidden_field :min, value: request.query_parameters["min"] %>
-          <%= form.hidden_field :max, value: request.query_parameters["max"] %>
+            <%= form.hidden_field :max, value: request.query_parameters["max"] %>
             <%= form.hidden_field :mimetype, value: request.query_parameters["mimetype"] %>
             <%= form.hidden_field "exclude_models[]", value: request.query_parameters["exclude_models"] %>
 
@@ -20,8 +20,7 @@
               <% end %>
             <% end %>
 
-            <%= form.text_field :search, value: request.query_parameters["search"], class: "form-control" %>
-            <button type="submit" class="btn h-btn-outline-light"><%= t(".search") %></button>
+            <%= form.search :search, value: request.query_parameters["search"], class: "form-control", label: false, wrapper: {class: ""}, placeholder: t(".search")  %>
           <% end %>
 
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(".close") %>"></button>
