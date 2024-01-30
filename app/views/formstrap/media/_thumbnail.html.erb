@@ -3,18 +3,22 @@
   <div data-media-modal-target="item" title="<%= "#{blob.filename} (#{l(blob.created_at, format: :long)})" %>">
     <!-- Input -->
     <input
-      id="media-item-<%= blob.id %>"
-      type="checkbox"
-      value="<%= blob.id %>"
-      data-action="change->media-modal#inputChange"
-      data-media-modal-target="idCheckbox"
-      hidden>
+        id="media-item-<%= blob.id %>"
+        type="checkbox"
+        value="<%= blob.id %>"
+        data-action="change->media-modal#inputChange"
+        data-media-modal-target="idCheckbox"
+        hidden>
 
     <!-- Label -->
-  <label for="media-item-<%= blob.id %>" class="d-flex">
+    <label for="media-item-<%= blob.id %>" class="d-flex">
       <%= render "formstrap/shared/thumbnail", file: blob %>
     </label>
   </div>
 <% else %>
-  <%= render "formstrap/shared/thumbnail", file: nil %>
+  <div>
+    <label class="d-flex">
+      <%= render "formstrap/shared/thumbnail", file: nil %>
+    </label>
+  </div>
 <% end %>
