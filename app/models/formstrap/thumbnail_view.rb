@@ -83,5 +83,26 @@ module Formstrap
         "question"
       end
     end
+
+    def is_svg?
+      blob&.content_type == "image/svg+xml"
+    end
+
+    def inline_svg(options = {})
+      blob.open do |file|
+        content = file.read
+        doc = Nokogiri::HTML::DocumentFragment.parse content
+        svg = doc.at_css 'svg'
+
+        # for security
+        doc.search('script').each do |src|
+          src.remove
+        end
+
+        options.each { |attr, value| svg[attr.to_s] = value }
+
+        doc.to_html.html_safe
+      end
+    end
   end
 end
