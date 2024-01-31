@@ -1552,6 +1552,27 @@ mark {
   justify-content: center;
   width: 100%;
 }
+.h-thumbnail {
+  display: inline-block;
+  position: relative;
+}
+.h-thumbnail-bg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--bs-gray-100);
+  background-size: cover;
+  background-position: center center;
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.h-thumbnail-icon {
+  position: absolute;
+  top: calc(50% - 20px);
+  left: calc(50% - 14px);
+  font-size: 28px;
+}
 .media-modal .h-thumbnail {
   cursor: pointer;
 }
