@@ -4,30 +4,12 @@ module Formstrap
     included do
       scope :not_a_variant, -> { where.not(record_type: "ActiveStorage::VariantRecord") }
 
-      def record_hierarchy
-        hierarchy = []
-
-        current = record
-
-        current, partial_hierarchy = process_fieldable(current)
-        hierarchy << partial_hierarchy if partial_hierarchy.present?
-
-        current, partial_hierarchy = process_blockable(current)
-
-        hierarchy << partial_hierarchy if partial_hierarchy.present?
-
-        hierarchy << current if current.present?
-
-        hierarchy.flatten
+      def root_record
+        record
       end
 
-      private
-      def process_blockable(field)
-        field.respond_to?(:blockable) ? [field.blockable, field] : [field, nil]
-      end
-
-      def process_fieldable(field)
-        field.respond_to?(:fieldable) ? [field.root.fieldable, field.self_and_ancestors] : [field, nil]
+      def root_record_name
+        "#{record.class.name} #{record.id}"
       end
     end
   end
