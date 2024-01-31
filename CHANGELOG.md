@@ -1,4 +1,4 @@
 # Formstap Changelog
 
 ## 0.2
-- Breaking: The partial `formstrap/blocks` was removed.
+- BREAK: The partial `formstrap/blocks` was removed.
