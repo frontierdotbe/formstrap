@@ -29,7 +29,7 @@
     <% if thumbnail.variable? && !thumbnail.icon? %>
       <%= image_tag(thumbnail.file.variant(thumbnail.variant_options)) %>
     <% elsif thumbnail.svg? %>
-      <%= thumbnail.inline_svg %>
+      <%= thumbnail.inline_svg(width: thumbnail.width || 100, height: thumbnail.height || 100) %>
     <% else %>
       <%= bootstrap_icon(thumbnail.icon_name, class: "h-thumbnail-icon") %>
     <% end %>
