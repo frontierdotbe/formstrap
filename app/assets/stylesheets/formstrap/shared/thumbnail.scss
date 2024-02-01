@@ -1,9 +1,9 @@
-.h-thumbnail {
+.formstrap-thumbnail {
   display: inline-block;
   position: relative;
 }
 
-.h-thumbnail-bg {
+.formstrap-thumbnail-bg {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +15,7 @@
   position: relative;
 }
 
-.h-thumbnail-icon {
+.formstrap-thumbnail-icon {
   position: absolute;
   top: calc(50% - 20px);
   left: calc(50% - 14px);

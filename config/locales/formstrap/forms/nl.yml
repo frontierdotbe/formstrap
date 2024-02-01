@@ -7,19 +7,6 @@ nl:
         other: Kies bestanden of sleep ze hierheen
     group:
       save: Opslaan
-    blocks:
-      add: "%{name} toevoegen"
-      empty:
-        title: Er zijn nog geen blokken toegevoegd.
-        add: Blok toevoegen
-      block:
-        add: Toevoegen
-        remove:
-          title: Verwijderen
-          confirm: Ben je zeker dat je dit wil verwijderen?
-      modal:
-        close: Sluiten
-        title: "Wijzig blok '%{name}'"
     media:
       validation:
         min:
@@ -28,12 +15,11 @@ nl:
         max:
           one: Gelieve maximum 1 item te selecteren
           other: "Gelieve maximum %{count} items te selecteren"
-
     select:
       blank: Maak een keuze
     repeater:
       add: "%{name} toevoegen"
-      empty: Voeg je eerste blok toe om te beginnen
+      empty: Voeg je eerste rij toe om te beginnen
       row:
         add: Rij toevoegen
         remove: Rij verwijderen

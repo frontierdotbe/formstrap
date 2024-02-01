@@ -2,7 +2,7 @@ module Formstrap
   class ThumbnailView < ViewModel
     def class_names
       class_names = [@class]
-      class_names << "img-thumbnail h-thumbnail"
+      class_names << "img-thumbnail formstrap-thumbnail"
       class_names.join(" ")
     end
 

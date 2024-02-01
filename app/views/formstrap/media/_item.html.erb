@@ -14,7 +14,7 @@
   media_item = Formstrap::MediaItemView.new(local_assigns)
 %>
 
-<div class="h-form-file-thumbnail media-drag-sort-handle" title="<%= "#{media_item.filename} (#{media_item.size})" %>" data-media-target="item">
+<div class="formstrap-file-thumbnail media-drag-sort-handle" title="<%= "#{media_item.filename} (#{media_item.size})" %>" data-media-target="item">
   <%= form.hidden_field(:id) %>
   <%= form.hidden_field(:blob_id) %>
   <%= form.hidden_field(:position, value: media_item.position_value) if media_item.sort %>
@@ -24,14 +24,14 @@
     <%= render "formstrap/shared/thumbnail", media_item.thumbnail_options %>
   </a>
 
-  <div class="h-form-file-thumbnail-actions">
+  <div class="formstrap-file-thumbnail-actions">
     <!-- Edit -->
-    <a href="<%= formstrap_media_item_path(id: media_item.id) %>" class="h-form-file-thumbnail-edit" data-turbo-frame="remote_modal" data-media-target="editButton">
+    <a href="<%= formstrap_media_item_path(id: media_item.id) %>" class="formstrap-file-thumbnail-edit" data-turbo-frame="remote_modal" data-media-target="editButton">
       <%= bootstrap_icon("pencil") %>
     </a>
 
     <!-- Remove -->
-    <div class="h-form-file-thumbnail-remove" data-action="click->media#destroy">
+    <div class="formstrap-file-thumbnail-remove" data-action="click->media#destroy">
       <%= bootstrap_icon("x") %>
     </div>
   </div>

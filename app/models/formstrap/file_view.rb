@@ -23,7 +23,7 @@ module Formstrap
 
     def wrapper_options
       default_wrapper_options.deep_merge({
-        class: ["mb-3 h-form-file", ("form-floating" if float)],
+        class: ["mb-3 formstrap-file", ("form-floating" if float)],
         data: {
           controller: ("file-preview" if preview)
         }
@@ -57,7 +57,7 @@ module Formstrap
     def dropzone_options
       if dropzone
         {
-          class: ["h-dropzone", validation_class],
+          class: ["formstrap-dropzone", validation_class],
           data: {
             controller: "dropzone"
           }
@@ -73,7 +73,7 @@ module Formstrap
     #   {
     #     prepend: prepend,
     #     append: append,
-    #     class: "h-form-file",
+    #     class: "formstrap-file",
     #     data: {
     #       controller: "#{"file-preview" if preview} #{"dropzone" if dropzone}"
     #     }

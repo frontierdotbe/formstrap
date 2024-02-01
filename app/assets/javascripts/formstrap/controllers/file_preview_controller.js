@@ -165,7 +165,7 @@ export default class extends Controller {
   }
 
   updateThumbnailRemoveButton (thumbnail, fileName) {
-    const removeButton = thumbnail.querySelector('.h-form-file-thumbnail-remove')
+    const removeButton = thumbnail.querySelector('.formstrap-file-thumbnail-remove')
     if (removeButton) {
       removeButton.dataset.filePreviewNameParam = fileName
     }
@@ -176,16 +176,16 @@ export default class extends Controller {
   }
 
   updateThumbnailBackground (thumbnail, url) {
-    const thumbnailBackground = thumbnail.querySelector('.h-thumbnail-bg')
+    const thumbnailBackground = thumbnail.querySelector('.formstrap-thumbnail-bg')
     thumbnailBackground.style.backgroundImage = `url('${url}')`
   }
 
   removeThumbnailIcon (thumbnail) {
-    thumbnail.querySelector('.h-thumbnail-bg').innerHTML = ''
+    thumbnail.querySelector('.formstrap-thumbnail-bg').innerHTML = ''
   }
 
   updateThumbnailIcon (thumbnail, icon) {
-    thumbnail.querySelector('.h-thumbnail-bg').innerHTML = icon
+    thumbnail.querySelector('.formstrap-thumbnail-bg').innerHTML = icon
   }
 
   iconForMimeType (mimeType) {
@@ -206,7 +206,7 @@ export default class extends Controller {
     const iconName = Object.keys(typeMap).find(key => typeMap[key].includes(mimeType))
     const fullIconName = ['bi', 'file', 'earmark', iconName].filter(e => typeof e === 'string' && e !== '').join('-')
 
-    return `<i class="bi ${fullIconName} h-thumbnail-icon"></i>`
+    return `<i class="bi ${fullIconName} formstrap-thumbnail-icon"></i>`
   }
 
   isImage (file) {

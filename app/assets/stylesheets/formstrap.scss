@@ -5,8 +5,11 @@
 @import "formstrap/vendor/flatpickr";
 
 // Formstrap
-@import "formstrap/forms";
 @import "formstrap/general";
 @import "formstrap/utilities";
 @import "formstrap/shared";
 @import "formstrap/media";
+@import "formstrap/autocomplete";
+@import "formstrap/file";
+@import "formstrap/repeater";
+@import "formstrap/search";

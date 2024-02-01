@@ -59,7 +59,7 @@
   <%= render "formstrap/label", form: form, attribute: attribute, text: label, required: required %>
 <% end %>
 
-<ul class="repeater list-group <%= "list-group-flush" if flush %> mb-3" data-controller="repeater" data-repeater-target="list" data-repeater-id-value="<%= repeater_id %>">
+<ul class="formstrap-repeater list-group <%= "list-group-flush" if flush %> mb-3" data-controller="repeater" data-repeater-target="list" data-repeater-id-value="<%= repeater_id %>">
 
   <!-- Header -->
   <% if header %>
@@ -85,7 +85,7 @@
 
     <!-- Button -->
     <div
-       class="btn btn-sm h-btn-outline-light"
+       class="btn btn-sm btn-outline-secondary"
        data-repeater-target="addButton"
        data-popup-target="button"
        data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
@@ -101,7 +101,7 @@
       <div class="d-grid gap-2">
         <% template_names.each do |name| %>
           <div
-             class="btn btn-sm h-btn-outline-light"
+             class="btn btn-sm btn-outline-secondary"
              data-popup-target="button"
              data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
              data-action="click->repeater#addRow click->popup#close"

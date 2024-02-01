@@ -1,4 +1,4 @@
-.h-dropzone {
+.formstrap-dropzone {
   --fs-input-btn-focus-blur: 0;
   --fs-input-btn-focus-width: .25rem;
   --fs-input-btn-focus-color-opacity: .25;
@@ -63,7 +63,7 @@
   }
 }
 
-.h-dropzone-placeholder {
+.formstrap-dropzone-placeholder {
   color: var(--bs-gray-600);
   display: flex;
   align-items: center;

@@ -8,7 +8,7 @@
   draggable = form.object.respond_to?(:position)
   destroyable = form.object.respond_to?(:destroy)
   error_class = form.object.errors.present? ? "border border-danger" : ""
-  class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "repeater-row list-group-item"
+  class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "formstrap-repeater-row list-group-item"
 %>
 <div class="<%= class_names %> <%= error_class %>"
      data-repeater-target="row"
@@ -22,14 +22,14 @@
 
   <!--  Drag handle -->
   <% if draggable %>
-    <div class="repeater-row-handle">
+    <div class="formstrap-repeater-row-handle">
       <%= bootstrap_icon("grip-vertical") %>
     </div>
   <% end %>
 
   <!--  Add button-->
   <div
-    class="repeater-row-add btn btn-link"
+    class="formstrap-repeater-row-add btn btn-link"
     title="<%= t(".add") %>"
     data-repeater-target="addButton"
     data-popup-target="button"
@@ -42,7 +42,7 @@
 
   <!--  Remove button-->
   <div
-    class="repeater-row-remove btn btn-link"
+    class="formstrap-repeater-row-remove btn btn-link"
     title="<%= t(".remove") %>"
     data-action="click->repeater#removeRow"
   >
