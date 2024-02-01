@@ -34,14 +34,6 @@ class Formstrap::MediaController < FormstrapController
     @blob = ActiveStorage::Blob.find(params[:id])
   end
 
-  def update
-    @blob = ActiveStorage::Blob.find(params[:id])
-    media_item_params[:filename] = media_item_params[:filename] + "." + @blob.filename.to_s.rpartition(".").last
-    if @blob.update(media_item_params)
-      flash.now[:notice] = t("admin.flash.updated", name: @blob.filename)
-    end
-  end
-
   def thumbnail
     @blob = ActiveStorage::Blob.find(params[:id])
   end
@@ -90,9 +82,5 @@ class Formstrap::MediaController < FormstrapController
       files: [],
       exclude_models: []
     )
-  end
-
-  def media_item_params
-    params.require(:blob).permit!
   end
 end
