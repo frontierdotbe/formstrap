@@ -51,7 +51,7 @@
       </div>
       <div class="modal-footer">
         <%= form_with url: formstrap_new_media_path, multipart: true, data: {"media-modal-target": "form", turbo_frame: "remote_modal"}, class: "me-auto" do |form| %>
-          <%= form.label :files, class: "btn h-btn-outline-light" do %>
+          <%= form.label :files, class: "btn btn-outline-secondary" do %>
             <%= bootstrap_icon("upload") %>
             <%= t(".upload") %>
             <%= form.file_field :files, accept: mimetypes, class: "d-none", multiple: true, data: {action: "change->media-modal#submitForm"} %>
