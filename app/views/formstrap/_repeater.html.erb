@@ -59,7 +59,7 @@
   <%= render "formstrap/label", form: form, attribute: attribute, text: label, required: required %>
 <% end %>
 
-<ul class="repeater list-group <%= "list-group-flush" if flush %> mb-3" data-controller="repeater" data-repeater-target="list" data-repeater-id-value="<%= repeater_id %>">
+<ul class="formstrap-repeater list-group <%= "list-group-flush" if flush %> mb-3" data-controller="repeater" data-repeater-target="list" data-repeater-id-value="<%= repeater_id %>">
 
   <!-- Header -->
   <% if header %>

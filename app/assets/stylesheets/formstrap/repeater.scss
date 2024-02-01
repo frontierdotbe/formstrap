@@ -1,26 +1,26 @@
-.repeater {
+.formstrap-repeater {
   position: relative;
 }
 
-.repeater-row {
+.formstrap-repeater-row {
   position: relative;
 
   &:hover {
-    .repeater-row-remove {
+    .formstrap-repeater-row-remove {
       visibility: visible;
     }
 
-    .repeater-row-add {
+    .formstrap-repeater-row-add {
       visibility: visible;
     }
 
-    .repeater-row-handle {
+    .formstrap-repeater-row-handle {
       visibility: visible;
     }
   }
 }
 
-.repeater-row-remove {
+.formstrap-repeater-row-remove {
   position: absolute;
   top: calc(50% - 17px);
   right: -22px;
@@ -33,7 +33,7 @@
   }
 }
 
-.repeater-row-add {
+.formstrap-repeater-row-add {
   position: absolute;
   top: calc(100% - 18px);
   right: calc(50% - 17px);
@@ -46,7 +46,7 @@
   }
 }
 
-.repeater-row-handle {
+.formstrap-repeater-row-handle {
   position: absolute;
   top: 0;
   left: 0;

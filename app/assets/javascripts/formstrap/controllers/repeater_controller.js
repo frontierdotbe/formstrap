@@ -16,8 +16,8 @@ export default class extends Controller {
     Sortable.create(this.listTarget, {
       animation: 150,
       ghostClass: 'list-group-item-dark',
-      draggable: '.repeater-row',
-      handle: '.repeater-row-handle',
+      draggable: '.formstrap-repeater-row',
+      handle: '.formstrap-repeater-row-handle',
       onEnd: () => {
         this.resetIndices()
         this.resetPositions()
@@ -28,7 +28,7 @@ export default class extends Controller {
   }
 
   resetButtonIndices (event) {
-    const row = event.target.closest('.repeater-row')
+    const row = event.target.closest('.formstrap-repeater-row')
     const index = this.containsRow(row) ? row.dataset.rowIndex : ''
     this.updatePopupButtonIndices(index)
   }
@@ -73,7 +73,7 @@ export default class extends Controller {
   removeRow (event) {
     event.preventDefault()
 
-    const row = event.target.closest('.repeater-row')
+    const row = event.target.closest('.formstrap-repeater-row')
 
     if (row.dataset.newRecord === 'true') {
       // New records are simply removed from the page
