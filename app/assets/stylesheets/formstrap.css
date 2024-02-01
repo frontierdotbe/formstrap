@@ -1409,13 +1409,13 @@ mark {
   left: calc(50% - 14px);
   font-size: 28px;
 }
-.media-modal .formstrap-thumbnail {
+.formstrap-media-modal .formstrap-thumbnail {
   cursor: pointer;
 }
-.media-modal input[type=checkbox]:checked + label .formstrap-thumbnail {
+.formstrap-media-modal input[type=checkbox]:checked + label .formstrap-thumbnail {
   background-color: #0d6efd;
 }
-.h-form-media-validation {
+.formstrap-media-validation {
   opacity: 0;
   width: 100px;
   height: 0;
