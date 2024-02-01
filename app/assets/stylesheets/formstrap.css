@@ -1385,6 +1385,21 @@ mark {
   left: calc(50% - 14px);
   font-size: 28px;
 }
+.formstrap-popup {
+  padding: 10px;
+  background: var(--bs-white);
+  z-index: 1070;
+  font-size: var(--bs-popover-font-size);
+  word-wrap: break-word;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border-radius: var(--bs-popover-border-radius);
+  box-shadow: 0 0.5rem 1rem rgba(var(--bs-body-color-rgb), 0.15);
+  border: var(--bs-border-width) solid var(--bs-border-color-translucent);
+}
+.formstrap-popup.closed {
+  display: none;
+}
 .formstrap-media-modal .formstrap-thumbnail {
   cursor: pointer;
 }
