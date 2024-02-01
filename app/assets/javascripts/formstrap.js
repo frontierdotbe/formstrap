@@ -6252,14 +6252,14 @@ var file_preview_controller_default = class extends Controller {
     thumbnail.title = title;
   }
   updateThumbnailBackground(thumbnail, url) {
-    const thumbnailBackground = thumbnail.querySelector(".h-thumbnail-bg");
+    const thumbnailBackground = thumbnail.querySelector(".formstrap-thumbnail-bg");
     thumbnailBackground.style.backgroundImage = `url('${url}')`;
   }
   removeThumbnailIcon(thumbnail) {
-    thumbnail.querySelector(".h-thumbnail-bg").innerHTML = "";
+    thumbnail.querySelector(".formstrap-thumbnail-bg").innerHTML = "";
   }
   updateThumbnailIcon(thumbnail, icon) {
-    thumbnail.querySelector(".h-thumbnail-bg").innerHTML = icon;
+    thumbnail.querySelector(".formstrap-thumbnail-bg").innerHTML = icon;
   }
   iconForMimeType(mimeType) {
     const typeMap = {
@@ -6277,7 +6277,7 @@ var file_preview_controller_default = class extends Controller {
     };
     const iconName = Object.keys(typeMap).find((key) => typeMap[key].includes(mimeType));
     const fullIconName = ["bi", "file", "earmark", iconName].filter((e) => typeof e === "string" && e !== "").join("-");
-    return `<i class="bi ${fullIconName} h-thumbnail-icon"></i>`;
+    return `<i class="bi ${fullIconName} formstrap-thumbnail-icon"></i>`;
   }
   isImage(file) {
     return file.type.match(/^image/) !== null;
@@ -11088,7 +11088,7 @@ var media_controller_default = class extends Controller {
     newItem.querySelector('input[name*="[_destroy]"]').value = false;
     const editButton = newItem.querySelector('[data-media-target="editButton"]');
     editButton.setAttribute("href", editButton.getAttribute("href").replace("$1", item.blobId));
-    const oldThumbnail = newItem.querySelector(".h-thumbnail");
+    const oldThumbnail = newItem.querySelector(".formstrap-thumbnail");
     const newThumbnail = item.thumbnail.cloneNode(true);
     oldThumbnail.parentNode.replaceChild(newThumbnail, oldThumbnail);
   }
@@ -11224,7 +11224,7 @@ var media_modal_controller_default = class extends Controller {
     const element = this.element.querySelector(blobId);
     return {
       blobId: id,
-      thumbnail: element ? element.querySelector(".h-thumbnail") : ""
+      thumbnail: element ? element.querySelector(".formstrap-thumbnail") : ""
     };
   }
   selectedItems() {

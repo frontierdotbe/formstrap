@@ -107,7 +107,7 @@ export default class extends Controller {
 
     return {
       blobId: id,
-      thumbnail: element ? element.querySelector('.h-thumbnail') : ''
+      thumbnail: element ? element.querySelector('.formstrap-thumbnail') : ''
     }
   }
 

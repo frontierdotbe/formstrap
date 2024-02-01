@@ -190,7 +190,7 @@ export default class extends Controller {
     editButton.setAttribute('href', editButton.getAttribute('href').replace('$1', item.blobId))
 
     // Copy thumbnail
-    const oldThumbnail = newItem.querySelector('.h-thumbnail')
+    const oldThumbnail = newItem.querySelector('.formstrap-thumbnail')
     const newThumbnail = item.thumbnail.cloneNode(true)
     oldThumbnail.parentNode.replaceChild(newThumbnail, oldThumbnail)
   }

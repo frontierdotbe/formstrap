@@ -1,9 +1,9 @@
 .media-modal {
-  .h-thumbnail {
+  .formstrap-thumbnail {
     cursor: pointer;
   }
 
-  input[type="checkbox"]:checked + label .h-thumbnail {
+  input[type="checkbox"]:checked + label .formstrap-thumbnail {
     background-color: #0d6efd;
   }
 }
