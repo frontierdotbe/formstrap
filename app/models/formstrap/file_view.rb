@@ -57,7 +57,7 @@ module Formstrap
     def dropzone_options
       if dropzone
         {
-          class: ["h-dropzone", validation_class],
+          class: ["formstrap-dropzone", validation_class],
           data: {
             controller: "dropzone"
           }

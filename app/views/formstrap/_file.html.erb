@@ -61,7 +61,7 @@
 
           <!-- Placeholder -->
           <% if file.dropzone %>
-            <div class="h-dropzone-placeholder <%= "d-none" if file.attachments.any? %>" data-file-preview-target="placeholder" style="height: 100px;">
+            <div class="formstrap-dropzone-placeholder <%= "d-none" if file.attachments.any? %>" data-file-preview-target="placeholder" style="height: 100px;">
               <%= t("headmin.forms.file.placeholder", count: file.number_of_files) %>
             </div>
           <% else %>
