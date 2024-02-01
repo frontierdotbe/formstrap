@@ -6243,7 +6243,7 @@ var file_preview_controller_default = class extends Controller {
     return (bytes / Math.pow(1024, i)).toFixed(2) * 1 + " " + ["B", "kB", "MB", "GB", "TB"][i];
   }
   updateThumbnailRemoveButton(thumbnail, fileName) {
-    const removeButton = thumbnail.querySelector(".h-form-file-thumbnail-remove");
+    const removeButton = thumbnail.querySelector(".formstrap-file-thumbnail-remove");
     if (removeButton) {
       removeButton.dataset.filePreviewNameParam = fileName;
     }

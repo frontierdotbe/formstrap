@@ -165,7 +165,7 @@ export default class extends Controller {
   }
 
   updateThumbnailRemoveButton (thumbnail, fileName) {
-    const removeButton = thumbnail.querySelector('.h-form-file-thumbnail-remove')
+    const removeButton = thumbnail.querySelector('.formstrap-file-thumbnail-remove')
     if (removeButton) {
       removeButton.dataset.filePreviewNameParam = fileName
     }

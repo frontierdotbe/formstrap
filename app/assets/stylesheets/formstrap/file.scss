@@ -1,20 +1,20 @@
-.h-form-file {
+.formstrap-file {
   --fs-file-spacer-2: calc(1rem * .5);
 
-  .h-form-file-thumbnails {
+  .formstrap-file-thumbnails {
     margin-bottom: var(--fs-file-spacer-2);
   }
 
   &.h-dropzone {
     padding: var(--fs-file-spacer-2);
 
-    .h-form-file-thumbnails {
+    .formstrap-file-thumbnails {
       margin-bottom: 0;
     }
   }
 }
 
-.h-form-file-thumbnails {
+.formstrap-file-thumbnails {
   --fs-file-spacer-2: calc(1rem * .5);
   position: relative;
   display: flex;
@@ -27,23 +27,23 @@
   }
 }
 
-.h-form-file-thumbnail {
+.formstrap-file-thumbnail {
   position: relative;
   pointer-events: initial !important;
   display: flex;
 
   &:hover {
-    .h-form-file-thumbnail-actions {
+    .formstrap-file-thumbnail-actions {
       display: block;
     }
   }
 }
 
-.h-form-file-thumbnail-actions {
+.formstrap-file-thumbnail-actions {
   display: none;
 }
 
-.h-form-file-thumbnail-remove {
+.formstrap-file-thumbnail-remove {
   position: absolute;
   top: 5px;
   right: 5px;
@@ -63,7 +63,7 @@
   }
 }
 
-.h-form-file-thumbnail-edit {
+.formstrap-file-thumbnail-edit {
   position: absolute;
   top: 5px;
   right: 35px;
