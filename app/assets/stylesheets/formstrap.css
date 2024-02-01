@@ -1425,7 +1425,7 @@ mark {
   bottom: 0;
   left: 0;
 }
-.h-autocomplete {
+.formstrap-autocomplete {
   --fs-dropdown-z-index: 1000;
   --fs-dropdown-font-size: 1rem;
   --fs-dropdown-border-radius: 0.375rem;
@@ -1444,7 +1444,7 @@ mark {
   border: var(--bs-border-width) solid var(--bs-border-color-translucent);
   overflow: hidden;
 }
-.h-autocomplete .list-group-flush {
+.formstrap-autocomplete .list-group-flush {
   margin: 0;
   padding: 0;
 }
