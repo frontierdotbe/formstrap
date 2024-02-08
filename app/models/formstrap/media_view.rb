@@ -128,7 +128,8 @@ module Formstrap
     end
 
     def edit_modal_url(attachment)
-      return nil unless edit_url.present? && attachment.persisted?
+      return nil unless edit_url.present?
+      return edit_url unless attachment&.persisted?
       edit_url.gsub(":id", attachment.id.to_s)
     end
 

@@ -50,7 +50,7 @@
         <% end %>
       </div>
       <div class="modal-footer">
-        <%= form_with url: formstrap_new_media_path, multipart: true, data: {"media-modal-target": "form", turbo_frame: "modal"}, class: "me-auto" do |form| %>
+        <%= formstrap_form_with url: formstrap_new_media_path, multipart: true, data: {"media-modal-target": "form", turbo_frame: "modal"}, class: "me-auto" do |form| %>
           <%= form.label :files, class: "btn btn-outline-secondary" do %>
             <%= bootstrap_icon("upload") %>
             <%= t(".upload") %>

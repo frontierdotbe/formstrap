@@ -22,8 +22,8 @@ export default class extends Controller {
 
   submitForm () {
     this.hidePlaceholder()
-    this.triggerFormSubmission()
     this.search('')
+    this.triggerFormSubmission()
   }
 
   inputChange (event) {
