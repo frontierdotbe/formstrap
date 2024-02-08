@@ -11087,7 +11087,9 @@ var media_controller_default = class extends Controller {
     newItem.querySelector('input[name*="[blob_id]"]').value = item.blobId;
     newItem.querySelector('input[name*="[_destroy]"]').value = false;
     const editButton = newItem.querySelector('[data-media-target="editButton"]');
-    editButton.setAttribute("href", editButton.getAttribute("href").replace(":id", item.blobId));
+    if (editButton) {
+      editButton.setAttribute("href", editButton.getAttribute("href").replace(":id", item.blobId));
+    }
     const oldThumbnail = newItem.querySelector(".formstrap-thumbnail");
     const newThumbnail = item.thumbnail.cloneNode(true);
     oldThumbnail.parentNode.replaceChild(newThumbnail, oldThumbnail);
