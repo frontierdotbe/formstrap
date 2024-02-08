@@ -16,6 +16,7 @@
   # * +width+ - Width of the thumbnail
   # * +height+ - Height of the thumbnail
   # * +exclude_models+ - Array of model names to exclude from selection (e.g. ["User", "Company"])
+  # * +edit_url+ - Placeholder link for the edit page of the attachment. Needs to contain a ":id" part, e.g. "admin_media_edit_url(":id"). This url be opened in a modal
   #
   # ==== References
   # https://headmin.dev/docs/forms/media
@@ -36,12 +37,12 @@
 
     <!-- Render previews for attachments -->
     <%= form.fields_for(media.nested_attribute, media.association_object) do |ff| %>
-      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept, exclude_models: media.exclude_models)) %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, edit_url: media.edit_modal_url(ff.object)) %>
     <% end %>
 
     <!-- Placeholder -->
     <div class="<%= "d-none" if media.attachments.any? %>" data-media-target="placeholder">
-      <a href="<%= formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept, exclude_models: media.exclude_models) %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
+      <a href="<%= media.modal_url %>" data-turbo-frame="modal" data-media-target="modalButton">
         <%= render "formstrap/shared/thumbnail", media.thumbnail_options %>
       </a>
     </div>
@@ -51,7 +52,7 @@
   <% association_object = ActiveStorage::Attachment.new %>
   <template data-media-target="template" data-template-id-regex="<%= association_object.object_id %>">
     <%= form.fields_for(media.nested_attribute, ActiveStorage::Attachment.new, child_index: association_object.object_id) do |ff| %>
-      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: formstrap_media_path(name: media.name, ids: media.blob_ids, min: media.min, max: media.max, mimetype: media.accept, exclude_models: media.exclude_models)) %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, edit_url: media.edit_modal_url(ff.object)) %>
     <% end %>
   </template>
 

@@ -9,6 +9,7 @@
   # * +sort+ - Allow sorting by dragging items. `active_storage_attachments` must have a position column.
   # * +width+ - Width of the thumbnail
   # * +height+ - Height of the thumbnail
+  # * +edit_url+ - URL for the edit modal
   #
 
   media_item = Formstrap::MediaItemView.new(local_assigns)
@@ -20,15 +21,17 @@
   <%= form.hidden_field(:position, value: media_item.position_value) if media_item.sort %>
   <%= form.hidden_field(:_destroy) %>
 
-  <a href="<%= media_item.url %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
+  <a href="<%= media_item.url %>" data-turbo-frame="modal" data-media-target="modalButton">
     <%= render "formstrap/shared/thumbnail", media_item.thumbnail_options %>
   </a>
 
   <div class="formstrap-file-thumbnail-actions">
     <!-- Edit -->
-    <a href="<%= formstrap_media_item_path(id: media_item.id) %>" class="formstrap-file-thumbnail-edit" data-turbo-frame="remote_modal" data-media-target="editButton">
-      <%= bootstrap_icon("pencil") %>
-    </a>
+    <% if media_item.edit_url %>
+      <a href="<%= media_item.edit_url %>" class="formstrap-file-thumbnail-edit" data-turbo-frame="modal" data-media-target="editButton">
+        <%= bootstrap_icon("pencil") %>
+      </a>
+    <% end %>
 
     <!-- Remove -->
     <div class="formstrap-file-thumbnail-remove" data-action="click->media#destroy">

@@ -187,7 +187,9 @@ export default class extends Controller {
 
     // Update edit button url
     const editButton = newItem.querySelector('[data-media-target="editButton"]')
-    editButton.setAttribute('href', editButton.getAttribute('href').replace('$1', item.blobId))
+    if (editButton) {
+      editButton.setAttribute('href', editButton.getAttribute('href').replace(':id', item.blobId))
+    }
 
     // Copy thumbnail
     const oldThumbnail = newItem.querySelector('.formstrap-thumbnail')

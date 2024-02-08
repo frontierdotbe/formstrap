@@ -7,19 +7,6 @@ en:
         other: Browse files or drag & drop them here
     group:
       save: Save
-    blocks:
-      add: "Add %{name}"
-      empty:
-        title: No blocks are added yet.
-        add: Add block
-      block:
-        add: Add
-        remove:
-          title: Delete
-          confirm: Are you sure you want to delete this?
-      modal:
-        close: Close
-        title: "Edit block '%{name}'"
     media:
       validation:
         min:
@@ -28,7 +15,6 @@ en:
         max:
           one: Please limit your selection to maximum 1 item
           other: "Please limit your selection to maximum %{count} items"
-
     select:
       blank: Make a choice
     repeater:

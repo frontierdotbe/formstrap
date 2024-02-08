@@ -30,7 +30,8 @@ module Formstrap
 
     def item_options
       options = {
-        sort: sort
+        sort: sort,
+        url: modal_url,
       }
 
       # Don't pass width or height if it was not defined
@@ -120,6 +121,16 @@ module Formstrap
       else
         1
       end
+    end
+
+    def modal_url
+      formstrap_media_path(name: name, ids: blob_ids, min: min, max: max, mimetype: accept, exclude_models: exclude_models)
+    end
+
+    def edit_modal_url(attachment)
+      return nil unless edit_url.present?
+      return edit_url unless attachment&.persisted?
+      edit_url.gsub(":id", attachment.id.to_s)
     end
 
     attr_reader :accept
