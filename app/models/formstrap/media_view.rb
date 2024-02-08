@@ -122,6 +122,15 @@ module Formstrap
       end
     end
 
+    def modal_url
+      formstrap_media_path(name: name, ids: blob_ids, min: min, max: max, mimetype: accept, exclude_models: exclude_models)
+    end
+
+    def edit_modal_url(attachment)
+      return nil unless edit_url.present? && attachment.persisted?
+      edit_url.gsub(":id", attachment.id.to_s)
+    end
+
     attr_reader :accept
 
     def required
