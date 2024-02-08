@@ -37,12 +37,12 @@
 
     <!-- Render previews for attachments -->
     <%= form.fields_for(media.nested_attribute, media.association_object) do |ff| %>
-      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: media.modal_url, edit_url: media.edit_modal_url(ff.object)) %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, edit_url: media.edit_modal_url(ff.object)) %>
     <% end %>
 
     <!-- Placeholder -->
     <div class="<%= "d-none" if media.attachments.any? %>" data-media-target="placeholder">
-      <a href="<%= media.modal_url %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
+      <a href="<%= media.modal_url %>" data-turbo-frame="modal" data-media-target="modalButton">
         <%= render "formstrap/shared/thumbnail", media.thumbnail_options %>
       </a>
     </div>
@@ -52,7 +52,7 @@
   <% association_object = ActiveStorage::Attachment.new %>
   <template data-media-target="template" data-template-id-regex="<%= association_object.object_id %>">
     <%= form.fields_for(media.nested_attribute, ActiveStorage::Attachment.new, child_index: association_object.object_id) do |ff| %>
-      <%= render "formstrap/media/item", media.item_options.merge(form: ff, url: media.modal_url, edit_url: media.edit_modal_url(ff.object)) %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, edit_url: media.edit_modal_url(ff.object)) %>
     <% end %>
   </template>
 

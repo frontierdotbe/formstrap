@@ -1,4 +1,4 @@
-<div class="formstrap-media-modal modal fade" tabindex="-1" data-controller="remote-modal media-modal" data-media-modal-ids-value="<%= params[:ids] ? params[:ids] : [] %>" data-name="<%= name %>" data-min="<%= min %>" data-max="<%= max %>">
+<div class="formstrap-media-modal modal fade" tabindex="-1" data-controller="modal media-modal" data-media-modal-ids-value="<%= params[:ids] ? params[:ids] : [] %>" data-name="<%= name %>" data-min="<%= min %>" data-max="<%= max %>">
   <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,7 +7,7 @@
         </h5>
 
         <div class="modal-header-actions d-flex align-items-center gap-3">
-          <%= formstrap_form_with url: formstrap_media_path, method: :get, data: {turbo_frame: "remote_modal", media_modal_target: "search"}, class: "modal-search d-flex gap-1" do |form| %>
+          <%= formstrap_form_with url: formstrap_media_path, method: :get, data: {turbo_frame: "modal", media_modal_target: "search"}, class: "modal-search d-flex gap-1" do |form| %>
             <%= form.hidden_field :name, value: request.query_parameters["name"] %>
             <%= form.hidden_field :min, value: request.query_parameters["min"] %>
             <%= form.hidden_field :max, value: request.query_parameters["max"] %>
@@ -50,7 +50,7 @@
         <% end %>
       </div>
       <div class="modal-footer">
-        <%= form_with url: formstrap_new_media_path, multipart: true, data: {"media-modal-target": "form", turbo_frame: "remote_modal"}, class: "me-auto" do |form| %>
+        <%= form_with url: formstrap_new_media_path, multipart: true, data: {"media-modal-target": "form", turbo_frame: "modal"}, class: "me-auto" do |form| %>
           <%= form.label :files, class: "btn btn-outline-secondary" do %>
             <%= bootstrap_icon("upload") %>
             <%= t(".upload") %>

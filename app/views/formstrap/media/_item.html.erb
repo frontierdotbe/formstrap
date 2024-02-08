@@ -21,14 +21,14 @@
   <%= form.hidden_field(:position, value: media_item.position_value) if media_item.sort %>
   <%= form.hidden_field(:_destroy) %>
 
-  <a href="<%= media_item.url %>" data-turbo-frame="remote_modal" data-media-target="modalButton">
+  <a href="<%= media_item.url %>" data-turbo-frame="modal" data-media-target="modalButton">
     <%= render "formstrap/shared/thumbnail", media_item.thumbnail_options %>
   </a>
 
   <div class="formstrap-file-thumbnail-actions">
     <!-- Edit -->
     <% if media_item.edit_url %>
-      <a href="<%= media_item.edit_url %>" class="formstrap-file-thumbnail-edit" data-turbo-frame="remote_modal" data-media-target="editButton">
+      <a href="<%= media_item.edit_url %>" class="formstrap-file-thumbnail-edit" data-turbo-frame="modal" data-media-target="editButton">
         <%= bootstrap_icon("pencil") %>
       </a>
     <% end %>

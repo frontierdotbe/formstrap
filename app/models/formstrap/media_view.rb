@@ -30,7 +30,8 @@ module Formstrap
 
     def item_options
       options = {
-        sort: sort
+        sort: sort,
+        url: modal_url,
       }
 
       # Don't pass width or height if it was not defined

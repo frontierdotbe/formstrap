@@ -1,0 +1,61 @@
+<div class="modal-header">
+  <h5 class="modal-title">
+    <%= t(".title", count: min.to_i < 1 ? 1 : min.to_i) %>
+  </h5>
+
+  <div class="modal-header-actions d-flex align-items-center gap-3">
+    <%= formstrap_form_with url: formstrap_media_path, method: :get, data: {turbo_frame: "modal", media_modal_target: "search"}, class: "modal-search d-flex gap-1" do |form| %>
+      <%= form.hidden_field :name, value: request.query_parameters["name"] %>
+      <%= form.hidden_field :min, value: request.query_parameters["min"] %>
+      <%= form.hidden_field :max, value: request.query_parameters["max"] %>
+      <%= form.hidden_field :mimetype, value: request.query_parameters["mimetype"] %>
+      <%= form.hidden_field "exclude_models[]", value: request.query_parameters["exclude_models"] %>
+
+      <% if request.query_parameters["ids"] %>
+        <% request.query_parameters["ids"].each do |id| %>
+          <%= form.hidden_field "ids[]", value: id, data: {media_modal_target: "searchId"} %>
+        <% end %>
+      <% end %>
+
+      <%= form.search :search, value: request.query_parameters["search"], class: "form-control", label: false, wrapper: {class: ""}, placeholder: t(".search")  %>
+    <% end %>
+
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="<%= t(".close") %>"></button>
+  </div>
+</div>
+<div class="modal-body">
+  <%= turbo_frame_tag "thumbnails", class: "d-flex flex-wrap gap-2" do %>
+    <% @blobs.each do |blob| %>
+      <%= turbo_frame_tag blob, src: formstrap_media_item_thumbnail_path(blob), loading: "lazy" do %>
+        <%= render "thumbnail" %>
+      <% end %>
+    <% end %>
+
+    <div data-media-modal-target="placeholder" class="<%= "d-none" if !@blobs.empty? && request.request_parameters["search"].nil? %>">
+      <p><%= t(".placeholder") %></p>
+    </div>
+
+    <div data-media-modal-target="search_no_results" class="<%= "d-none" if !@blobs.empty? || request.request_parameters["search"].present? %>">
+      <p><%= t(".search_no_results") %></p>
+    </div>
+  <% end %>
+
+  <% unless @blobs.empty? %>
+    <div class="mt-3">
+      <%= render "formstrap/pagination/infinite", items: @blobs %>
+    </div>
+  <% end %>
+</div>
+<div class="modal-footer">
+  <%= form_with url: formstrap_new_media_path, multipart: true, data: {"media-modal-target": "form", turbo_frame: "modal"}, class: "me-auto" do |form| %>
+    <%= form.label :files, class: "btn btn-outline-secondary" do %>
+      <%= bootstrap_icon("upload") %>
+      <%= t(".upload") %>
+      <%= form.file_field :files, accept: mimetypes, class: "d-none", multiple: true, data: {action: "change->media-modal#submitForm"} %>
+    <% end %>
+  <% end %>
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(".close") %></button>
+  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-action="click->media-modal#select" data-media-modal-target="selectButton">
+    <%= t(".select") %> (<span data-media-modal-target="count">0</span><%= t(".maximum", count: max.to_i) if max.present? %>)
+  </button>
+</div>
