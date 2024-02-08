@@ -1,6 +1,6 @@
 /* global HTMLInputElement */
-import {Controller} from '@hotwired/stimulus'
-import {createPopper} from '@popperjs/core'
+import { Controller } from '@hotwired/stimulus'
+import { createPopper } from '@popperjs/core'
 
 export default class extends Controller {
   static get targets () {
