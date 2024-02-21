@@ -7,7 +7,7 @@
 
   draggable = form.object.respond_to?(:position)
   destroyable = form.object.respond_to?(:destroy)
-  error_class = form.object.errors.present? ? "border border-danger" : ""
+  error_class = form.object&.errors&.present? ? "border border-danger" : ""
   class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "formstrap-repeater-row list-group-item"
 %>
 <div class="<%= class_names %> <%= error_class %>"
