@@ -46,9 +46,11 @@
   association_object = association_model.new
   with_positions = association_object.attributes.keys.include?("position")
 
-  # We sort the collection with ruby to prevent a new query to be made that would dispose of nested object in memory
   associations = form.object.send(attribute)
-  associations = with_positions ? associations.sort_by{|resource| resource.position} : associations
+
+  # We sort the collection with ruby to prevent a new query to be made that would dispose of nested object in memory
+  associations = (with_positions && associations.map(&:position).compact.any?) ? associations.sort_by{|resource| resource.position} : associations
+
   repeater_id = form.object_id
   pass_thru = template_names.count == 1 ? "[data-template-name=\"#{template_names.first}\"]" : nil
   show_label = label != false
