@@ -72,7 +72,7 @@
 
   <!-- Rows -->
   <%= form.fields_for attribute, associations do |ff| %>
-    <%= render "formstrap/repeater/row", row_options.merge(pass_thru: pass_thru, form: ff, repeater_id: repeater_id) do %>
+    <%= render "formstrap/repeater/row", row_options.merge(pass_thru: pass_thru, form: ff, repeater_id: repeater_id, row_index: ff.index) do %>
       <%= yield(ff) %>
     <% end %>
   <% end %>
@@ -119,12 +119,10 @@
     <!-- Templates -->
     <% template_names.each do |name| %>
       <template data-repeater-target="template" data-template-name="<%= name %>">
-        <% row_index = 0 %>
         <%= form.fields_for attribute, association_object, child_index: "rrrrrrrrr" do |ff| %>
-          <%= render "formstrap/repeater/row", row_options.merge(form: ff, pass_thru: pass_thru, repeater_id: repeater_id, row_index: row_index) do %>
+          <%= render "formstrap/repeater/row", row_options.merge(form: ff, pass_thru: pass_thru, repeater_id: repeater_id, row_index: nil) do %>
             <% yield(ff, name) %>
           <% end %>
-          <% row_index += 1 %>
         <% end %>
       </template>
     <% end %>
