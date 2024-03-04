@@ -3,6 +3,7 @@
   # accepts block: yes
   # parameters:
   #   form: Form object
+  #   index: Index of the row in the repeater
   #   pass_thru: (string) Pass thru for add button if needed
 
   draggable = form.object.respond_to?(:position)
@@ -12,7 +13,7 @@
 %>
 <div class="<%= class_names %> <%= error_class %>"
      data-repeater-target="row"
-     data-row-index="<%= form.options[:child_index] %>"
+     data-row-index="<%= index %>"
      data-new-record="<%= form.object.new_record? %>"
 >
 

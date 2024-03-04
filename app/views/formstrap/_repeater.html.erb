@@ -49,7 +49,7 @@
   associations = form.object.send(attribute)
 
   # We sort the collection with ruby to prevent a new query to be made that would dispose of nested object in memory
-  associations = (with_positions && associations.map(&:position).compact.any?) ? associations.sort_by{|resource| resource.position} : associations
+  associations = (with_positions && associations.map(&:position).compact.any?) ? associations.sort_by { |resource| resource.position } : associations
 
   repeater_id = form.object_id
   pass_thru = template_names.count == 1 ? "[data-template-name=\"#{template_names.first}\"]" : nil
@@ -72,7 +72,7 @@
 
   <!-- Rows -->
   <%= form.fields_for attribute, associations do |ff| %>
-    <%= render "formstrap/repeater/row", row_options.merge(pass_thru: pass_thru, form: ff, repeater_id: repeater_id) do %>
+    <%= render "formstrap/repeater/row", row_options.merge(pass_thru: pass_thru, form: ff, repeater_id: repeater_id, index: ff.index) do %>
       <%= yield(ff) %>
     <% end %>
   <% end %>
@@ -87,12 +87,12 @@
 
     <!-- Button -->
     <div
-       class="btn btn-sm btn-outline-secondary"
-       data-repeater-target="addButton"
-       data-popup-target="button"
-       data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
-       data-popup-pass-thru="<%= pass_thru %>"
-       data-action="click->repeater#resetButtonIndices click->popup#open"
+      class="btn btn-sm btn-outline-secondary"
+      data-repeater-target="addButton"
+      data-popup-target="button"
+      data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
+      data-popup-pass-thru="<%= pass_thru %>"
+      data-action="click->repeater#resetButtonIndices click->popup#open"
     >
       <%= bootstrap_icon("plus") %>
       <%= t(".add", name: association_model.model_name.human) %>
@@ -103,12 +103,12 @@
       <div class="d-grid gap-2">
         <% template_names.each do |name| %>
           <div
-             class="btn btn-sm btn-outline-secondary"
-             data-popup-target="button"
-             data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
-             data-action="click->repeater#addRow click->popup#close"
-             data-row-index=""
-             data-template-name="<%= name %>"
+            class="btn btn-sm btn-outline-secondary"
+            data-popup-target="button"
+            data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
+            data-action="click->repeater#addRow click->popup#close"
+            data-row-index=""
+            data-template-name="<%= name %>"
           >
             <%= t("blocks.#{name}", default: name).humanize %>
           </div>
@@ -118,9 +118,9 @@
 
     <!-- Templates -->
     <% template_names.each do |name| %>
-      <template data-repeater-target="template" data-template-name="<%= name %>" data-template-id-regex="<%= association_object.object_id %>">
-        <%= form.fields_for attribute, association_object, child_index: association_object.object_id do |ff| %>
-          <%= render "formstrap/repeater/row", row_options.merge(form: ff, pass_thru: pass_thru, repeater_id: repeater_id) do %>
+      <template data-repeater-target="template" data-template-name="<%= name %>">
+        <%= form.fields_for attribute, association_object, child_index: "rrrrrrrrr" do |ff| %>
+          <%= render "formstrap/repeater/row", row_options.merge(form: ff, pass_thru: pass_thru, repeater_id: repeater_id, index: nil) do %>
             <% yield(ff, name) %>
           <% end %>
         <% end %>

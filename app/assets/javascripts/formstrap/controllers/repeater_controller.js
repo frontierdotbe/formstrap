@@ -39,7 +39,7 @@ export default class extends Controller {
 
   updatePopupButtonIndices (index) {
     const popup = document.querySelector(`[data-popup-target="popup"][data-popup-id="repeater-buttons-${this.idValue}"]`)
-    const buttons = popup.querySelectorAll('a')
+    const buttons = popup.querySelectorAll('[data-popup-target="button"]')
     buttons.forEach((button) => {
       button.dataset.rowIndex = index
     })
@@ -52,17 +52,17 @@ export default class extends Controller {
     const rowIndex = button.dataset.rowIndex
 
     // Prepare html from template
-    const template = this.getTemplate(templateName)
-    const html = this.replaceIdsWithTimestamps(template)
+    let template = this.getTemplate(templateName).content.cloneNode(true)
+    template = this.replaceIdsWithTimestamps(template)
 
     // Fallback to last row if no index is set
     if (rowIndex) {
       // Insert new row after defined row
       const row = this.rowTargets[rowIndex]
-      row.insertAdjacentHTML('afterend', html)
+      this.listTarget.insertBefore(template, row.nextSibling)
     } else {
       // Insert before footer
-      this.footerTarget.insertAdjacentHTML('beforebegin', html)
+      this.listTarget.insertBefore(template, this.footerTarget)
     }
 
     this.resetIndices()
@@ -108,8 +108,21 @@ export default class extends Controller {
   }
 
   replaceIdsWithTimestamps (template) {
-    const regex = new RegExp(template.dataset.templateIdRegex, 'g')
-    return template.innerHTML.replace(regex, new Date().getTime())
+    const pattern = 'rrrrrrrrr'
+    const replacement = new Date().getTime().toString()
+
+    // Replace ids
+    template.querySelectorAll(`input[id*="${pattern}"], select[id*="${pattern}"], textarea[id*="${pattern}"], button[id*="${pattern}"]`).forEach((node) => {
+      const idValue = node.getAttribute('id')
+      node.setAttribute('id', idValue.replace(pattern, replacement))
+    })
+
+    // Replace names
+    template.querySelectorAll(`input[name*="${pattern}"], select[name*="${pattern}"], textarea[name*="${pattern}"], button[name*="${pattern}"]`).forEach((node) => {
+      const nameValue = node.getAttribute('name')
+      node.setAttribute('name', nameValue.replace(pattern, replacement))
+    })
+    return template
   }
 
   visibleRowsCount () {
