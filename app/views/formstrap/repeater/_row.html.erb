@@ -18,8 +18,8 @@
   class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "formstrap-repeater-row list-group-item #{'p-0' if preview}"
 %>
 <div class="<%= class_names %> <%= error_class %>"
-     data-controller="<%= "test" if preview %>"
-     data-test-url-value="<%= preview_url if preview %>"
+     data-controller="<%= "nested-preview" if preview %>"
+     data-nested-preview-url-value="<%= preview_url if preview %>"
      data-repeater-target="row"
      data-row-index="<%= index %>"
      data-new-record="<%= form.object.new_record? %>"

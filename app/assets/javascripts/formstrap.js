@@ -11293,6 +11293,69 @@ var media_modal_controller_default = class extends Controller {
   }
 };
 
+// app/assets/javascripts/formstrap/controllers/nested_preview_controller.js
+var nested_preview_controller_default = class extends Controller {
+  static get targets() {
+    return ["fields", "preview"];
+  }
+  static get values() {
+    return {
+      url: String
+    };
+  }
+  connect() {
+    this.requestPreview();
+  }
+  requestPreview() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", this.urlValue, false);
+    const formData = this.buildFormData();
+    xhr.send(formData);
+    this.handleRequest(xhr);
+  }
+  handleRequest(request) {
+    if (request.status === 200) {
+      this.updatePreview(request.responseText);
+    } else {
+      console.error("Upload failed");
+    }
+  }
+  buildFormData() {
+    const fields = this.fieldsTarget;
+    const formData = new FormData();
+    const regex = /page\[blocks_attributes\]\[\d+\]/g;
+    const replacement = "block";
+    const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])');
+    formElements.forEach(function(element) {
+      const currentName = element.getAttribute("name");
+      const newName = currentName.replace(regex, replacement);
+      formData.append(newName, element.value);
+    });
+    formData.append("authenticity_token", this.getAuthenticityToken());
+    return formData;
+  }
+  updatePreview(html) {
+    const shadowRoot = this.previewShadowRoot();
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("pe-none");
+    wrapper.innerHTML = html;
+    shadowRoot.innerHTML = "";
+    shadowRoot.appendChild(wrapper);
+  }
+  previewShadowRoot() {
+    const shadowRoot = this.previewTarget.shadowRoot;
+    if (shadowRoot !== null) {
+      return shadowRoot;
+    } else {
+      return this.previewTarget.attachShadow({ mode: "open" });
+    }
+  }
+  getAuthenticityToken() {
+    const tokenTag = document.querySelector('meta[name="csrf-token"]');
+    return tokenTag.getAttribute("content");
+  }
+};
+
 // node_modules/@popperjs/core/lib/enums.js
 var top = "top";
 var bottom = "bottom";
@@ -13172,69 +13235,6 @@ var select_controller_default = class extends Controller {
   }
 };
 
-// app/assets/javascripts/formstrap/controllers/test_controller.js
-var test_controller_default = class extends Controller {
-  static get targets() {
-    return ["fields", "preview"];
-  }
-  static get values() {
-    return {
-      url: String
-    };
-  }
-  connect() {
-    this.refresh();
-  }
-  refresh() {
-    const xhr = new XMLHttpRequest();
-    xhr.open("POST", this.urlValue, false);
-    const formData = this.buildFormData();
-    xhr.send(formData);
-    this.handleRequest(xhr);
-  }
-  handleRequest(request) {
-    if (request.status === 200) {
-      this.updatePreview(request.responseText);
-    } else {
-      console.error("Upload failed");
-    }
-  }
-  buildFormData() {
-    const fields = this.fieldsTarget;
-    const formData = new FormData();
-    const regex = /page\[blocks_attributes\]\[\d+\]/g;
-    const replacement = "block";
-    const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])');
-    formElements.forEach(function(element) {
-      const currentName = element.getAttribute("name");
-      const newName = currentName.replace(regex, replacement);
-      formData.append(newName, element.value);
-    });
-    formData.append("authenticity_token", this.getAuthenticityToken());
-    return formData;
-  }
-  updatePreview(html) {
-    const shadowRoot = this.previewShadowRoot();
-    const wrapper = document.createElement("div");
-    wrapper.classList.add("pe-none");
-    wrapper.innerHTML = html;
-    shadowRoot.innerHTML = "";
-    shadowRoot.appendChild(wrapper);
-  }
-  previewShadowRoot() {
-    const shadowRoot = this.previewTarget.shadowRoot;
-    if (shadowRoot !== null) {
-      return shadowRoot;
-    } else {
-      return this.previewTarget.attachShadow({ mode: "open" });
-    }
-  }
-  getAuthenticityToken() {
-    const tokenTag = document.querySelector('meta[name="csrf-token"]');
-    return tokenTag.getAttribute("content");
-  }
-};
-
 // app/assets/javascripts/formstrap/controllers/textarea_controller.js
 var textarea_controller_default = class extends Controller {
   static get targets() {
@@ -13287,12 +13287,12 @@ var Formstrap = class {
     Stimulus.register("infinite-scroller", infinite_scroller_controller_default);
     Stimulus.register("media", media_controller_default);
     Stimulus.register("media-modal", media_modal_controller_default);
+    Stimulus.register("nested-preview", nested_preview_controller_default);
     Stimulus.register("popup", popup_controller_default);
     Stimulus.register("preview", preview_controller_default);
     Stimulus.register("redactorx", redactorx_controller_default);
     Stimulus.register("repeater", repeater_controller_default);
     Stimulus.register("select", select_controller_default);
-    Stimulus.register("test", test_controller_default);
     Stimulus.register("textarea", textarea_controller_default);
   }
 };

@@ -12,10 +12,10 @@ export default class extends Controller {
   }
 
   connect () {
-    this.refresh()
+    this.requestPreview()
   }
 
-  refresh () {
+  requestPreview () {
     // Create an AJAX request
     const xhr = new XMLHttpRequest()
     xhr.open('POST', this.urlValue, false)
