@@ -54,6 +54,9 @@ export default class extends Controller {
       formData.append(newName, element.value)
     })
 
+    // Add authenticity token
+    formData.append('authenticity_token', this.getAuthenticityToken())
+
     return formData
   }
 
@@ -84,5 +87,10 @@ export default class extends Controller {
     } else {
       return this.previewTarget.attachShadow({ mode: 'open' })
     }
+  }
+
+  getAuthenticityToken () {
+    const tokenTag = document.querySelector('meta[name="csrf-token"]')
+    return tokenTag.getAttribute('content')
   }
 }

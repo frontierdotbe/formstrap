@@ -13210,6 +13210,7 @@ var test_controller_default = class extends Controller {
       const newName = currentName.replace(regex, replacement);
       formData.append(newName, element.value);
     });
+    formData.append("authenticity_token", this.getAuthenticityToken());
     return formData;
   }
   updatePreview(html) {
@@ -13227,6 +13228,10 @@ var test_controller_default = class extends Controller {
     } else {
       return this.previewTarget.attachShadow({ mode: "open" });
     }
+  }
+  getAuthenticityToken() {
+    const tokenTag = document.querySelector('meta[name="csrf-token"]');
+    return tokenTag.getAttribute("content");
   }
 };
 
