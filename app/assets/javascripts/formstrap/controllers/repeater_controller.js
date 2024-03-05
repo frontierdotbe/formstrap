@@ -117,11 +117,30 @@ export default class extends Controller {
       node.setAttribute('id', idValue.replace(pattern, replacement))
     })
 
+    // Replace labels
+    template.querySelectorAll(`label[for*="${pattern}"]`).forEach((node) => {
+      const forValue = node.getAttribute('for')
+      node.setAttribute('for', forValue.replace(pattern, replacement))
+    })
+
     // Replace names
     template.querySelectorAll(`input[name*="${pattern}"], select[name*="${pattern}"], textarea[name*="${pattern}"], button[name*="${pattern}"]`).forEach((node) => {
       const nameValue = node.getAttribute('name')
       node.setAttribute('name', nameValue.replace(pattern, replacement))
     })
+
+    // Replace offcanvas targets
+    template.querySelectorAll(`div[data-bs-target="#offcanvas-${pattern}"]`).forEach((node) => {
+      const targetValue = node.getAttribute('data-bs-target')
+      node.setAttribute('data-bs-target', targetValue.replace(pattern, replacement))
+    })
+
+    // Replace offcanvas ids
+    template.querySelectorAll(`.offcanvas[id="offcanvas-${pattern}"]`).forEach((node) => {
+      const idValue = node.getAttribute('id')
+      node.setAttribute('id', idValue.replace(pattern, replacement))
+    })
+
     return template
   }
 

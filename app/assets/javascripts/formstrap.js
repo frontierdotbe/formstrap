@@ -13034,9 +13034,21 @@ var repeater_controller_default = class extends Controller {
       const idValue = node.getAttribute("id");
       node.setAttribute("id", idValue.replace(pattern, replacement));
     });
+    template.querySelectorAll(`label[for*="${pattern}"]`).forEach((node) => {
+      const forValue = node.getAttribute("for");
+      node.setAttribute("for", forValue.replace(pattern, replacement));
+    });
     template.querySelectorAll(`input[name*="${pattern}"], select[name*="${pattern}"], textarea[name*="${pattern}"], button[name*="${pattern}"]`).forEach((node) => {
       const nameValue = node.getAttribute("name");
       node.setAttribute("name", nameValue.replace(pattern, replacement));
+    });
+    template.querySelectorAll(`div[data-bs-target="#offcanvas-${pattern}"]`).forEach((node) => {
+      const targetValue = node.getAttribute("data-bs-target");
+      node.setAttribute("data-bs-target", targetValue.replace(pattern, replacement));
+    });
+    template.querySelectorAll(`.offcanvas[id="offcanvas-${pattern}"]`).forEach((node) => {
+      const idValue = node.getAttribute("id");
+      node.setAttribute("id", idValue.replace(pattern, replacement));
     });
     return template;
   }
@@ -13114,6 +13126,64 @@ var select_controller_default = class extends Controller {
   }
 };
 
+// app/assets/javascripts/formstrap/controllers/test_controller.js
+var test_controller_default = class extends Controller {
+  static get targets() {
+    return ["fields", "preview"];
+  }
+  static get values() {
+    return {
+      url: String
+    };
+  }
+  connect() {
+    this.refresh();
+  }
+  refresh() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", this.urlValue, false);
+    const formData = this.buildFormData();
+    xhr.send(formData);
+    this.handleRequest(xhr);
+  }
+  handleRequest(request) {
+    if (request.status === 200) {
+      this.updatePreview(request.responseText);
+    } else {
+      console.error("Upload failed");
+    }
+  }
+  buildFormData() {
+    const fields = this.fieldsTarget;
+    const formData = new FormData();
+    const regex = /page\[blocks_attributes\]\[\d+\]/g;
+    const replacement = "block";
+    const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])');
+    formElements.forEach(function(element) {
+      const currentName = element.getAttribute("name");
+      const newName = currentName.replace(regex, replacement);
+      formData.append(newName, element.value);
+    });
+    return formData;
+  }
+  updatePreview(html) {
+    const shadowRoot = this.previewShadowRoot();
+    const wrapper = document.createElement("div");
+    wrapper.classList.add("pe-none");
+    wrapper.innerHTML = html;
+    shadowRoot.innerHTML = "";
+    shadowRoot.appendChild(wrapper);
+  }
+  previewShadowRoot() {
+    const shadowRoot = this.previewTarget.shadowRoot;
+    if (shadowRoot !== null) {
+      return shadowRoot;
+    } else {
+      return this.previewTarget.attachShadow({ mode: "open" });
+    }
+  }
+};
+
 // app/assets/javascripts/formstrap/controllers/textarea_controller.js
 var textarea_controller_default = class extends Controller {
   static get targets() {
@@ -13170,6 +13240,7 @@ var Formstrap = class {
     Stimulus.register("redactorx", redactorx_controller_default);
     Stimulus.register("repeater", repeater_controller_default);
     Stimulus.register("select", select_controller_default);
+    Stimulus.register("test", test_controller_default);
     Stimulus.register("textarea", textarea_controller_default);
   }
 };

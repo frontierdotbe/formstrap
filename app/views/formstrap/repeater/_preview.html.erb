@@ -1,0 +1,17 @@
+<div data-test-target="fields">
+  <div class="offcanvas offcanvas-end" tabindex="-1" id="<%= offcanvas_id %>" aria-labelledby="offcanvasRightLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel">Edit fields</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      <!-- Form -->
+      <%= yield %>
+
+      <!-- Preview sync button -->
+      <div class="btn btn-primary" data-action="click->test#refresh">
+        <%= bootstrap_icon("arrow-repeat") %> Sync preview
+      </div>
+    </div>
+  </div>
+</div>

@@ -12,6 +12,7 @@ import PopupController from './controllers/popup_controller'
 import RedactorxController from './controllers/redactorx_controller'
 import RepeaterController from './controllers/repeater_controller'
 import SelectController from './controllers/select_controller'
+import TestController from './controllers/test_controller'
 import TextareaController from './controllers/textarea_controller'
 
 export class Formstrap {
@@ -29,6 +30,7 @@ export class Formstrap {
     Stimulus.register('redactorx', RedactorxController)
     Stimulus.register('repeater', RepeaterController)
     Stimulus.register('select', SelectController)
+    Stimulus.register('test', TestController)
     Stimulus.register('textarea', TextareaController)
   }
 }

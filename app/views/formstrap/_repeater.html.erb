@@ -1,14 +1,17 @@
 <%
   # formstrap/repeater
   #
-  # ==== Options
+  # ==== Required parameters
   # * +form+ -  Form object
   # * +attribute+ - Name of the attribute of the form model
+  #
+  # ==== Optional parameters
   # * +header+ - Name of the template to use as header
   # * +label+ - Text to show as label. Label will be hidden if value is false
   # * +templates+ - List of all views that can be used as a template for a new block
   # * +flush+ - Set to true if you want the list items to sit flush with its parent.
   # * +row+ - Pass hash with options to pass to the row template.
+  # * +preview_url+ - Enables previews of each row. Provide and endpoint capable of rendering a preview for the rows values.
   #
   # ==== Examples
   #   # Basic version
@@ -28,7 +31,12 @@
   #
   #   # Allow more than one type of fields to be inserted. You must specify the templates as an array of view paths
   #   <% templates = ["admin/questions/fields/type_1", "admin/questions/fields/type_2"] %#>
-  #   <% render "formstrap/repeater", form: form, attribute: :questions, templates: templates do |question| %#>
+  #   <% render "formstrap/repeater", form: form, attribute: :questions, templates: templates do |question, template_name| %#>
+  #     <% render "admin/questions/#{template_name}, form: :question" %#>
+  #   <% end %#>
+  #
+  #   # Enable previews
+  #   <% render "formstrap/repeater", form: form, attribute: :questions, preview_url: admin_preview_question_path do |question| %#>
   #     <% render "admin/questions/fields, form: :question" %#>
   #   <% end %#>
 
@@ -37,6 +45,7 @@
   header = local_assigns.has_key?(:header) ? header : nil
   templates = local_assigns.has_key?(:templates) ? templates : []
   flush = local_assigns.has_key?(:flush) ? flush : true
+  preview_url = local_assigns.has_key?(:preview_url) ? preview_url : nil
   row_options = local_assigns.has_key?(:row) ? row : {}
 
   template_names = templates.map { |template| File.basename(template, ".html.erb") }
@@ -54,6 +63,13 @@
   repeater_id = form.object_id
   pass_thru = template_names.count == 1 ? "[data-template-name=\"#{template_names.first}\"]" : nil
   show_label = label != false
+
+  # Override default row options
+  row_options.merge!(
+    preview_url: preview_url,
+    pass_thru: pass_thru,
+    repeater_id: repeater_id,
+  )
 %>
 
 <!-- Label -->
@@ -72,7 +88,7 @@
 
   <!-- Rows -->
   <%= form.fields_for attribute, associations do |ff| %>
-    <%= render "formstrap/repeater/row", row_options.merge(pass_thru: pass_thru, form: ff, repeater_id: repeater_id, index: ff.index) do %>
+    <%= render "formstrap/repeater/row", row_options.merge(form: ff, index: ff.index) do %>
       <%= yield(ff) %>
     <% end %>
   <% end %>
@@ -117,11 +133,11 @@
     <% end %>
 
     <!-- Templates -->
-    <% template_names.each do |name| %>
-      <template data-repeater-target="template" data-template-name="<%= name %>">
+    <% template_names.each do |template_name| %>
+      <template data-repeater-target="template" data-template-name="<%= template_name %>">
         <%= form.fields_for attribute, association_object, child_index: "rrrrrrrrr" do |ff| %>
           <%= render "formstrap/repeater/row", row_options.merge(form: ff, pass_thru: pass_thru, repeater_id: repeater_id, index: nil) do %>
-            <% yield(ff, name) %>
+            <%= yield(ff, template_name) %>
           <% end %>
         <% end %>
       </template>

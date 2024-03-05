@@ -3,15 +3,24 @@
   # accepts block: yes
   # parameters:
   #   form: Form object
+  #   repeater_id: ID of the repeater
   #   index: Index of the row in the repeater
   #   pass_thru: (string) Pass thru for add button if needed
+  #   preview_url: (string) URL for previews
 
+  repeater_id = local_assigns[:repeater_id]
+  pass_thru = local_assigns[:pass_thru]
   draggable = form.object.respond_to?(:position)
   destroyable = form.object.respond_to?(:destroy)
   error_class = form.object&.errors&.present? ? "border border-danger" : ""
-  class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "formstrap-repeater-row list-group-item"
+  preview_url = local_assigns.has_key?(:preview_url) ? local_assigns[:preview_url] : nil
+  preview = preview_url.present?
+  offcanvas_id = "offcanvas-#{form.options[:child_index]}"
+  class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "formstrap-repeater-row list-group-item #{'p-0' if preview}"
 %>
 <div class="<%= class_names %> <%= error_class %>"
+     data-controller="<%= "test" if preview %>"
+     data-test-url-value="<%= preview_url if preview %>"
      data-repeater-target="row"
      data-row-index="<%= index %>"
      data-new-record="<%= form.object.new_record? %>"
@@ -50,5 +59,17 @@
     <%= bootstrap_icon("dash-circle") %>
   </div>
 
-  <%= yield %>
+  <!-- Preview placeholder -->
+  <div class="formstrap-repeater-row-preview" role="button" data-test-target="preview" data-bs-toggle="offcanvas" data-bs-target="#<%= offcanvas_id %>" aria-controls="offcanvasRight">
+  </div>
+
+  <% if preview %>
+    <!-- Wrap row in preview layout  -->
+    <%= render layout: "formstrap/repeater/preview", locals: { offcanvas_id: offcanvas_id } do %>
+      <%= yield %>
+    <% end %>
+  <% else %>
+    <!-- Just render row  -->
+    <%= yield %>
+  <% end %>
 </div>
