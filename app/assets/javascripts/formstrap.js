@@ -4,6 +4,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -19,6 +20,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 
 // node_modules/tom-select/dist/js/tom-select.complete.js
 var require_tom_select_complete = __commonJS({
@@ -12917,6 +12922,40 @@ var popup_controller_default = class extends Controller {
   }
 };
 
+// app/assets/javascripts/formstrap/controllers/preview_controller.js
+var preview_controller_default = class extends Controller {
+  connect() {
+    this.button = this.element;
+    this.button.addEventListener("click", (event) => {
+      event.preventDefault();
+      this.handleButtonClick();
+    });
+  }
+  handleButtonClick() {
+    const form = this.form().cloneNode(true);
+    const authenticityTokenInput = form.querySelector('input[name="authenticity_token"]');
+    const newAuthenticityToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
+    const methodInput = form.querySelector('input[name="_method"]');
+    const idInputs = form.querySelectorAll('input[name$="[id]"], select[name$="[id]"], textarea[name$="[id]"], button[name$="[id]"]');
+    idInputs.forEach((input) => {
+      input.remove();
+    });
+    form.setAttribute("action", this.urlValue);
+    form.setAttribute("target", "_blank");
+    authenticityTokenInput.value = newAuthenticityToken;
+    methodInput.value = "post";
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+  }
+  form() {
+    return this.button.closest("form");
+  }
+};
+__publicField(preview_controller_default, "values", {
+  url: String
+});
+
 // app/assets/javascripts/formstrap/controllers/redactorx_controller.js
 var redactorx_controller_default = class extends Controller {
   connect() {
@@ -13237,6 +13276,7 @@ var Formstrap = class {
     Stimulus.register("media", media_controller_default);
     Stimulus.register("media-modal", media_modal_controller_default);
     Stimulus.register("popup", popup_controller_default);
+    Stimulus.register("preview", preview_controller_default);
     Stimulus.register("redactorx", redactorx_controller_default);
     Stimulus.register("repeater", repeater_controller_default);
     Stimulus.register("select", select_controller_default);

@@ -15,7 +15,6 @@
   error_class = form.object&.errors&.present? ? "border border-danger" : ""
   preview_url = local_assigns.has_key?(:preview_url) ? local_assigns[:preview_url] : nil
   preview = preview_url.present?
-  offcanvas_id = "offcanvas-#{form.options[:child_index]}"
   class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "formstrap-repeater-row list-group-item #{'p-0' if preview}"
 %>
 <div class="<%= class_names %> <%= error_class %>"
@@ -59,17 +58,13 @@
     <%= bootstrap_icon("dash-circle") %>
   </div>
 
-  <!-- Preview placeholder -->
-  <div class="formstrap-repeater-row-preview" role="button" data-test-target="preview" data-bs-toggle="offcanvas" data-bs-target="#<%= offcanvas_id %>" aria-controls="offcanvasRight">
-  </div>
-
   <% if preview %>
     <!-- Wrap row in preview layout  -->
-    <%= render layout: "formstrap/repeater/preview", locals: { offcanvas_id: offcanvas_id } do %>
+    <%= render layout: "formstrap/repeater/preview", locals: { id: form.options[:child_index] } do %>
       <%= yield %>
     <% end %>
   <% else %>
-    <!-- Just render row  -->
+    <!-- Just render row content -->
     <%= yield %>
   <% end %>
 </div>
