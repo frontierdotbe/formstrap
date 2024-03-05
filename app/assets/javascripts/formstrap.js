@@ -12928,25 +12928,32 @@ var preview_controller_default = class extends Controller {
     this.button = this.element;
     this.button.addEventListener("click", (event) => {
       event.preventDefault();
-      this.handleButtonClick();
+      this.requestPreview();
     });
   }
-  handleButtonClick() {
-    const form = this.form().cloneNode(true);
-    const authenticityTokenInput = form.querySelector('input[name="authenticity_token"]');
-    const newAuthenticityToken = document.querySelector('meta[name="csrf-token"]').getAttribute("content");
-    const methodInput = form.querySelector('input[name="_method"]');
-    const idInputs = form.querySelectorAll('input[name$="[id]"], select[name$="[id]"], textarea[name$="[id]"], button[name$="[id]"]');
-    idInputs.forEach((input) => {
-      input.remove();
-    });
-    form.setAttribute("action", this.urlValue);
-    form.setAttribute("target", "_blank");
-    authenticityTokenInput.value = newAuthenticityToken;
-    methodInput.value = "post";
+  requestPreview() {
+    const form = this.buildFakeForm();
     document.body.appendChild(form);
     form.submit();
     document.body.removeChild(form);
+  }
+  buildFakeForm() {
+    const form = this.form().cloneNode(true);
+    const idInputs = form.querySelectorAll('input[name$="[id]"], select[name$="[id]"], textarea[name$="[id]"], button[name$="[id]"]');
+    idInputs.forEach((input) => {
+      input.value = "";
+    });
+    form.setAttribute("action", this.urlValue);
+    form.setAttribute("target", "_blank");
+    const authenticityTokenInput = form.querySelector('input[name="authenticity_token"]');
+    authenticityTokenInput.value = this.getAuthenticityToken();
+    const methodInput = form.querySelector('input[name="_method"]');
+    methodInput.value = "post";
+    return form;
+  }
+  getAuthenticityToken() {
+    const tokenTag = document.querySelector('meta[name="csrf-token"]');
+    return tokenTag.getAttribute("content");
   }
   form() {
     return this.button.closest("form");
