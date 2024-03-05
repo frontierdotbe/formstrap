@@ -13010,8 +13010,8 @@ var preview_controller_default = class extends Controller {
     form.setAttribute("target", "_blank");
     const authenticityTokenInput = form.querySelector('input[name="authenticity_token"]');
     authenticityTokenInput.value = this.getAuthenticityToken();
-    const methodInput = form.querySelector('input[name="_method"]');
-    methodInput.value = "post";
+    form.querySelector('input[name="_method"]')?.remove();
+    form.setAttribute("method", "POST");
     return form;
   }
   getAuthenticityToken() {

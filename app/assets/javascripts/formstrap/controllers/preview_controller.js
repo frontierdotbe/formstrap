@@ -45,9 +45,11 @@ export default class extends Controller {
     const authenticityTokenInput = form.querySelector('input[name="authenticity_token"]')
     authenticityTokenInput.value = this.getAuthenticityToken()
 
-    // Override method
-    const methodInput = form.querySelector('input[name="_method"]')
-    methodInput.value = 'post'
+    // Remove method input if present (to force POST)
+    form.querySelector('input[name="_method"]')?.remove()
+
+    // Ensure POST method
+    form.setAttribute('method', 'POST')
 
     return form
   }
