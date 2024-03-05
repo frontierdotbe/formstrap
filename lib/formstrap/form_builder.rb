@@ -114,10 +114,8 @@ module Formstrap
       end
     end
 
-    def repeater(attribute, options = {})
-      @template.render("formstrap/repeater", form: self, attribute: attribute, **options) do |form_object, template_name|
-        yield(form_object, template_name) if block_given?
-      end
+    def repeater_for(attribute, options = {}, &block)
+      @template.render("formstrap/repeater", form: self, attribute: attribute, **options, &block)
     end
 
     def redactorx(attribute, options = {})
