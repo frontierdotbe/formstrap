@@ -1408,7 +1408,7 @@ mark {
 .nested-preview-offcanvas.showing,
 .nested-preview .hiding.show,
 .nested-preview .hiding.showing {
-  display: block !important;
+  display: flex !important;
 }
 .formstrap-media-modal .formstrap-thumbnail {
   cursor: pointer;
