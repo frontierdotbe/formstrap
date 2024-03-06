@@ -11296,7 +11296,7 @@ var media_modal_controller_default = class extends Controller {
 // app/assets/javascripts/formstrap/controllers/nested_preview_controller.js
 var nested_preview_controller_default = class extends Controller {
   static get targets() {
-    return ["fields", "preview"];
+    return ["fields", "preview", "previewContent"];
   }
   static get values() {
     return {
@@ -11337,17 +11337,16 @@ var nested_preview_controller_default = class extends Controller {
   updatePreview(html) {
     const shadowRoot = this.previewShadowRoot();
     const wrapper = document.createElement("div");
-    wrapper.classList.add("pe-none");
     wrapper.innerHTML = html;
     shadowRoot.innerHTML = "";
     shadowRoot.appendChild(wrapper);
   }
   previewShadowRoot() {
-    const shadowRoot = this.previewTarget.shadowRoot;
+    const shadowRoot = this.previewContentTarget.shadowRoot;
     if (shadowRoot !== null) {
       return shadowRoot;
     } else {
-      return this.previewTarget.attachShadow({ mode: "open" });
+      return this.previewContentTarget.attachShadow({ mode: "open" });
     }
   }
   getAuthenticityToken() {

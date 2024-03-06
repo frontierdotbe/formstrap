@@ -1400,6 +1400,16 @@ mark {
 .formstrap-popup.closed {
   display: none;
 }
+.nested-preview-offcanvas,
+.nested-preview .hiding {
+  display: none !important;
+}
+.nested-preview-offcanvas.show,
+.nested-preview-offcanvas.showing,
+.nested-preview .hiding.show,
+.nested-preview .hiding.showing {
+  display: block !important;
+}
 .formstrap-media-modal .formstrap-thumbnail {
   cursor: pointer;
 }

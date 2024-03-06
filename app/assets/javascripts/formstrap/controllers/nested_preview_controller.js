@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static get targets () {
-    return ['fields', 'preview']
+    return ['fields', 'preview', 'previewContent']
   }
 
   static get values () {
@@ -65,11 +65,6 @@ export default class extends Controller {
 
     // Wrap the HTML in a div
     const wrapper = document.createElement('div')
-
-    // Disable pointer events
-    wrapper.classList.add('pe-none')
-
-    // Insert new HTML
     wrapper.innerHTML = html
 
     // Empty the shadow root
@@ -80,12 +75,12 @@ export default class extends Controller {
   }
 
   previewShadowRoot () {
-    const shadowRoot = this.previewTarget.shadowRoot
+    const shadowRoot = this.previewContentTarget.shadowRoot
 
     if (shadowRoot !== null) {
       return shadowRoot
     } else {
-      return this.previewTarget.attachShadow({ mode: 'open' })
+      return this.previewContentTarget.attachShadow({ mode: 'open' })
     }
   }
 

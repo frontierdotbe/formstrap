@@ -1,0 +1,7 @@
+.nested-preview-offcanvas, .nested-preview .hiding{
+  display: none !important;
+
+  &.show, &.showing {
+    display: block !important;
+  }
+}
