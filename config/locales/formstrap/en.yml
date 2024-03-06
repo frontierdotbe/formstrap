@@ -1,0 +1,47 @@
+en:
+  formstrap:
+    file:
+      not_found: Not available
+      placeholder:
+        one: Browse file or drag & drop it here
+        other: Browse files or drag & drop them here
+    group:
+      save: Save
+    media:
+      modal:
+        close: Close
+        limits: "minimum: %{min} en maximum: %{max}"
+        maximum: " of %{count}"
+        placeholder: Upload your first file to the media library
+        search: Search
+        search_no_results: No search results found
+        select: Select
+        title:
+          one: Select at least 1 file
+          other: Select at least %{count} files
+        unlimited: unlimited
+        upload: Upload new files
+      validation:
+        min:
+          one: Please select at least 1 item
+          other: "Please select at least %{count} items"
+        max:
+          one: Please limit your selection to maximum 1 item
+          other: "Please limit your selection to maximum %{count} items"
+    pagination:
+      infinite:
+        load_more: Load more
+    repeater:
+      add: "Add %{name}"
+      empty: Start by adding your first block
+      row:
+        add: Add row
+        remove: Remove row
+    select:
+      blank: Make a choice
+    shared:
+      nested_preview:
+        title: "Edit %{model}"
+        button: Update preview
+    thumbnail:
+      title: Title

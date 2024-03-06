@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static get targets () {
-    return ['fields', 'preview', 'previewContent']
+    return ['fields', 'preview', 'previewContent', 'offcanvas']
   }
 
   static get values () {
@@ -12,7 +12,13 @@ export default class extends Controller {
   }
 
   connect () {
+    // Preview on startup
     this.requestPreview()
+
+    // Preview on form change
+    this.offcanvasTarget.addEventListener('hidden.bs.offcanvas', () => {
+      this.requestPreview()
+    })
   }
 
   requestPreview () {

@@ -60,7 +60,7 @@
 
   <% if preview %>
     <!-- Wrap row in preview layout  -->
-    <%= render layout: "formstrap/shared/nested_preview", locals: { id: form.options[:child_index] } do %>
+    <%= render layout: "formstrap/shared/nested_preview", locals: { form: form } do %>
       <%= yield %>
     <% end %>
   <% else %>

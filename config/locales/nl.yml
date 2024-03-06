@@ -3,7 +3,3 @@ nl:
   date:
     formats:
       default: "%d/%m/%Y"
-  formstrap:
-    pagination:
-      infinite:
-        load_more: Laad meer

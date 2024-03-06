@@ -11296,7 +11296,7 @@ var media_modal_controller_default = class extends Controller {
 // app/assets/javascripts/formstrap/controllers/nested_preview_controller.js
 var nested_preview_controller_default = class extends Controller {
   static get targets() {
-    return ["fields", "preview", "previewContent"];
+    return ["fields", "preview", "previewContent", "offcanvas"];
   }
   static get values() {
     return {
@@ -11305,6 +11305,9 @@ var nested_preview_controller_default = class extends Controller {
   }
   connect() {
     this.requestPreview();
+    this.offcanvasTarget.addEventListener("hidden.bs.offcanvas", () => {
+      this.requestPreview();
+    });
   }
   requestPreview() {
     const xhr = new XMLHttpRequest();
