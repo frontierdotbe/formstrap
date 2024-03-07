@@ -11361,6 +11361,7 @@ var nested_preview_controller_default = class extends Controller {
   }
   updatePreview(html) {
     this.previewContentTarget.contentWindow.document.body.innerHTML = html;
+    this.resizeIframe();
   }
   resizeIframe() {
     const scaleFactor = this.scaleFactor();

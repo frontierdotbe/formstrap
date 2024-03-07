@@ -98,6 +98,7 @@ export default class extends Controller {
   // Replace the body of the iframe with the new content
   updatePreview (html) {
     this.previewContentTarget.contentWindow.document.body.innerHTML = html
+    this.resizeIframe()
   }
 
   // Dynamically resize the iFrame to fit its content
