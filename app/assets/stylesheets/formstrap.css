@@ -1410,6 +1410,9 @@ mark {
 .nested-preview .hiding.showing {
   display: flex !important;
 }
+.nested-preview-placeholder iframe {
+  width: 100%;
+}
 .formstrap-media-modal .formstrap-thumbnail {
   cursor: pointer;
 }

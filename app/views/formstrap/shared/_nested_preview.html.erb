@@ -1,30 +1,26 @@
-<!-- Preview placeholder -->
-<div class="formstrap-repeater-row-preview" role="button" data-nested-preview-target="preview" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-<%= form.options[:child_index] %>" aria-controls="offcanvasRight">
-  <div class="pe-none overflow-hidden" data-nested-preview-target="previewContent">
-    <div class="placeholder-glow p-3">
-      <span class="placeholder col-6"></span>
-      <span class="placeholder w-75"></span>
-      <span class="placeholder" style="width: 25%;"></span>
-    </div>
+<div data-controller="nested-preview" data-nested-preview-url-value="<%= url %>">
+  <!-- Preview placeholder -->
+  <div class="nested-preview-placeholder" role="button" data-nested-preview-target="preview" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-<%= form.options[:child_index] %>" aria-controls="offcanvasRight" data-turbo-cache="false">
+    <iframe src="<%= url %>" class="pe-none opacity-0" data-nested-preview-target="previewContent"></iframe>
   </div>
-</div>
 
-<!-- Preview fields wrapper -->
-<div class="offcanvas offcanvas-end nested-preview-offcanvas" tabindex="-1" id="offcanvas-<%= form.options[:child_index] %>" aria-labelledby="offcanvasRightLabel" data-nested-preview-target="offcanvas">
-  <div class="offcanvas-header">
-    <h5 class="offcanvas-title" id="offcanvasRightLabel"><%= t('.title', model: form.object.model_name.human) %></h5>
-    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-  </div>
-  <div class="offcanvas-body">
-
-    <!-- Row content -->
-    <div data-nested-preview-target="fields">
-      <%= yield %>
+  <!-- Preview fields wrapper -->
+  <div class="offcanvas offcanvas-end nested-preview-offcanvas" tabindex="-1" id="offcanvas-<%= form.options[:child_index] %>" aria-labelledby="offcanvasRightLabel" data-nested-preview-target="offcanvas">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel"><%= t('.title', model: form.object.model_name.human) %></h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
+    <div class="offcanvas-body">
 
-    <!-- Preview sync button -->
-    <div class="btn btn-primary" data-action="click->nested-preview#requestPreview">
-      <%= bootstrap_icon("arrow-repeat") %> <%= t('.button') %>
+      <!-- Row content -->
+      <div data-nested-preview-target="fields">
+        <%= yield %>
+      </div>
+
+      <!-- Preview sync button -->
+      <div class="btn btn-primary" data-action="click->nested-preview#requestPreview">
+        <%= bootstrap_icon("arrow-repeat") %> <%= t('.button') %>
+      </div>
     </div>
   </div>
 </div>

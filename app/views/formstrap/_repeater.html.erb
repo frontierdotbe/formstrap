@@ -136,7 +136,7 @@
     <% template_names.each do |template_name| %>
       <template data-repeater-target="template" data-template-name="<%= template_name %>">
         <%= form.fields_for attribute, association_object, child_index: "rrrrrrrrr" do |ff| %>
-          <%= render "formstrap/repeater/row", row_options.merge(form: ff, pass_thru: pass_thru, repeater_id: repeater_id, index: nil) do %>
+          <%= render "formstrap/repeater/row", row_options.merge(form: ff, pass_thru: pass_thru, repeater_id: repeater_id, index: nil, template_name: template_name) do %>
             <%= yield(ff, template_name) %>
           <% end %>
         <% end %>

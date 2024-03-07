@@ -11304,23 +11304,31 @@ var nested_preview_controller_default = class extends Controller {
     };
   }
   connect() {
-    this.requestPreview();
+    this.prepareIframe();
+    this.resizeIframe();
+    this.previewContentTarget.addEventListener("load", () => {
+      this.resizeIframe();
+    });
     this.offcanvasTarget.addEventListener("hidden.bs.offcanvas", () => {
       this.requestPreview();
     });
   }
   requestPreview() {
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", this.urlValue, false);
+    xhr.open("POST", this.urlValue, true);
     const formData = this.buildFormData();
     xhr.send(formData);
-    this.handleRequest(xhr);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        this.handleRequest(xhr);
+      }
+    };
   }
   handleRequest(request) {
     if (request.status === 200) {
       this.updatePreview(request.responseText);
     } else {
-      console.error("Upload failed");
+      console.error("Preview request failed");
     }
   }
   buildFormData() {
@@ -11337,20 +11345,30 @@ var nested_preview_controller_default = class extends Controller {
     formData.append("authenticity_token", this.getAuthenticityToken());
     return formData;
   }
-  updatePreview(html) {
-    const shadowRoot = this.previewShadowRoot();
-    const wrapper = document.createElement("div");
-    wrapper.innerHTML = html;
-    shadowRoot.innerHTML = "";
-    shadowRoot.appendChild(wrapper);
+  prepareIframe() {
+    const scaleFactor = this.scaleFactor();
+    const style = `
+      transform: scale(${scaleFactor}); 
+      transform-origin: 0 0; 
+      width: ${100 / scaleFactor}%;
+    `;
+    this.previewTarget.setAttribute("style", style);
   }
-  previewShadowRoot() {
-    const shadowRoot = this.previewContentTarget.shadowRoot;
-    if (shadowRoot !== null) {
-      return shadowRoot;
-    } else {
-      return this.previewContentTarget.attachShadow({ mode: "open" });
-    }
+  scaleFactor() {
+    const width = this.previewTarget.getBoundingClientRect().width;
+    const viewportWidth = window.innerWidth;
+    return (width / viewportWidth).toFixed(1);
+  }
+  updatePreview(html) {
+    this.previewContentTarget.contentWindow.document.body.innerHTML = html;
+  }
+  resizeIframe() {
+    const scaleFactor = this.scaleFactor();
+    const iframeContentHeight = this.previewContentTarget.contentWindow.document.body.scrollHeight;
+    const iframeHeight = iframeContentHeight * scaleFactor;
+    this.previewContentTarget.style.height = iframeContentHeight + "px";
+    this.previewContentTarget.classList.remove("opacity-0");
+    this.previewTarget.style.height = iframeHeight + "px";
   }
   getAuthenticityToken() {
     const tokenTag = document.querySelector('meta[name="csrf-token"]');

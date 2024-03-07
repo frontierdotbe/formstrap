@@ -15,11 +15,10 @@
   error_class = form.object&.errors&.present? ? "border border-danger" : ""
   preview_url = local_assigns.has_key?(:preview_url) ? local_assigns[:preview_url] : nil
   preview = preview_url.present?
+  preview_url = "#{preview_url}?id=#{form.object.id}&name=#{local_assigns[:template_name] || form.object.name}&pp=disabled"
   class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "formstrap-repeater-row list-group-item #{'p-0' if preview}"
 %>
 <div class="<%= class_names %> <%= error_class %>"
-     data-controller="<%= "nested-preview" if preview %>"
-     data-nested-preview-url-value="<%= preview_url if preview %>"
      data-repeater-target="row"
      data-row-index="<%= index %>"
      data-new-record="<%= form.object.new_record? %>"
@@ -60,7 +59,7 @@
 
   <% if preview %>
     <!-- Wrap row in preview layout  -->
-    <%= render layout: "formstrap/shared/nested_preview", locals: { form: form } do %>
+    <%= render layout: "formstrap/shared/nested_preview", locals: { form: form, url: preview_url } do %>
       <%= yield %>
     <% end %>
   <% else %>

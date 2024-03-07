@@ -12,8 +12,13 @@ export default class extends Controller {
   }
 
   connect () {
-    // Preview on startup
-    this.requestPreview()
+    this.prepareIframe()
+    this.resizeIframe()
+
+    // Resize iFrame after content is loaded
+    this.previewContentTarget.addEventListener('load', () => {
+      this.resizeIframe()
+    })
 
     // Preview on form change
     this.offcanvasTarget.addEventListener('hidden.bs.offcanvas', () => {
@@ -23,15 +28,20 @@ export default class extends Controller {
 
   requestPreview () {
     // Create an AJAX request
+    // eslint-disable-next-line no-undef
     const xhr = new XMLHttpRequest()
-    xhr.open('POST', this.urlValue, false)
+    xhr.open('POST', this.urlValue, true)
 
     // Submit the form data
     const formData = this.buildFormData()
     xhr.send(formData)
 
-    // Handle the request
-    this.handleRequest(xhr)
+    // Handle the request once it's done
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        this.handleRequest(xhr)
+      }
+    }
   }
 
   handleRequest (request) {
@@ -39,7 +49,7 @@ export default class extends Controller {
     if (request.status === 200) {
       this.updatePreview(request.responseText)
     } else {
-      console.error('Upload failed')
+      console.error('Preview request failed')
     }
   }
 
@@ -66,28 +76,38 @@ export default class extends Controller {
     return formData
   }
 
-  updatePreview (html) {
-    const shadowRoot = this.previewShadowRoot()
-
-    // Wrap the HTML in a div
-    const wrapper = document.createElement('div')
-    wrapper.innerHTML = html
-
-    // Empty the shadow root
-    shadowRoot.innerHTML = ''
-
-    // Append the wrapper
-    shadowRoot.appendChild(wrapper)
+  // Prepare the iFrame for rendering
+  // Objective: render the iframe content at the scale of the browser window, but resize it to fit the preview container
+  prepareIframe () {
+    const scaleFactor = this.scaleFactor()
+    const style = `
+      transform: scale(${scaleFactor}); 
+      transform-origin: 0 0; 
+      width: ${100 / scaleFactor}%;
+    `
+    this.previewTarget.setAttribute('style', style)
   }
 
-  previewShadowRoot () {
-    const shadowRoot = this.previewContentTarget.shadowRoot
+  // Relative size of the preview container compared to the browser window
+  scaleFactor () {
+    const width = this.previewTarget.getBoundingClientRect().width
+    const viewportWidth = window.innerWidth
+    return (width / viewportWidth).toFixed(1)
+  }
 
-    if (shadowRoot !== null) {
-      return shadowRoot
-    } else {
-      return this.previewContentTarget.attachShadow({ mode: 'open' })
-    }
+  // Replace the body of the iframe with the new content
+  updatePreview (html) {
+    this.previewContentTarget.contentWindow.document.body.innerHTML = html
+  }
+
+  // Dynamically resize the iFrame to fit its content
+  resizeIframe () {
+    const scaleFactor = this.scaleFactor()
+    const iframeContentHeight = this.previewContentTarget.contentWindow.document.body.scrollHeight
+    const iframeHeight = iframeContentHeight * scaleFactor
+    this.previewContentTarget.style.height = iframeContentHeight + 'px'
+    this.previewContentTarget.classList.remove('opacity-0')
+    this.previewTarget.style.height = iframeHeight + 'px'
   }
 
   getAuthenticityToken () {

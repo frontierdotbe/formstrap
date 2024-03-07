@@ -5,3 +5,9 @@
     display: flex !important;
   }
 }
+
+.nested-preview-placeholder{
+  iframe {
+    width: 100%;
+  }
+}
