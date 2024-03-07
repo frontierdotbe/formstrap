@@ -1,7 +1,7 @@
 <div data-controller="nested-preview" data-nested-preview-url-value="<%= url %>">
   <!-- Preview placeholder -->
   <div class="nested-preview-placeholder" role="button" data-nested-preview-target="preview" data-bs-toggle="offcanvas" data-bs-target="#offcanvas-<%= form.options[:child_index] %>" aria-controls="offcanvasRight" data-turbo-cache="false">
-    <iframe src="<%= url %>" class="pe-none opacity-0" data-nested-preview-target="previewContent"></iframe>
+    <iframe src="<%= url %>" class="pe-none" data-nested-preview-target="previewContent"></iframe>
   </div>
 
   <!-- Preview fields wrapper -->

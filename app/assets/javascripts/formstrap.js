@@ -11349,10 +11349,11 @@ var nested_preview_controller_default = class extends Controller {
     const scaleFactor = this.scaleFactor();
     const style = `
       transform: scale(${scaleFactor}); 
+      opacity: 0;
       transform-origin: 0 0; 
       width: ${100 / scaleFactor}%;
     `;
-    this.previewTarget.setAttribute("style", style);
+    this.previewContentTarget.setAttribute("style", style);
   }
   scaleFactor() {
     const width = this.previewTarget.getBoundingClientRect().width;
@@ -11368,7 +11369,7 @@ var nested_preview_controller_default = class extends Controller {
     const iframeContentHeight = this.previewContentTarget.contentWindow.document.body.scrollHeight;
     const iframeHeight = iframeContentHeight * scaleFactor;
     this.previewContentTarget.style.height = iframeContentHeight + "px";
-    this.previewContentTarget.classList.remove("opacity-0");
+    this.previewContentTarget.style.opacity = 1;
     this.previewTarget.style.height = iframeHeight + "px";
   }
   getAuthenticityToken() {
