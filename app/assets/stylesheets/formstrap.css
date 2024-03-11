@@ -1410,11 +1410,26 @@ mark {
 .nested-preview .hiding.showing {
   display: flex !important;
 }
-.nested-preview-placeholder {
+.nested-preview-iframe-wrapper {
+  position: relative;
   cursor: pointer;
 }
-.nested-preview-placeholder iframe {
+.nested-preview-iframe-wrapper iframe {
   width: 100%;
+}
+.nested-preview-loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bs-secondary-bg);
+  opacity: 0.5;
 }
 .formstrap-media-modal .formstrap-thumbnail {
   cursor: pointer;

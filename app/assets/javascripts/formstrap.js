@@ -11296,7 +11296,7 @@ var media_modal_controller_default = class extends Controller {
 // app/assets/javascripts/formstrap/controllers/nested_preview_controller.js
 var nested_preview_controller_default = class extends Controller {
   static get targets() {
-    return ["fields", "iframeWrapper", "iframe", "offcanvas", "error"];
+    return ["fields", "iframeWrapper", "iframe", "offcanvas", "error", "loader"];
   }
   static get values() {
     return {
@@ -11306,6 +11306,7 @@ var nested_preview_controller_default = class extends Controller {
   connect() {
     this.prepareIframe();
     this.iframeTarget.addEventListener("load", () => {
+      this.hideLoader();
       this.resizeIframe();
     });
     this.offcanvasTarget.addEventListener("hide.bs.offcanvas", (event) => {
@@ -11313,6 +11314,12 @@ var nested_preview_controller_default = class extends Controller {
         event.preventDefault();
       }
     });
+  }
+  showLoader() {
+    this.loaderTarget.classList.remove("d-none");
+  }
+  hideLoader() {
+    this.loaderTarget.classList.add("d-none");
   }
   showError() {
     this.errorTarget.classList.remove("d-none");
@@ -11336,8 +11343,10 @@ var nested_preview_controller_default = class extends Controller {
     xhr.open("POST", this.urlValue, true);
     const formData = this.buildFormData();
     xhr.send(formData);
+    this.showLoader();
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
+        this.hideLoader();
         this.handleRequest(xhr);
       }
     };

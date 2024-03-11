@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static get targets () {
-    return ['fields', 'iframeWrapper', 'iframe', 'offcanvas', 'error']
+    return ['fields', 'iframeWrapper', 'iframe', 'offcanvas', 'error', 'loader']
   }
 
   static get values () {
@@ -16,6 +16,7 @@ export default class extends Controller {
 
     // Resize iFrame after content is loaded
     this.iframeTarget.addEventListener('load', () => {
+      this.hideLoader()
       this.resizeIframe()
     })
 
@@ -25,6 +26,14 @@ export default class extends Controller {
         event.preventDefault()
       }
     })
+  }
+
+  showLoader () {
+    this.loaderTarget.classList.remove('d-none')
+  }
+
+  hideLoader () {
+    this.loaderTarget.classList.add('d-none')
   }
 
   showError () {
@@ -59,9 +68,13 @@ export default class extends Controller {
     const formData = this.buildFormData()
     xhr.send(formData)
 
+    // Show loader
+    this.showLoader()
+
     // Handle the request once it's done
     xhr.onreadystatechange = () => {
       if (xhr.readyState === XMLHttpRequest.DONE) {
+        this.hideLoader()
         this.handleRequest(xhr)
       }
     }

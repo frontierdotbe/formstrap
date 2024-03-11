@@ -1,4 +1,4 @@
-.nested-preview-offcanvas, .nested-preview .hiding{
+.nested-preview-offcanvas, .nested-preview .hiding {
   display: none !important;
 
   &.show, &.showing {
@@ -6,9 +6,26 @@
   }
 }
 
-.nested-preview-placeholder{
+.nested-preview-iframe-wrapper {
+  position: relative;
   cursor: pointer;
+
   iframe {
     width: 100%;
   }
+}
+
+.nested-preview-loader {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bs-secondary-bg);
+  opacity: 0.5;
 }
