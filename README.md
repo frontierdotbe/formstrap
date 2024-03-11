@@ -72,6 +72,7 @@ An overview of all the Formstrap / Ruby on Rails form helpers:
 | Textarea          | textarea          | textarea formstrap: false or text_area      |
 | URL               | url               | url formstrap: false or url_field           |
 | WYSIWYG *         | wysiwyg           | N/A                                         |
+| Repeater          | repeater_for      | Adds advanced features to fields_for        |
 
 \* Formstrap provides the implementation of these 3rd party libraries, however it is up to the user to provide the
 correct assets.
