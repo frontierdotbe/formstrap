@@ -61,12 +61,11 @@ export default class extends Controller {
     const formData = new FormData()
 
     // Replace all occurrences of "page[blocks_attributes][0]" with "block"
-    const regex = /page\[blocks_attributes\]\[\d+\]/g
-    const replacement = 'block'
+    const regex = /\w+\[([^\]]+)_attributes\]\[\d+\]/g
     const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])')
     formElements.forEach(function (element) {
       const currentName = element.getAttribute('name')
-      const newName = currentName.replace(regex, replacement)
+      const newName = currentName.replace(regex, '$1')
       formData.append(newName, element.value)
     })
 
