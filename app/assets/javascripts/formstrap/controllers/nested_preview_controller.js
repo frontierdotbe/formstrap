@@ -19,7 +19,7 @@ export default class extends Controller {
       this.resizeIframe()
     })
 
-    // Preview on form change
+    // Offcanvas closes
     this.offcanvasTarget.addEventListener('hide.bs.offcanvas', (event) => {
       if (!this.update()) {
         event.preventDefault()
