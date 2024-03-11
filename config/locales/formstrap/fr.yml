@@ -41,7 +41,8 @@ fr:
       blank: Faites un choix
     shared:
       nested_preview:
-        title: "Modifier %{model}"
         button: Mettre à jour l'aperçu
+        error: Impossible de charger l'aperçu. Vérifiez tous les champs et réessayez.
+        title: "Modifier %{model}"
     thumbnail:
       title: Titre

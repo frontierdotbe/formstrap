@@ -41,7 +41,8 @@ nl:
       blank: Maak een keuze
     shared:
       nested_preview:
-        title: "%{model} bewerken"
         button: Voorvertoning bijwerken
+        error: Er kon geen voorvertoning worden geladen. Kijk alle velden na en probeer het opnieuw.
+        title: "%{model} bewerken"
     thumbnail:
       title: Titel

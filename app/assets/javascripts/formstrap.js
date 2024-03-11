@@ -11296,7 +11296,7 @@ var media_modal_controller_default = class extends Controller {
 // app/assets/javascripts/formstrap/controllers/nested_preview_controller.js
 var nested_preview_controller_default = class extends Controller {
   static get targets() {
-    return ["fields", "preview", "previewContent", "offcanvas"];
+    return ["fields", "iframeWrapper", "iframe", "offcanvas", "error"];
   }
   static get values() {
     return {
@@ -11305,13 +11305,31 @@ var nested_preview_controller_default = class extends Controller {
   }
   connect() {
     this.prepareIframe();
-    this.resizeIframe();
-    this.previewContentTarget.addEventListener("load", () => {
+    this.iframeTarget.addEventListener("load", () => {
       this.resizeIframe();
     });
-    this.offcanvasTarget.addEventListener("hidden.bs.offcanvas", () => {
-      this.requestPreview();
+    this.offcanvasTarget.addEventListener("hide.bs.offcanvas", (event) => {
+      if (!this.update()) {
+        event.preventDefault();
+      }
     });
+  }
+  showError() {
+    this.errorTarget.classList.remove("d-none");
+  }
+  hideError() {
+    this.errorTarget.classList.add("d-none");
+  }
+  update() {
+    const isValid = this.validateFields();
+    if (isValid) {
+      this.requestPreview();
+      this.hideError();
+      return true;
+    } else {
+      this.showError();
+      return false;
+    }
   }
   requestPreview() {
     const xhr = new XMLHttpRequest();
@@ -11328,13 +11346,25 @@ var nested_preview_controller_default = class extends Controller {
     if (request.status === 200) {
       this.updatePreview(request.responseText);
     } else {
-      console.error("Preview request failed");
+      this.showError();
     }
+  }
+  validateFields() {
+    let allValid = true;
+    const fields = this.fieldsTarget;
+    const formElements = fields.querySelectorAll("input[name], select[name], textarea[name]");
+    formElements.forEach(function(element) {
+      const isValid = element.reportValidity();
+      if (!isValid) {
+        allValid = false;
+      }
+    });
+    return allValid;
   }
   buildFormData() {
     const fields = this.fieldsTarget;
     const formData = new FormData();
-    const regex = /\w+\[([^\]]+)_attributes\]\[\d+\]/g;
+    const regex = /\w+\[([^\]]+)s_attributes\]\[\d+\]/g;
     const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])');
     formElements.forEach(function(element) {
       const currentName = element.getAttribute("name");
@@ -11352,24 +11382,24 @@ var nested_preview_controller_default = class extends Controller {
       transform-origin: 0 0; 
       width: ${100 / scaleFactor}%;
     `;
-    this.previewContentTarget.setAttribute("style", style);
+    this.iframeTarget.setAttribute("style", style);
   }
   scaleFactor() {
-    const width = this.previewTarget.getBoundingClientRect().width;
+    const width = this.iframeWrapperTarget.getBoundingClientRect().width;
     const viewportWidth = window.innerWidth;
     return (width / viewportWidth).toFixed(1);
   }
   updatePreview(html) {
-    this.previewContentTarget.contentWindow.document.body.innerHTML = html;
+    this.iframeTarget.contentWindow.document.body.innerHTML = html;
     this.resizeIframe();
   }
   resizeIframe() {
     const scaleFactor = this.scaleFactor();
-    const iframeContentHeight = this.previewContentTarget.contentWindow.document.body.scrollHeight;
+    const iframeContentHeight = this.iframeTarget.contentWindow.document.body.scrollHeight;
     const iframeHeight = iframeContentHeight * scaleFactor;
-    this.previewContentTarget.style.height = iframeContentHeight + "px";
-    this.previewContentTarget.style.opacity = 1;
-    this.previewTarget.style.height = iframeHeight + "px";
+    this.iframeTarget.style.height = iframeContentHeight + "px";
+    this.iframeTarget.style.opacity = 1;
+    this.iframeWrapperTarget.style.height = iframeHeight + "px";
   }
   getAuthenticityToken() {
     const tokenTag = document.querySelector('meta[name="csrf-token"]');

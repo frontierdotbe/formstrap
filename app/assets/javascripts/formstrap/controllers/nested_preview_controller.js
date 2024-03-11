@@ -2,7 +2,7 @@ import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
   static get targets () {
-    return ['fields', 'preview', 'previewContent', 'offcanvas']
+    return ['fields', 'iframeWrapper', 'iframe', 'offcanvas', 'error']
   }
 
   static get values () {
@@ -13,17 +13,40 @@ export default class extends Controller {
 
   connect () {
     this.prepareIframe()
-    this.resizeIframe()
 
     // Resize iFrame after content is loaded
-    this.previewContentTarget.addEventListener('load', () => {
+    this.iframeTarget.addEventListener('load', () => {
       this.resizeIframe()
     })
 
     // Preview on form change
-    this.offcanvasTarget.addEventListener('hidden.bs.offcanvas', () => {
-      this.requestPreview()
+    this.offcanvasTarget.addEventListener('hide.bs.offcanvas', (event) => {
+      if (!this.update()) {
+        event.preventDefault()
+      }
     })
+  }
+
+  showError () {
+    this.errorTarget.classList.remove('d-none')
+  }
+
+  hideError () {
+    this.errorTarget.classList.add('d-none')
+  }
+
+  update () {
+    // Validate fields
+    const isValid = this.validateFields()
+
+    if (isValid) {
+      this.requestPreview()
+      this.hideError()
+      return true
+    } else {
+      this.showError()
+      return false
+    }
   }
 
   requestPreview () {
@@ -49,8 +72,21 @@ export default class extends Controller {
     if (request.status === 200) {
       this.updatePreview(request.responseText)
     } else {
-      console.error('Preview request failed')
+      this.showError()
     }
+  }
+
+  validateFields () {
+    let allValid = true
+    const fields = this.fieldsTarget
+    const formElements = fields.querySelectorAll('input[name], select[name], textarea[name]')
+    formElements.forEach(function (element) {
+      const isValid = element.reportValidity()
+      if (!isValid) {
+        allValid = false
+      }
+    })
+    return allValid
   }
 
   buildFormData () {
@@ -61,7 +97,7 @@ export default class extends Controller {
     const formData = new FormData()
 
     // Replace all occurrences of "page[blocks_attributes][0]" with "block"
-    const regex = /\w+\[([^\]]+)_attributes\]\[\d+\]/g
+    const regex = /\w+\[([^\]]+)s_attributes\]\[\d+\]/g
     const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])')
     formElements.forEach(function (element) {
       const currentName = element.getAttribute('name')
@@ -85,30 +121,30 @@ export default class extends Controller {
       transform-origin: 0 0; 
       width: ${100 / scaleFactor}%;
     `
-    this.previewContentTarget.setAttribute('style', style)
+    this.iframeTarget.setAttribute('style', style)
   }
 
   // Relative size of the preview container compared to the browser window
   scaleFactor () {
-    const width = this.previewTarget.getBoundingClientRect().width
+    const width = this.iframeWrapperTarget.getBoundingClientRect().width
     const viewportWidth = window.innerWidth
     return (width / viewportWidth).toFixed(1)
   }
 
   // Replace the body of the iframe with the new content
   updatePreview (html) {
-    this.previewContentTarget.contentWindow.document.body.innerHTML = html
+    this.iframeTarget.contentWindow.document.body.innerHTML = html
     this.resizeIframe()
   }
 
   // Dynamically resize the iFrame to fit its content
   resizeIframe () {
     const scaleFactor = this.scaleFactor()
-    const iframeContentHeight = this.previewContentTarget.contentWindow.document.body.scrollHeight
+    const iframeContentHeight = this.iframeTarget.contentWindow.document.body.scrollHeight
     const iframeHeight = iframeContentHeight * scaleFactor
-    this.previewContentTarget.style.height = iframeContentHeight + 'px'
-    this.previewContentTarget.style.opacity = 1
-    this.previewTarget.style.height = iframeHeight + 'px'
+    this.iframeTarget.style.height = iframeContentHeight + 'px'
+    this.iframeTarget.style.opacity = 1
+    this.iframeWrapperTarget.style.height = iframeHeight + 'px'
   }
 
   getAuthenticityToken () {

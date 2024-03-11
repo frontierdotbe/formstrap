@@ -41,7 +41,8 @@ de:
       blank: Bitte wählen
     shared:
       nested_preview:
-        title: "%{model} bearbeiten"
         button: Vorschau aktualisieren
+        error: Vorschau konnte nicht geladen werden. Überprüfen Sie alle Felder und versuchen Sie es erneut.
+        title: "%{model} bearbeiten"
     thumbnail:
       title: Titel

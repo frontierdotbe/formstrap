@@ -41,7 +41,8 @@ en:
       blank: Make a choice
     shared:
       nested_preview:
-        title: "Edit %{model}"
         button: Update preview
+        error: Unable to load preview. Check all fields and try again.
+        title: "Edit %{model}"
     thumbnail:
       title: Title
