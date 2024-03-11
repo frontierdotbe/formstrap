@@ -8,7 +8,9 @@ import FlatpickrController from './controllers/flatpickr_controller'
 import InfiniteScrollerController from './controllers/infinite_scroller_controller'
 import MediaController from './controllers/media_controller'
 import MediaModalController from './controllers/media_modal_controller'
+import NestedPreviewController from './controllers/nested_preview_controller'
 import PopupController from './controllers/popup_controller'
+import PreviewController from './controllers/preview_controller'
 import RedactorxController from './controllers/redactorx_controller'
 import RepeaterController from './controllers/repeater_controller'
 import SelectController from './controllers/select_controller'
@@ -25,7 +27,9 @@ export class Formstrap {
     Stimulus.register('infinite-scroller', InfiniteScrollerController)
     Stimulus.register('media', MediaController)
     Stimulus.register('media-modal', MediaModalController)
+    Stimulus.register('nested-preview', NestedPreviewController)
     Stimulus.register('popup', PopupController)
+    Stimulus.register('preview', PreviewController)
     Stimulus.register('redactorx', RedactorxController)
     Stimulus.register('repeater', RepeaterController)
     Stimulus.register('select', SelectController)

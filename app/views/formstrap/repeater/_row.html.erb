@@ -3,13 +3,20 @@
   # accepts block: yes
   # parameters:
   #   form: Form object
+  #   repeater_id: ID of the repeater
   #   index: Index of the row in the repeater
   #   pass_thru: (string) Pass thru for add button if needed
+  #   preview_url: (string) URL for previews
 
+  repeater_id = local_assigns[:repeater_id]
+  pass_thru = local_assigns[:pass_thru]
   draggable = form.object.respond_to?(:position)
   destroyable = form.object.respond_to?(:destroy)
   error_class = form.object&.errors&.present? ? "border border-danger" : ""
-  class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "formstrap-repeater-row list-group-item"
+  preview_url = local_assigns.has_key?(:preview_url) ? local_assigns[:preview_url] : nil
+  preview = preview_url.present?
+  preview_url = "#{preview_url}?id=#{form.object.id}&name=#{local_assigns[:template_name] || form.object.name}&pp=disabled"
+  class_names = local_assigns.has_key?(:class) ? local_assigns[:class] : "formstrap-repeater-row list-group-item #{'p-0' if preview}"
 %>
 <div class="<%= class_names %> <%= error_class %>"
      data-repeater-target="row"
@@ -50,5 +57,13 @@
     <%= bootstrap_icon("dash-circle") %>
   </div>
 
-  <%= yield %>
+  <% if preview %>
+    <!-- Wrap row in preview layout  -->
+    <%= render layout: "formstrap/shared/nested_preview", locals: { form: form, url: preview_url } do %>
+      <%= yield %>
+    <% end %>
+  <% else %>
+    <!-- Just render row content -->
+    <%= yield %>
+  <% end %>
 </div>

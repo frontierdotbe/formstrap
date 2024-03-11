@@ -1,0 +1,48 @@
+de:
+  formstrap:
+    file:
+      not_found: Nicht verfügbar
+      placeholder:
+        one: Datei durchsuchen oder hierher ziehen und ablegen
+        other: Dateien durchsuchen oder hierher ziehen und ablegen
+    group:
+      save: Speichern
+    media:
+      modal:
+        close: Schließen
+        limits: "Minimum: %{min} und Maximum: %{max}"
+        maximum: " von %{count}"
+        placeholder: Laden Sie Ihre erste Datei in die Medienbibliothek hoch
+        search: Suche
+        search_no_results: Keine Suchergebnisse gefunden
+        select: Auswählen
+        title:
+          one: Wählen Sie mindestens 1 Datei aus
+          other: Wählen Sie mindestens %{count} Dateien aus
+        unlimited: unbegrenzt
+        upload: Neue Dateien hochladen
+      validation:
+        min:
+          one: Bitte wählen Sie mindestens 1 Element aus
+          other: "Bitte wählen Sie mindestens %{count} Elemente aus"
+        max:
+          one: Bitte beschränken Sie Ihre Auswahl auf maximal 1 Element
+          other: "Bitte beschränken Sie Ihre Auswahl auf maximal %{count} Elemente"
+    pagination:
+      infinite:
+        load_more: Mehr laden
+    repeater:
+      add: "%{name} hinzufügen"
+      empty: Beginnen Sie mit dem Hinzufügen Ihres ersten Blocks
+      row:
+        add: Zeile hinzufügen
+        remove: Zeile entfernen
+    select:
+      blank: Bitte wählen
+    shared:
+      nested_preview:
+        button: Vorschau aktualisieren
+        error: Vorschau konnte nicht geladen werden. Überprüfen Sie alle Felder und versuchen Sie es erneut.
+        title: "%{model} bearbeiten"
+    thumbnail:
+      title: Titel

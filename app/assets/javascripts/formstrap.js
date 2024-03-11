@@ -4,6 +4,7 @@ var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __getProtoOf = Object.getPrototypeOf;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
+var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = { exports: {} }).exports, mod), mod.exports;
 };
@@ -19,6 +20,10 @@ var __toESM = (mod, isNodeMode, target) => (target = mod != null ? __create(__ge
   isNodeMode || !mod || !mod.__esModule ? __defProp(target, "default", { value: mod, enumerable: true }) : target,
   mod
 ));
+var __publicField = (obj, key, value) => {
+  __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
+  return value;
+};
 
 // node_modules/tom-select/dist/js/tom-select.complete.js
 var require_tom_select_complete = __commonJS({
@@ -11288,6 +11293,129 @@ var media_modal_controller_default = class extends Controller {
   }
 };
 
+// app/assets/javascripts/formstrap/controllers/nested_preview_controller.js
+var nested_preview_controller_default = class extends Controller {
+  static get targets() {
+    return ["fields", "iframeWrapper", "iframe", "offcanvas", "error", "loader"];
+  }
+  static get values() {
+    return {
+      url: String
+    };
+  }
+  connect() {
+    this.prepareIframe();
+    this.iframeTarget.addEventListener("load", () => {
+      this.hideLoader();
+      this.resizeIframe();
+    });
+    this.offcanvasTarget.addEventListener("hide.bs.offcanvas", (event) => {
+      if (!this.update()) {
+        event.preventDefault();
+      }
+    });
+  }
+  showLoader() {
+    this.loaderTarget.classList.remove("d-none");
+  }
+  hideLoader() {
+    this.loaderTarget.classList.add("d-none");
+  }
+  showError() {
+    this.errorTarget.classList.remove("d-none");
+  }
+  hideError() {
+    this.errorTarget.classList.add("d-none");
+  }
+  update() {
+    const isValid = this.validateFields();
+    if (isValid) {
+      this.requestPreview();
+      this.hideError();
+      return true;
+    } else {
+      this.showError();
+      return false;
+    }
+  }
+  requestPreview() {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", this.urlValue, true);
+    const formData = this.buildFormData();
+    xhr.send(formData);
+    this.showLoader();
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === XMLHttpRequest.DONE) {
+        this.hideLoader();
+        this.handleRequest(xhr);
+      }
+    };
+  }
+  handleRequest(request) {
+    if (request.status === 200) {
+      this.updatePreview(request.responseText);
+    } else {
+      this.showError();
+    }
+  }
+  validateFields() {
+    let allValid = true;
+    const fields = this.fieldsTarget;
+    const formElements = fields.querySelectorAll("input[name], select[name], textarea[name]");
+    formElements.forEach(function(element) {
+      const isValid = element.reportValidity();
+      if (!isValid) {
+        allValid = false;
+      }
+    });
+    return allValid;
+  }
+  buildFormData() {
+    const fields = this.fieldsTarget;
+    const formData = new FormData();
+    const regex = /\w+\[([^\]]+)s_attributes\]\[\d+\]/g;
+    const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])');
+    formElements.forEach(function(element) {
+      const currentName = element.getAttribute("name");
+      const newName = currentName.replace(regex, "$1");
+      formData.append(newName, element.value);
+    });
+    formData.append("authenticity_token", this.getAuthenticityToken());
+    return formData;
+  }
+  prepareIframe() {
+    const scaleFactor = this.scaleFactor();
+    const style = `
+      transform: scale(${scaleFactor}); 
+      opacity: 0;
+      transform-origin: 0 0; 
+      width: ${100 / scaleFactor}%;
+    `;
+    this.iframeTarget.setAttribute("style", style);
+  }
+  scaleFactor() {
+    const width = this.iframeWrapperTarget.getBoundingClientRect().width;
+    const viewportWidth = window.innerWidth;
+    return (width / viewportWidth).toFixed(1);
+  }
+  updatePreview(html) {
+    this.iframeTarget.contentWindow.document.body.innerHTML = html;
+    this.resizeIframe();
+  }
+  resizeIframe() {
+    const scaleFactor = this.scaleFactor();
+    const iframeContentHeight = this.iframeTarget.contentWindow.document.body.scrollHeight;
+    const iframeHeight = iframeContentHeight * scaleFactor;
+    this.iframeTarget.style.height = iframeContentHeight + "px";
+    this.iframeTarget.style.opacity = 1;
+    this.iframeWrapperTarget.style.height = iframeHeight + "px";
+  }
+  getAuthenticityToken() {
+    const tokenTag = document.querySelector('meta[name="csrf-token"]');
+    return tokenTag.getAttribute("content");
+  }
+};
+
 // node_modules/@popperjs/core/lib/enums.js
 var top = "top";
 var bottom = "bottom";
@@ -12917,6 +13045,47 @@ var popup_controller_default = class extends Controller {
   }
 };
 
+// app/assets/javascripts/formstrap/controllers/preview_controller.js
+var preview_controller_default = class extends Controller {
+  connect() {
+    this.button = this.element;
+    this.button.addEventListener("click", (event) => {
+      event.preventDefault();
+      this.requestPreview();
+    });
+  }
+  requestPreview() {
+    const form = this.buildFakeForm();
+    document.body.appendChild(form);
+    form.submit();
+    document.body.removeChild(form);
+  }
+  buildFakeForm() {
+    const form = this.form().cloneNode(true);
+    const idInputs = form.querySelectorAll('input[name$="[id]"], select[name$="[id]"], textarea[name$="[id]"], button[name$="[id]"]');
+    idInputs.forEach((input) => {
+      input.value = "";
+    });
+    form.setAttribute("action", this.urlValue);
+    form.setAttribute("target", "_blank");
+    const authenticityTokenInput = form.querySelector('input[name="authenticity_token"]');
+    authenticityTokenInput.value = this.getAuthenticityToken();
+    form.querySelector('input[name="_method"]')?.remove();
+    form.setAttribute("method", "POST");
+    return form;
+  }
+  getAuthenticityToken() {
+    const tokenTag = document.querySelector('meta[name="csrf-token"]');
+    return tokenTag.getAttribute("content");
+  }
+  form() {
+    return this.button.closest("form");
+  }
+};
+__publicField(preview_controller_default, "values", {
+  url: String
+});
+
 // app/assets/javascripts/formstrap/controllers/redactorx_controller.js
 var redactorx_controller_default = class extends Controller {
   connect() {
@@ -13034,9 +13203,21 @@ var repeater_controller_default = class extends Controller {
       const idValue = node.getAttribute("id");
       node.setAttribute("id", idValue.replace(pattern, replacement));
     });
+    template.querySelectorAll(`label[for*="${pattern}"]`).forEach((node) => {
+      const forValue = node.getAttribute("for");
+      node.setAttribute("for", forValue.replace(pattern, replacement));
+    });
     template.querySelectorAll(`input[name*="${pattern}"], select[name*="${pattern}"], textarea[name*="${pattern}"], button[name*="${pattern}"]`).forEach((node) => {
       const nameValue = node.getAttribute("name");
       node.setAttribute("name", nameValue.replace(pattern, replacement));
+    });
+    template.querySelectorAll(`div[data-bs-target="#offcanvas-${pattern}"]`).forEach((node) => {
+      const targetValue = node.getAttribute("data-bs-target");
+      node.setAttribute("data-bs-target", targetValue.replace(pattern, replacement));
+    });
+    template.querySelectorAll(`.offcanvas[id="offcanvas-${pattern}"]`).forEach((node) => {
+      const idValue = node.getAttribute("id");
+      node.setAttribute("id", idValue.replace(pattern, replacement));
     });
     return template;
   }
@@ -13166,7 +13347,9 @@ var Formstrap = class {
     Stimulus.register("infinite-scroller", infinite_scroller_controller_default);
     Stimulus.register("media", media_controller_default);
     Stimulus.register("media-modal", media_modal_controller_default);
+    Stimulus.register("nested-preview", nested_preview_controller_default);
     Stimulus.register("popup", popup_controller_default);
+    Stimulus.register("preview", preview_controller_default);
     Stimulus.register("redactorx", redactorx_controller_default);
     Stimulus.register("repeater", repeater_controller_default);
     Stimulus.register("select", select_controller_default);

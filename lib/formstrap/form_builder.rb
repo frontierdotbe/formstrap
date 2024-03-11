@@ -11,6 +11,17 @@ module Formstrap
       render_input(:association, attribute, options)
     end
 
+    def preview_button(value = nil, options = {}, &block)
+      default_options = {
+        data: {
+          controller: "preview",
+          "preview-url-value":  options[:url]
+        },
+        type: nil
+      }
+      button value, default_options.deep_merge(options.except(:url)), &block
+    end
+
     def checkbox(attribute, formstrap: true, **options)
       if formstrap
         render_input :checkbox, attribute, options
@@ -101,6 +112,10 @@ module Formstrap
       else
         password_field attribute, options
       end
+    end
+
+    def repeater_for(attribute, options = {}, &block)
+      @template.render("formstrap/repeater", form: self, attribute: attribute, **options, &block)
     end
 
     def redactorx(attribute, options = {})
