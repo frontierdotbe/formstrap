@@ -11308,11 +11308,24 @@ var nested_preview_controller_default = class extends Controller {
     this.iframeTarget.addEventListener("load", () => {
       this.hideLoader();
       this.resizeIframe();
+      this.autoResizeIframe();
     });
     this.offcanvasTarget.addEventListener("hide.bs.offcanvas", (event) => {
       if (!this.update()) {
         event.preventDefault();
       }
+    });
+  }
+  autoResizeIframe() {
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        this.resizeIframe();
+      });
+    });
+    const innerDoc = this.iframeTarget.contentWindow.document;
+    observer.observe(innerDoc.body, {
+      childList: true,
+      subtree: true
     });
   }
   showLoader() {
@@ -11396,7 +11409,7 @@ var nested_preview_controller_default = class extends Controller {
   scaleFactor() {
     const width = this.iframeWrapperTarget.getBoundingClientRect().width;
     const viewportWidth = window.innerWidth;
-    return (width / viewportWidth).toFixed(1);
+    return parseFloat((width / viewportWidth).toFixed(1));
   }
   updatePreview(html) {
     this.iframeTarget.contentWindow.document.body.innerHTML = html;
@@ -11404,11 +11417,18 @@ var nested_preview_controller_default = class extends Controller {
   }
   resizeIframe() {
     const scaleFactor = this.scaleFactor();
-    const iframeContentHeight = this.iframeTarget.contentWindow.document.body.scrollHeight;
+    const iframeContentHeight = this.iFrameContentHeight();
     const iframeHeight = iframeContentHeight * scaleFactor;
-    this.iframeTarget.style.height = iframeContentHeight + "px";
+    this.iframeTarget.style.height = `${iframeContentHeight.toFixed()}px`;
     this.iframeTarget.style.opacity = 1;
-    this.iframeWrapperTarget.style.height = iframeHeight + "px";
+    this.iframeWrapperTarget.style.height = `${iframeHeight.toFixed()}px`;
+  }
+  iFrameContentHeight() {
+    const firstElement = this.iframeTarget.contentWindow.document.body.firstElementChild;
+    const firstElementStyle = window.getComputedStyle(firstElement);
+    const height = firstElement.scrollHeight;
+    const margins = parseInt(firstElementStyle.marginTop) + parseInt(firstElementStyle.marginBottom);
+    return height + margins;
   }
   getAuthenticityToken() {
     const tokenTag = document.querySelector('meta[name="csrf-token"]');

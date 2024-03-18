@@ -18,6 +18,7 @@ export default class extends Controller {
     this.iframeTarget.addEventListener('load', () => {
       this.hideLoader()
       this.resizeIframe()
+      this.autoResizeIframe()
     })
 
     // Offcanvas closes
@@ -25,6 +26,22 @@ export default class extends Controller {
       if (!this.update()) {
         event.preventDefault()
       }
+    })
+  }
+
+  autoResizeIframe () {
+    // eslint-disable-next-line no-undef
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        this.resizeIframe()
+      })
+    })
+
+    // Target the body of the iframe for observing
+    const innerDoc = this.iframeTarget.contentWindow.document
+    observer.observe(innerDoc.body, {
+      childList: true, // Listen for additions/removals of child nodes
+      subtree: true // Listen for changes in the whole subtree
     })
   }
 
@@ -141,7 +158,7 @@ export default class extends Controller {
   scaleFactor () {
     const width = this.iframeWrapperTarget.getBoundingClientRect().width
     const viewportWidth = window.innerWidth
-    return (width / viewportWidth).toFixed(1)
+    return parseFloat((width / viewportWidth).toFixed(1))
   }
 
   // Replace the body of the iframe with the new content
@@ -153,11 +170,21 @@ export default class extends Controller {
   // Dynamically resize the iFrame to fit its content
   resizeIframe () {
     const scaleFactor = this.scaleFactor()
-    const iframeContentHeight = this.iframeTarget.contentWindow.document.body.scrollHeight
+    const iframeContentHeight = this.iFrameContentHeight()
     const iframeHeight = iframeContentHeight * scaleFactor
-    this.iframeTarget.style.height = iframeContentHeight + 'px'
+
+    this.iframeTarget.style.height = `${iframeContentHeight.toFixed()}px`
     this.iframeTarget.style.opacity = 1
-    this.iframeWrapperTarget.style.height = iframeHeight + 'px'
+    this.iframeWrapperTarget.style.height = `${iframeHeight.toFixed()}px`
+  }
+
+  iFrameContentHeight () {
+    const firstElement = this.iframeTarget.contentWindow.document.body.firstElementChild
+    const firstElementStyle = window.getComputedStyle(firstElement)
+
+    const height = firstElement.scrollHeight
+    const margins = parseInt(firstElementStyle.marginTop) + parseInt(firstElementStyle.marginBottom)
+    return height + margins
   }
 
   getAuthenticityToken () {
