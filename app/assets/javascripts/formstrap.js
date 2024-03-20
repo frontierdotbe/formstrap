@@ -11049,13 +11049,7 @@ var media_controller_default = class extends Controller {
     });
   }
   addNewItems(items) {
-    const itemTargetIds = this.itemTargets.map((i) => {
-      return parseInt(i.querySelectorAll("input")[1].value);
-    });
     items.forEach((item) => {
-      if (itemTargetIds.includes(item.blobId)) {
-        return;
-      }
       this.addItem(item);
     });
   }

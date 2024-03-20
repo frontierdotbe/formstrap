@@ -131,13 +131,7 @@ export default class extends Controller {
   }
 
   addNewItems (items) {
-    const itemTargetIds = this.itemTargets.map((i) => { return parseInt(i.querySelectorAll('input')[1].value) })
     items.forEach((item) => {
-      if (itemTargetIds.includes(item.blobId)) {
-        // Do not add this item (as it is already present)
-        return
-      }
-
       this.addItem(item)
     })
   }
