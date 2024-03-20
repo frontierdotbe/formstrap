@@ -121,7 +121,6 @@ export default class extends Controller {
     // Search and replace pattern in templates
     template.querySelectorAll('template').forEach((node) => {
       node.innerHTML = node.innerHTML.replace(regex, replacement)
-      console.log(node.innerHTML)
     })
 
     // Replace labels

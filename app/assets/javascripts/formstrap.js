@@ -11035,10 +11035,10 @@ var media_controller_default = class extends Controller {
     }
   }
   minActiveItems() {
-    return parseInt(this.element.dataset.min, 10) || 0;
+    return parseInt(this.validationInputTarget.dataset.min, 10) || 0;
   }
   maxActiveItems() {
-    return parseInt(this.element.dataset.max, 10) || Infinity;
+    return parseInt(this.validationInputTarget.dataset.max, 10) || Infinity;
   }
   resetPositions() {
     this.activeItems().forEach((item, index2) => {
@@ -11106,7 +11106,7 @@ var media_controller_default = class extends Controller {
       return e.blobId;
     });
     items.forEach((item) => {
-      const blobId = parseInt(item.querySelectorAll("input")[1].value);
+      const blobId = parseInt(item.querySelectorAll("input")[1].value, 10);
       if (returnedBlobIds.includes(blobId)) {
         return;
       }
@@ -11122,7 +11122,7 @@ var media_controller_default = class extends Controller {
   }
   itemByBlobId(blobId) {
     return this.itemTargets.find((item) => {
-      return item.querySelector("input[name*='blob_id']").value === blobId;
+      return parseInt(item.querySelector("input[name*='blob_id']").value, 10) === blobId;
     });
   }
   activeItems() {
@@ -11132,7 +11132,7 @@ var media_controller_default = class extends Controller {
   }
   activeIds() {
     return this.activeItems().map((item) => {
-      return item.querySelector("input[name$='[blob_id]']").value;
+      return parseInt(item.querySelector("input[name$='[blob_id]']").value, 10);
     });
   }
 };
@@ -11368,7 +11368,7 @@ var nested_preview_controller_default = class extends Controller {
   validateFields() {
     let allValid = true;
     const fields = this.fieldsTarget;
-    const formElements = fields.querySelectorAll("input[name], select[name], textarea[name]");
+    const formElements = fields.querySelectorAll('input:not([type="hidden"]), select[name], textarea[name]');
     formElements.forEach(function(element) {
       const isValid = element.reportValidity();
       if (!isValid) {
@@ -13220,7 +13220,6 @@ var repeater_controller_default = class extends Controller {
     });
     template.querySelectorAll("template").forEach((node) => {
       node.innerHTML = node.innerHTML.replace(regex, replacement);
-      console.log(node.innerHTML);
     });
     template.querySelectorAll(`label[for*="${pattern}"]`).forEach((node) => {
       const forValue = node.getAttribute("for");

@@ -19,8 +19,6 @@ module Formstrap
         data: {
           controller: "media",
           name: name,
-          min: min,
-          max: max,
           sort: sort,
           accept: accept,
           required: required.nil? ? 0 : required
@@ -31,7 +29,7 @@ module Formstrap
     def item_options
       options = {
         sort: sort,
-        url: modal_url,
+        url: modal_url
       }
 
       # Don't pass width or height if it was not defined
@@ -108,10 +106,10 @@ module Formstrap
     end
 
     def min
-      if @required
-        (@min.to_i < 1) ? 1 : @min.to_i
+      if @min.to_i < 1
+        @required ? 1 : 0
       else
-        (@min.to_i < 1) ? 0 : @min.to_i
+        @min.to_i
       end
     end
 
@@ -124,7 +122,14 @@ module Formstrap
     end
 
     def modal_url
-      formstrap_media_path(name: name, ids: blob_ids, min: min, max: max, mimetype: accept, exclude_models: exclude_models)
+      formstrap_media_path(
+        name: name,
+        ids: blob_ids,
+        min: min,
+        max: max,
+        mimetype: accept,
+        exclude_models: exclude_models
+      )
     end
 
     def edit_modal_url(attachment)

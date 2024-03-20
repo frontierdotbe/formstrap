@@ -15,7 +15,7 @@ module Formstrap
       default_options = {
         data: {
           controller: "preview",
-          "preview-url-value":  options[:url]
+          "preview-url-value": options[:url]
         },
         type: nil
       }

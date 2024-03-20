@@ -92,10 +92,10 @@ module Formstrap
       blob.open do |file|
         content = file.read
         doc = Nokogiri::HTML::DocumentFragment.parse content
-        svg = doc.at_css 'svg'
+        svg = doc.at_css "svg"
 
         # for security
-        doc.search('script').each do |src|
+        doc.search("script").each do |src|
           src.remove
         end
 
