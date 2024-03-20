@@ -11035,10 +11035,10 @@ var media_controller_default = class extends Controller {
     }
   }
   minActiveItems() {
-    return parseInt(this.element.dataset.min, 10) || 0;
+    return parseInt(this.validationInputTarget.dataset.min, 10) || 0;
   }
   maxActiveItems() {
-    return parseInt(this.element.dataset.max, 10) || Infinity;
+    return parseInt(this.validationInputTarget.dataset.max, 10) || Infinity;
   }
   resetPositions() {
     this.activeItems().forEach((item, index2) => {
@@ -11368,7 +11368,7 @@ var nested_preview_controller_default = class extends Controller {
   validateFields() {
     let allValid = true;
     const fields = this.fieldsTarget;
-    const formElements = fields.querySelectorAll("input[name], select[name], textarea[name]");
+    const formElements = fields.querySelectorAll('input:not([type="hidden"]), select[name], textarea[name]');
     formElements.forEach(function(element) {
       const isValid = element.reportValidity();
       if (!isValid) {

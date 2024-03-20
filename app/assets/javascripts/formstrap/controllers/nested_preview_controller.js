@@ -109,7 +109,7 @@ export default class extends Controller {
   validateFields () {
     let allValid = true
     const fields = this.fieldsTarget
-    const formElements = fields.querySelectorAll('input[name], select[name], textarea[name]')
+    const formElements = fields.querySelectorAll('input:not([type="hidden"]), select[name], textarea[name]')
     formElements.forEach(function (element) {
       const isValid = element.reportValidity()
       if (!isValid) {

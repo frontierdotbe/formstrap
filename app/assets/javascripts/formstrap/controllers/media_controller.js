@@ -114,11 +114,11 @@ export default class extends Controller {
   }
 
   minActiveItems () {
-    return parseInt(this.element.dataset.min, 10) || 0
+    return parseInt(this.validationInputTarget.dataset.min, 10) || 0
   }
 
   maxActiveItems () {
-    return parseInt(this.element.dataset.max, 10) || Infinity
+    return parseInt(this.validationInputTarget.dataset.max, 10) || Infinity
   }
 
   resetPositions () {
