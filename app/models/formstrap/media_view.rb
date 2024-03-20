@@ -15,21 +15,21 @@ module Formstrap
 
     def wrapper_options
       default_wrapper_options.deep_merge({
-                                           class: ["mb-3", ("form-floating" if float)],
-                                           data: {
-                                             controller: "media",
-                                             name: name,
-                                             sort: sort,
-                                             accept: accept,
-                                             required: required.nil? ? 0 : required
-                                           }
-                                         }).deep_merge(@wrapper || {})
+        class: ["mb-3", ("form-floating" if float)],
+        data: {
+          controller: "media",
+          name: name,
+          sort: sort,
+          accept: accept,
+          required: required.nil? ? 0 : required
+        }
+      }).deep_merge(@wrapper || {})
     end
 
     def item_options
       options = {
         sort: sort,
-        url: modal_url,
+        url: modal_url
       }
 
       # Don't pass width or height if it was not defined
