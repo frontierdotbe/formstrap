@@ -205,7 +205,7 @@ export default class extends Controller {
     const returnedBlobIds = elements.map((e) => { return e.blobId })
 
     items.forEach((item) => {
-      const blobId = parseInt(item.querySelectorAll('input')[1].value)
+      const blobId = parseInt(item.querySelectorAll('input')[1].value, 10)
       if (returnedBlobIds.includes(blobId)) {
         // Do not delete this one
         return
@@ -231,7 +231,7 @@ export default class extends Controller {
 
   itemByBlobId (blobId) {
     return this.itemTargets.find((item) => {
-      return item.querySelector('input[name*=\'blob_id\']').value === blobId
+      return parseInt(item.querySelector('input[name*=\'blob_id\']').value, 10) === blobId
     })
   }
 
@@ -243,7 +243,7 @@ export default class extends Controller {
 
   activeIds () {
     return this.activeItems().map((item) => {
-      return item.querySelector('input[name$=\'[blob_id]\']').value
+      return parseInt(item.querySelector('input[name$=\'[blob_id]\']').value, 10)
     })
   }
 }

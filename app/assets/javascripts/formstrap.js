@@ -11106,7 +11106,7 @@ var media_controller_default = class extends Controller {
       return e.blobId;
     });
     items.forEach((item) => {
-      const blobId = parseInt(item.querySelectorAll("input")[1].value);
+      const blobId = parseInt(item.querySelectorAll("input")[1].value, 10);
       if (returnedBlobIds.includes(blobId)) {
         return;
       }
@@ -11122,7 +11122,7 @@ var media_controller_default = class extends Controller {
   }
   itemByBlobId(blobId) {
     return this.itemTargets.find((item) => {
-      return item.querySelector("input[name*='blob_id']").value === blobId;
+      return parseInt(item.querySelector("input[name*='blob_id']").value, 10) === blobId;
     });
   }
   activeItems() {
@@ -11132,7 +11132,7 @@ var media_controller_default = class extends Controller {
   }
   activeIds() {
     return this.activeItems().map((item) => {
-      return item.querySelector("input[name$='[blob_id]']").value;
+      return parseInt(item.querySelector("input[name$='[blob_id]']").value, 10);
     });
   }
 };
@@ -13220,7 +13220,6 @@ var repeater_controller_default = class extends Controller {
     });
     template.querySelectorAll("template").forEach((node) => {
       node.innerHTML = node.innerHTML.replace(regex, replacement);
-      console.log(node.innerHTML);
     });
     template.querySelectorAll(`label[for*="${pattern}"]`).forEach((node) => {
       const forValue = node.getAttribute("for");
