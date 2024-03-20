@@ -1,3 +1,4 @@
+/* global XMLHttpRequest, MutationObserver */
 import { Controller } from '@hotwired/stimulus'
 
 export default class extends Controller {
@@ -30,7 +31,6 @@ export default class extends Controller {
   }
 
   autoResizeIframe () {
-    // eslint-disable-next-line no-undef
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
         this.resizeIframe()
@@ -77,7 +77,6 @@ export default class extends Controller {
 
   requestPreview () {
     // Create an AJAX request
-    // eslint-disable-next-line no-undef
     const xhr = new XMLHttpRequest()
     xhr.open('POST', this.urlValue, true)
 
