@@ -110,11 +110,18 @@ export default class extends Controller {
   replaceIdsWithTimestamps (template) {
     const pattern = 'rrrrrrrrr'
     const replacement = new Date().getTime().toString()
+    const regex = new RegExp(pattern, 'g')
 
     // Replace ids
     template.querySelectorAll(`input[id*="${pattern}"], select[id*="${pattern}"], textarea[id*="${pattern}"], button[id*="${pattern}"]`).forEach((node) => {
       const idValue = node.getAttribute('id')
       node.setAttribute('id', idValue.replace(pattern, replacement))
+    })
+
+    // Search and replace pattern in templates
+    template.querySelectorAll('template').forEach((node) => {
+      node.innerHTML = node.innerHTML.replace(regex, replacement)
+      console.log(node.innerHTML)
     })
 
     // Replace labels

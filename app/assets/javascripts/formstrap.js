@@ -13219,9 +13219,14 @@ var repeater_controller_default = class extends Controller {
   replaceIdsWithTimestamps(template) {
     const pattern = "rrrrrrrrr";
     const replacement = new Date().getTime().toString();
+    const regex = new RegExp(pattern, "g");
     template.querySelectorAll(`input[id*="${pattern}"], select[id*="${pattern}"], textarea[id*="${pattern}"], button[id*="${pattern}"]`).forEach((node) => {
       const idValue = node.getAttribute("id");
       node.setAttribute("id", idValue.replace(pattern, replacement));
+    });
+    template.querySelectorAll("template").forEach((node) => {
+      node.innerHTML = node.innerHTML.replace(regex, replacement);
+      console.log(node.innerHTML);
     });
     template.querySelectorAll(`label[for*="${pattern}"]`).forEach((node) => {
       const forValue = node.getAttribute("for");
