@@ -11394,7 +11394,6 @@ var nested_preview_controller_default = class extends Controller {
     return formData;
   }
   readValues(element) {
-    console.log("parse values");
     if (element.tagName.toLowerCase() === "select" && element.multiple) {
       return [...element.selectedOptions].map((option2) => option2.value);
     } else {

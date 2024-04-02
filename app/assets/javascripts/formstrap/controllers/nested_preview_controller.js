@@ -144,8 +144,6 @@ export default class extends Controller {
   }
 
   readValues (element) {
-    console.log('parse values')
-
     // Check if the element is a select with multiple selection
     if (element.tagName.toLowerCase() === 'select' && element.multiple) {
       return [...element.selectedOptions].map(option => option.value)
