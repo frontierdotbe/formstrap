@@ -126,18 +126,30 @@ export default class extends Controller {
     const formData = new FormData()
 
     // Replace all occurrences of "page[blocks_attributes][0]" with "block"
-    const regex = /\w+\[([^\]]+)s_attributes\]\[\d+\]/g
+    const regex = /\w+\[([^\]]+)s_attributes]\[\d+]/g
     const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])')
-    formElements.forEach(function (element) {
+    formElements.forEach((element) => {
       const currentName = element.getAttribute('name')
       const newName = currentName.replace(regex, '$1')
-      formData.append(newName, element.value)
+      const values = this.readValues(element)
+      values.forEach((value) => {
+        formData.append(newName, value)
+      })
     })
 
     // Add authenticity token
     formData.append('authenticity_token', this.getAuthenticityToken())
 
     return formData
+  }
+
+  readValues (element) {
+    // Check if the element is a select with multiple selection
+    if (element.tagName.toLowerCase() === 'select' && element.multiple) {
+      return [...element.selectedOptions].map(option => option.value)
+    } else {
+      return [element.value]
+    }
   }
 
   // Prepare the iFrame for rendering

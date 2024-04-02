@@ -11380,15 +11380,25 @@ var nested_preview_controller_default = class extends Controller {
   buildFormData() {
     const fields = this.fieldsTarget;
     const formData = new FormData();
-    const regex = /\w+\[([^\]]+)s_attributes\]\[\d+\]/g;
+    const regex = /\w+\[([^\]]+)s_attributes]\[\d+]/g;
     const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])');
-    formElements.forEach(function(element) {
+    formElements.forEach((element) => {
       const currentName = element.getAttribute("name");
       const newName = currentName.replace(regex, "$1");
-      formData.append(newName, element.value);
+      const values = this.readValues(element);
+      values.forEach((value) => {
+        formData.append(newName, value);
+      });
     });
     formData.append("authenticity_token", this.getAuthenticityToken());
     return formData;
+  }
+  readValues(element) {
+    if (element.tagName.toLowerCase() === "select" && element.multiple) {
+      return [...element.selectedOptions].map((option2) => option2.value);
+    } else {
+      return [element.value];
+    }
   }
   prepareIframe() {
     const scaleFactor = this.scaleFactor();
