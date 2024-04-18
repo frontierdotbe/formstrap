@@ -64,7 +64,7 @@ An overview of all the Formstrap / Ruby on Rails form helpers:
 | Media             | media             | N/A                                         |
 | Number            | number            | number formstrap: false or number_field     |
 | Password          | password          | password formstrap: false or password_field |
-| RedactorX *       | redactorx         | N/A                                         |
+| Redactor  *       | redactor          | N/A                                         |
 | Search            | search            | N/A                                         |
 | Select            | select            | select formstrap: false                     |
 | Switch            | switch            | N/A                                         |
@@ -77,7 +77,7 @@ An overview of all the Formstrap / Ruby on Rails form helpers:
 \* Formstrap provides the implementation of these 3rd party libraries, however it is up to the user to provide the
 correct assets.
 
-As you might have noticed, Formstrap provides more helpers than what is standard in Ruby on Rails, e.g. ```Media```, ```Date range```, ```RedactorX``` ...
+As you might have noticed, Formstrap provides more helpers than what is standard in Ruby on Rails, e.g. ```Media```, ```Date range```, ```Redactor``` ...
 
 ### Altering Formstrap helpers
 
