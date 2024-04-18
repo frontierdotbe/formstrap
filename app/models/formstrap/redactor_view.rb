@@ -48,7 +48,7 @@ module Formstrap
           # Options in toolbar on the right
           extrabar: %w[html],
           # Options in toolbar on the left
-          toolbar: %w[format bold italic deleted list table link embed],
+          toolbar: %w[format bold italic deleted list table link],
         },
         plugins: %w[emoji]
       }.delete_if { |k, v| v.nil? }

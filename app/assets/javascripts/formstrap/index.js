@@ -17,10 +17,7 @@ import SelectController from './controllers/select_controller'
 import TextareaController from './controllers/textarea_controller'
 
 // Import redactor dependencies
-import './vendor/redactor/i18n/nl.js'
-import './vendor/redactor/i18n/fr.js'
-import './vendor/redactor/i18n/de.js'
-import './vendor/redactor/plugins/emoji.js'
+import './vendor/redactor'
 
 export class Formstrap {
   static start () {

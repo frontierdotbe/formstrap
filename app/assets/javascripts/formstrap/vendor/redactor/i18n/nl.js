@@ -12,7 +12,7 @@ Redactor.lang.nl = {
     'add-image': 'Afbeelding toevoegen'
   },
   embed: {
-    embed: 'Inbedden',
+    embed: 'Insluiten',
     caption: 'Onderschrift',
     description: 'Plak een embed/html-code of voer de url in (alleen vimeo of youtube-video)',
     'responsive-video': 'Responsieve video'
@@ -87,7 +87,7 @@ Redactor.lang.nl = {
     toggle: 'Schakelen',
     duplicate: 'Dupliceren',
     table: 'Tabel',
-    embed: 'Inbedden',
+    embed: 'Insluiten',
     quote: 'Citaat',
     layout: 'Lay-out',
     wrapper: 'Wrapper',
@@ -147,7 +147,7 @@ Redactor.lang.nl = {
     cell: 'Cel',
     column: 'Kolom',
     dlist: 'Definitielijst',
-    embed: 'Inbedden',
+    embed: 'Insluiten',
     figcaption: 'Figcaption',
     heading: 'Kop',
     image: 'Afbeelding',
