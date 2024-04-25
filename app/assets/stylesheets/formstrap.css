@@ -3877,7 +3877,9 @@ span.flatpickr-weekday {
 .rx-toolbar .rx-button-icon:hover span {
   color: var(--bs-body-color);
 }
-.rx-popup {
+.rx-popup,
+.rx-modal,
+.rx-dropdown {
   z-index: 2000;
 }
 .rx-dropdown {
