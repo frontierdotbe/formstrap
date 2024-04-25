@@ -6,9 +6,17 @@ module Formstrap
 
     private
 
+    def toolbar
+      @toolbar != false
+    end
+
     def default_options
       {
-        hybrid: toolbar == false
+        redactor: {
+          context: !toolbar,
+          extrabar: toolbar,
+          toolbar: toolbar
+        }
       }
     end
   end

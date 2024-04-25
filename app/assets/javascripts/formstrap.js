@@ -13110,33 +13110,18 @@ __publicField(preview_controller_default, "values", {
   url: String
 });
 
-// app/assets/javascripts/formstrap/controllers/redactorx_controller.js
-var redactorx_controller_default = class extends Controller {
+// app/assets/javascripts/formstrap/controllers/redactor_controller.js
+var redactor_controller_default = class extends Controller {
   connect() {
     this.initRedactor();
   }
   initRedactor() {
-    if (typeof RedactorX === "undefined") {
-      console.error("RedactorX is a paid module and is not included in Headmin. Please purchase it and import it as a JS module");
+    if (typeof Redactor === "undefined") {
+      console.error("Redactor is a paid module and is not included in Headmin. Please purchase it and import it as a JS module");
       return false;
     }
-    const defaultOptions = {
-      editor: {
-        minHeight: "57px"
-      },
-      subscribe: {
-        "app.start": () => {
-          this.stylize();
-        }
-      }
-    };
     const options = JSON.parse(this.element.getAttribute("data-redactor-options"));
-    RedactorX(this.element, { ...defaultOptions, ...options });
-  }
-  stylize() {
-    const container = this.element.nextElementSibling;
-    const inputClasses = this.element.classList;
-    container.classList.add(...inputClasses);
+    Redactor(this.element, options);
   }
 };
 
@@ -13363,6 +13348,1047 @@ function onVisible(element, callback) {
   }).observe(element);
 }
 
+// app/assets/javascripts/formstrap/vendor/redactor/i18n/nl.js
+Redactor.lang.nl = {
+  accessibility: {
+    "help-label": "Rijke teksteditor"
+  },
+  placeholders: {
+    figcaption: "Type onderschrift (optioneel)"
+  },
+  modal: {
+    link: "Link",
+    image: "Afbeelding",
+    "add-image": "Afbeelding toevoegen"
+  },
+  embed: {
+    embed: "Insluiten",
+    caption: "Onderschrift",
+    description: "Plak een embed/html-code of voer de url in (alleen vimeo of youtube-video)",
+    "responsive-video": "Responsieve video"
+  },
+  image: {
+    or: "of",
+    "alt-text": "Alt-tekst",
+    link: "Link",
+    width: "Breedte",
+    caption: "Onderschrift",
+    "link-in-new-tab": "Link openen in een nieuw tabblad",
+    "url-placeholder": "Plak url van afbeelding...",
+    "upload-new-placeholder": "Sleep om een nieuwe afbeelding te uploaden<br>of klik om te selecteren"
+  },
+  link: {
+    link: "Link",
+    "edit-link": "Link bewerken",
+    unlink: "Link verwijderen",
+    "link-in-new-tab": "Link openen in een nieuw tabblad",
+    text: "Tekst",
+    url: "URL"
+  },
+  table: {
+    width: "Breedte",
+    nowrap: "Niet afbreken",
+    "table-cell": "Tabelcel",
+    "select-table": "Selecteer tabel",
+    "select-cell": "Selecteer cel",
+    "cell-setting": "Celinstelling",
+    "add-head": "Kop toevoegen",
+    "remove-head": "Kop verwijderen",
+    "add-row-below": "Rij hieronder toevoegen",
+    "add-row-above": "Rij hierboven toevoegen",
+    "remove-row": "Rij verwijderen",
+    "add-column-after": "Kolom rechts toevoegen",
+    "add-column-before": "Kolom links toevoegen",
+    "remove-column": "Kolom verwijderen",
+    "delete-table": "Tabel verwijderen"
+  },
+  buttons: {
+    add: "Toevoegen",
+    insert: "Invoegen",
+    save: "Opslaan",
+    cancel: "Annuleren",
+    delete: "Verwijderen",
+    "ai-tools": "AI-tools",
+    "ai-image": "AI-afbeelding",
+    html: "HTML",
+    format: "Formaat",
+    bold: "Vet",
+    italic: "Cursief",
+    deleted: "Verwijderd",
+    "more-formatting": "Meer opmaak",
+    link: "Link",
+    "link-text": "Linktekst",
+    unlink: "Link verwijderen",
+    image: "Afbeelding",
+    unwrap: "Uitpakken",
+    outset: "Uitspringen",
+    "wrap-image": "Afbeelding omwikkelen",
+    "move-up": "Naar boven verplaatsen",
+    "move-down": "Naar beneden verplaatsen",
+    list: "Lijst",
+    "numbered-list": "Genummerde lijst",
+    "bullet-list": "Lijst met opsommingstekens",
+    indent: "Inspringen",
+    outdent: "Uitspringen",
+    "definition-list": "Definitielijst",
+    hotkeys: "Sneltoetsen",
+    undo: "Ongedaan maken",
+    redo: "Opnieuw doen",
+    toggle: "Schakelen",
+    duplicate: "Dupliceren",
+    table: "Tabel",
+    embed: "Insluiten",
+    quote: "Citaat",
+    layout: "Lay-out",
+    wrapper: "Wrapper",
+    todo: "Takenlijst",
+    "code-snippet": "Codefragment",
+    line: "Lijn",
+    parent: "Bovenliggend",
+    code: "Code",
+    underline: "Onderstrepen",
+    highlight: "Markeren",
+    superscript: "Superscript",
+    subscript: "Subscript",
+    "clear-all-styles": "Alle stijlen verwijderen",
+    heading: "Kop",
+    text: "Tekst",
+    address: "Adres"
+  },
+  colorpicker: {
+    "remove-color": "Kleur verwijderen",
+    "remove-background": "Achtergrondkleur verwijderen",
+    color: "Kleur",
+    background: "Achtergrond",
+    "set-color": "Kleur instellen"
+  },
+  ai: {
+    "placeholder-image": "Beschrijf de afbeelding die je wilt genereren.",
+    "placeholder-text": "Vertel me wat je wilt schrijven.",
+    send: "Versturen",
+    stop: "Stoppen",
+    discard: "Verwerpen",
+    insert: "Invoegen",
+    prompt: "Prompt"
+  },
+  pathbar: {
+    title: "Inhoud"
+  },
+  layout: {
+    "single-column": "E\xE9n kolom",
+    "two-columns": "Twee kolommen",
+    "three-columns": "Drie kolommen",
+    "four-columns": "Vier kolommen"
+  },
+  outset: {
+    "outset-none": "Geen uitspringen",
+    "outset-left": "Uitspringen links",
+    "outset-both": "Aan beide zijden uitspringen",
+    "outset-right": "Uitspringen rechts"
+  },
+  wrap: {
+    "wrap-none": "Geen omwikkelen",
+    "wrap-left": "Links omwikkelen",
+    "wrap-center": "Centraal omwikkelen",
+    "wrap-right": "Rechts omwikkelen"
+  },
+  blocks: {
+    address: "Adres",
+    cell: "Cel",
+    column: "Kolom",
+    dlist: "Definitielijst",
+    embed: "Insluiten",
+    figcaption: "Figcaption",
+    heading: "Kop",
+    image: "Afbeelding",
+    wrapper: "Wrapper",
+    layout: "Lay-out",
+    line: "Lijn",
+    list: "Lijst",
+    listitem: "Item",
+    noneditable: "Niet-bewerkbaar",
+    pre: "Pre",
+    quote: "Citaat",
+    row: "Rij",
+    table: "Tabel",
+    text: "Tekst",
+    todo: "Takenlijst",
+    todoitem: "Item",
+    mergetag: "Samenvoegtag"
+  },
+  hotkeys: {
+    "meta-shift-a": "Tekst in het blok selecteren",
+    "meta-a": "Alle blokken selecteren",
+    "meta-z": "Ongedaan maken",
+    "meta-shift-z": "Opnieuw doen",
+    "meta-shift-m": "Inline opmaak verwijderen",
+    "meta-b": "Vet",
+    "meta-i": "Cursief",
+    "meta-u": "Onderstrepen",
+    "meta-h": "Superscript",
+    "meta-l": "Subscript",
+    "meta-k": "Link",
+    "meta-alt-0": "Normale tekst",
+    "meta-alt-1": "Kop 1",
+    "meta-alt-2": "Kop 2",
+    "meta-alt-3": "Kop 3",
+    "meta-alt-4": "Kop 4",
+    "meta-alt-5": "Kop 5",
+    "meta-alt-6": "Kop 6",
+    "meta-shift-7": "Genummerde lijst",
+    "meta-shift-8": "Lijst met opsommingstekens",
+    "meta-indent": "Inspringen",
+    "meta-outdent": "Uitspringen",
+    "meta-shift-backspace": "Blok verwijderen",
+    "meta-shift-o": "Blok toevoegen",
+    "meta-shift-d": "Blok dupliceren",
+    "meta-shift-up": "Lijn omhoog verplaatsen",
+    "meta-shift-down": "Lijn omlaag verplaatsen"
+  },
+  emoji: {
+    emoji: "Emoji",
+    favorites: "Favorieten",
+    smileys: "Smiley's",
+    gestures: "Gebaren",
+    animals: "Dieren",
+    food: "Eten",
+    activities: "Activiteiten",
+    travel: "Reizen"
+  },
+  linkstyles: {
+    label: "Stijlen",
+    link: "Link",
+    primary: "Primaire knop",
+    secondary: "Secundaire knop"
+  }
+};
+
+// app/assets/javascripts/formstrap/vendor/redactor/i18n/fr.js
+Redactor.lang.fr = {
+  accessibility: {
+    "help-label": "\xC9diteur de texte enrichi"
+  },
+  placeholders: {
+    figcaption: "Entrez la l\xE9gende (facultatif)"
+  },
+  modal: {
+    link: "Lien",
+    image: "Image",
+    "add-image": "Ajouter une image"
+  },
+  embed: {
+    embed: "Int\xE9grer",
+    caption: "L\xE9gende",
+    description: "Collez un code d'int\xE9gration/html ou saisissez l'URL (vid\xE9o Vimeo ou YouTube uniquement)",
+    "responsive-video": "Vid\xE9o responsive"
+  },
+  image: {
+    or: "ou",
+    "alt-text": "Texte alternatif",
+    link: "Lien",
+    width: "Largeur",
+    caption: "L\xE9gende",
+    "link-in-new-tab": "Ouvrir le lien dans un nouvel onglet",
+    "url-placeholder": "Collez l'URL de l'image...",
+    "upload-new-placeholder": "Glissez pour t\xE9l\xE9charger une nouvelle image<br>ou cliquez pour s\xE9lectionner"
+  },
+  link: {
+    link: "Lien",
+    "edit-link": "Modifier le lien",
+    unlink: "Supprimer le lien",
+    "link-in-new-tab": "Ouvrir le lien dans un nouvel onglet",
+    text: "Texte",
+    url: "URL"
+  },
+  table: {
+    width: "Largeur",
+    nowrap: "Pas de retour \xE0 la ligne",
+    "table-cell": "Cellule de tableau",
+    "select-table": "S\xE9lectionner le tableau",
+    "select-cell": "S\xE9lectionner la cellule",
+    "cell-setting": "Param\xE8tres de la cellule",
+    "add-head": "Ajouter une en-t\xEAte",
+    "remove-head": "Supprimer l'en-t\xEAte",
+    "add-row-below": "Ajouter une ligne en dessous",
+    "add-row-above": "Ajouter une ligne au-dessus",
+    "remove-row": "Supprimer la ligne",
+    "add-column-after": "Ajouter une colonne apr\xE8s",
+    "add-column-before": "Ajouter une colonne avant",
+    "remove-column": "Supprimer la colonne",
+    "delete-table": "Supprimer le tableau"
+  },
+  buttons: {
+    add: "Ajouter",
+    insert: "Ins\xE9rer",
+    save: "Enregistrer",
+    cancel: "Annuler",
+    delete: "Supprimer",
+    "ai-tools": "Outils IA",
+    "ai-image": "Image IA",
+    html: "HTML",
+    format: "Format",
+    bold: "Gras",
+    italic: "Italique",
+    deleted: "Barr\xE9",
+    "more-formatting": "Plus de mise en forme",
+    link: "Lien",
+    "link-text": "Texte du lien",
+    unlink: "Supprimer le lien",
+    image: "Image",
+    unwrap: "D\xE9faire",
+    outset: "Souligner",
+    "wrap-image": "Envelopper l'image",
+    "move-up": "D\xE9placer vers le haut",
+    "move-down": "D\xE9placer vers le bas",
+    list: "Liste",
+    "numbered-list": "Liste num\xE9rot\xE9e",
+    "bullet-list": "Liste \xE0 puces",
+    indent: "Retrait",
+    outdent: "D\xE9calage n\xE9gatif",
+    "definition-list": "Liste de d\xE9finition",
+    hotkeys: "Raccourcis clavier",
+    undo: "Annuler",
+    redo: "Refaire",
+    toggle: "Basculer",
+    duplicate: "Dupliquer",
+    table: "Tableau",
+    embed: "Int\xE9grer",
+    quote: "Citation",
+    layout: "Disposition",
+    wrapper: "Enveloppe",
+    todo: "\xC0 faire",
+    "code-snippet": "Extrait de code",
+    line: "Ligne",
+    parent: "Parent",
+    code: "Code",
+    underline: "Souligner",
+    highlight: "Surligner",
+    superscript: "Exposant",
+    subscript: "Indice",
+    "clear-all-styles": "Effacer tous les styles",
+    heading: "Titre",
+    text: "Texte",
+    address: "Adresse"
+  },
+  colorpicker: {
+    "remove-color": "Supprimer la couleur",
+    "remove-background": "Supprimer la couleur de fond",
+    color: "Couleur",
+    background: "Arri\xE8re-plan",
+    "set-color": "D\xE9finir la couleur"
+  },
+  ai: {
+    "placeholder-image": "D\xE9crivez l'image que vous souhaitez g\xE9n\xE9rer.",
+    "placeholder-text": "Dites-moi ce que vous voulez \xE9crire.",
+    send: "Envoyer",
+    stop: "Arr\xEAter",
+    discard: "Ignorer",
+    insert: "Ins\xE9rer",
+    prompt: "Invite"
+  },
+  pathbar: {
+    title: "Corps"
+  },
+  layout: {
+    "single-column": "Une colonne",
+    "two-columns": "Deux colonnes",
+    "three-columns": "Trois colonnes",
+    "four-columns": "Quatre colonnes"
+  },
+  outset: {
+    "outset-none": "Aucun soulignement",
+    "outset-left": "Souligner \xE0 gauche",
+    "outset-both": "Souligner des deux c\xF4t\xE9s",
+    "outset-right": "Souligner \xE0 droite"
+  },
+  wrap: {
+    "wrap-none": "Aucune enveloppe",
+    "wrap-left": "Envelopper \xE0 gauche",
+    "wrap-center": "Envelopper au centre",
+    "wrap-right": "Envelopper \xE0 droite"
+  },
+  blocks: {
+    address: "Adresse",
+    cell: "Cellule",
+    column: "Colonne",
+    dlist: "Liste de d\xE9finition",
+    embed: "Int\xE9grer",
+    figcaption: "L\xE9gende",
+    heading: "Titre",
+    image: "Image",
+    wrapper: "Enveloppe",
+    layout: "Disposition",
+    line: "Ligne",
+    list: "Liste",
+    listitem: "\xC9l\xE9ment",
+    noneditable: "Non \xE9ditable",
+    pre: "Pr\xE9format\xE9",
+    quote: "Citation",
+    row: "Ligne",
+    table: "Tableau",
+    text: "Texte",
+    todo: "\xC0 faire",
+    todoitem: "\xC9l\xE9ment \xE0 faire",
+    mergetag: "Balise de fusion"
+  },
+  hotkeys: {
+    "meta-shift-a": "S\xE9lectionner le texte dans le bloc",
+    "meta-a": "S\xE9lectionner tous les blocs",
+    "meta-z": "Annuler",
+    "meta-shift-z": "R\xE9tablir",
+    "meta-shift-m": "Supprimer le format en ligne",
+    "meta-b": "Gras",
+    "meta-i": "Italique",
+    "meta-u": "Souligner",
+    "meta-h": "Exposant",
+    "meta-l": "Indice",
+    "meta-k": "Lien",
+    "meta-alt-0": "Texte normal",
+    "meta-alt-1": "Titre 1",
+    "meta-alt-2": "Titre 2",
+    "meta-alt-3": "Titre 3",
+    "meta-alt-4": "Titre 4",
+    "meta-alt-5": "Titre 5",
+    "meta-alt-6": "Titre 6",
+    "meta-shift-7": "Liste num\xE9rot\xE9e",
+    "meta-shift-8": "Liste \xE0 puces",
+    "meta-indent": "Retrait",
+    "meta-outdent": "D\xE9calage n\xE9gatif",
+    "meta-shift-backspace": "Supprimer le bloc",
+    "meta-shift-o": "Ajouter un bloc",
+    "meta-shift-d": "Dupliquer le bloc",
+    "meta-shift-up": "D\xE9placer la ligne vers le haut",
+    "meta-shift-down": "D\xE9placer la ligne vers le bas"
+  },
+  emoji: {
+    emoji: "Emoji",
+    favorites: "Favoris",
+    smileys: "Smileys",
+    gestures: "Gestes",
+    animals: "Animaux",
+    food: "Nourriture",
+    activities: "Activit\xE9s",
+    travel: "Voyages"
+  },
+  linkstyles: {
+    label: "Styles",
+    link: "Lien",
+    primary: "Bouton primaire",
+    secondary: "Bouton secondaire"
+  }
+};
+
+// app/assets/javascripts/formstrap/vendor/redactor/i18n/de.js
+Redactor.lang.de = {
+  accessibility: {
+    "help-label": "Texteditor"
+  },
+  placeholders: {
+    figcaption: "Beschreibung eingeben (optional)"
+  },
+  modal: {
+    link: "Link",
+    image: "Bild",
+    "add-image": "Bild hinzuf\xFCgen"
+  },
+  embed: {
+    embed: "Einbetten",
+    caption: "Beschriftung",
+    description: "F\xFCgen Sie einen Einbettungscode ein oder geben Sie die URL ein (nur Vimeo- oder YouTube-Video)",
+    "responsive-video": "Responsives Video"
+  },
+  image: {
+    or: "oder",
+    "alt-text": "Alternativer Text",
+    link: "Link",
+    width: "Breite",
+    caption: "Beschriftung",
+    "link-in-new-tab": "Link in neuem Tab \xF6ffnen",
+    "url-placeholder": "URL des Bildes einf\xFCgen...",
+    "upload-new-placeholder": "Zum Hochladen eines neuen Bildes ziehen<br>oder klicken Sie, um auszuw\xE4hlen"
+  },
+  link: {
+    link: "Link",
+    "edit-link": "Link bearbeiten",
+    unlink: "Link entfernen",
+    "link-in-new-tab": "Link in neuem Tab \xF6ffnen",
+    text: "Text",
+    url: "URL"
+  },
+  table: {
+    width: "Breite",
+    nowrap: "Kein Zeilenumbruch",
+    "table-cell": "Tabellenzelle",
+    "select-table": "Tabelle ausw\xE4hlen",
+    "select-cell": "Zelle ausw\xE4hlen",
+    "cell-setting": "Zelleinstellung",
+    "add-head": "Kopfzeile hinzuf\xFCgen",
+    "remove-head": "Kopfzeile entfernen",
+    "add-row-below": "Zeile unten hinzuf\xFCgen",
+    "add-row-above": "Zeile oben hinzuf\xFCgen",
+    "remove-row": "Zeile entfernen",
+    "add-column-after": "Spalte danach hinzuf\xFCgen",
+    "add-column-before": "Spalte davor hinzuf\xFCgen",
+    "remove-column": "Spalte entfernen",
+    "delete-table": "Tabelle l\xF6schen"
+  },
+  buttons: {
+    add: "Hinzuf\xFCgen",
+    insert: "Einf\xFCgen",
+    save: "Speichern",
+    cancel: "Abbrechen",
+    delete: "L\xF6schen",
+    "ai-tools": "KI-Werkzeuge",
+    "ai-image": "KI-Bild",
+    html: "HTML",
+    format: "Format",
+    bold: "Fett",
+    italic: "Kursiv",
+    deleted: "Durchgestrichen",
+    "more-formatting": "Weitere Formatierungen",
+    link: "Link",
+    "link-text": "Linktext",
+    unlink: "Link entfernen",
+    image: "Bild",
+    unwrap: "Formatierung aufheben",
+    outset: "Hervorhebung",
+    "wrap-image": "Bild einrahmen",
+    "move-up": "Nach oben verschieben",
+    "move-down": "Nach unten verschieben",
+    list: "Liste",
+    "numbered-list": "Nummerierte Liste",
+    "bullet-list": "Aufz\xE4hlung",
+    indent: "Einr\xFCcken",
+    outdent: "Ausr\xFCcken",
+    "definition-list": "Definitionslite",
+    hotkeys: "Tastenkombinationen",
+    undo: "R\xFCckg\xE4ngig machen",
+    redo: "Wiederherstellen",
+    toggle: "Umschalten",
+    duplicate: "Duplizieren",
+    table: "Tabelle",
+    embed: "Einbetten",
+    quote: "Zitat",
+    layout: "Layout",
+    wrapper: "Umschlag",
+    todo: "Aufgabe",
+    "code-snippet": "Code-Schnipsel",
+    line: "Linie",
+    parent: "Elternteil",
+    code: "Code",
+    underline: "Unterstreichen",
+    highlight: "Hervorheben",
+    superscript: "Hochgestellt",
+    subscript: "Tiefgestellt",
+    "clear-all-styles": "Alle Stile l\xF6schen",
+    heading: "\xDCberschrift",
+    text: "Text",
+    address: "Adresse"
+  },
+  colorpicker: {
+    "remove-color": "Farbe entfernen",
+    "remove-background": "Hintergrundfarbe entfernen",
+    color: "Farbe",
+    background: "Hintergrund",
+    "set-color": "Farbe einstellen"
+  },
+  ai: {
+    "placeholder-image": "Beschreiben Sie das Bild, das Sie generieren m\xF6chten.",
+    "placeholder-text": "Sagen Sie mir, was Sie schreiben m\xF6chten.",
+    send: "Senden",
+    stop: "Stoppen",
+    discard: "Verwerfen",
+    insert: "Einf\xFCgen",
+    prompt: "Aufforderung"
+  },
+  pathbar: {
+    title: "K\xF6rper"
+  },
+  layout: {
+    "single-column": "Eine Spalte",
+    "two-columns": "Zwei Spalten",
+    "three-columns": "Drei Spalten",
+    "four-columns": "Vier Spalten"
+  },
+  outset: {
+    "outset-none": "Keine Hervorhebung",
+    "outset-left": "Hervorhebung links",
+    "outset-both": "Hervorhebung beidseitig",
+    "outset-right": "Hervorhebung rechts"
+  },
+  wrap: {
+    "wrap-none": "Kein Einrahmen",
+    "wrap-left": "Links einrahmen",
+    "wrap-center": "Zentriert einrahmen",
+    "wrap-right": "Rechts einrahmen"
+  },
+  blocks: {
+    address: "Adresse",
+    cell: "Zelle",
+    column: "Spalte",
+    dlist: "Definitionenliste",
+    embed: "Einbetten",
+    figcaption: "Beschriftung",
+    heading: "\xDCberschrift",
+    image: "Bild",
+    wrapper: "Umschlag",
+    layout: "Layout",
+    line: "Linie",
+    list: "Liste",
+    listitem: "Element",
+    noneditable: "Nicht bearbeitbar",
+    pre: "Vorformatiert",
+    quote: "Zitat",
+    row: "Zeile",
+    table: "Tabelle",
+    text: "Text",
+    todo: "Aufgabe",
+    todoitem: "Element",
+    mergetag: "Zusammenf\xFChrungszeichen"
+  },
+  hotkeys: {
+    "meta-shift-a": "Text im Block ausw\xE4hlen",
+    "meta-a": "Alle Bl\xF6cke ausw\xE4hlen",
+    "meta-z": "R\xFCckg\xE4ngig machen",
+    "meta-shift-z": "Wiederherstellen",
+    "meta-shift-m": "Inline-Formatierung entfernen",
+    "meta-b": "Fett",
+    "meta-i": "Kursiv",
+    "meta-u": "Unterstreichen",
+    "meta-h": "Hochgestellt",
+    "meta-l": "Tiefgestellt",
+    "meta-k": "Link",
+    "meta-alt-0": "Normaler Text",
+    "meta-alt-1": "\xDCberschrift 1",
+    "meta-alt-2": "\xDCberschrift 2",
+    "meta-alt-3": "\xDCberschrift 3",
+    "meta-alt-4": "\xDCberschrift 4",
+    "meta-alt-5": "\xDCberschrift 5",
+    "meta-alt-6": "\xDCberschrift 6",
+    "meta-shift-7": "Nummerierte Liste",
+    "meta-shift-8": "Ungeordnete Liste",
+    "meta-indent": "Einzug",
+    "meta-outdent": "Ausr\xFCckung",
+    "meta-shift-backspace": "Block l\xF6schen",
+    "meta-shift-o": "Block hinzuf\xFCgen",
+    "meta-shift-d": "Block duplizieren",
+    "meta-shift-up": "Zeile nach oben verschieben",
+    "meta-shift-down": "Zeile nach unten verschieben"
+  },
+  emoji: {
+    emoji: "Emoji",
+    favorites: "Favoriten",
+    smileys: "Smileys",
+    gestures: "Gesten",
+    animals: "Tiere",
+    food: "Essen",
+    activities: "Aktivit\xE4ten",
+    travel: "Reisen"
+  },
+  linkstyles: {
+    label: "Stile",
+    link: "Link",
+    primary: "Prim\xE4rer Button",
+    secondary: "Sekund\xE4rer Button"
+  }
+};
+
+// app/assets/javascripts/formstrap/vendor/redactor/plugins/emoji.js
+Redactor.add("plugin", "emoji", {
+  translations: {
+    en: {
+      emoji: {
+        emoji: "Emoji",
+        favorites: "Favorites",
+        smileys: "Smileys",
+        gestures: "Gestures",
+        animals: "Animals",
+        food: "Food",
+        activities: "Activities",
+        travel: "Travel"
+      }
+    }
+  },
+  defaults: {
+    context: true,
+    icon: '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" clip-rule="evenodd" d="M8.17317 2.7612C9.38642 2.25866 10.6868 2 12 2C13.3132 2 14.6136 2.25866 15.8268 2.7612C17.0401 3.26375 18.1425 4.00035 19.0711 4.92893C19.9997 5.85752 20.7362 6.95991 21.2388 8.17317C21.7413 9.38642 22 10.6868 22 12C22 13.3132 21.7413 14.6136 21.2388 15.8268C20.7362 17.0401 19.9997 18.1425 19.0711 19.0711C18.1425 19.9997 17.0401 20.7362 15.8268 21.2388C14.6136 21.7413 13.3132 22 12 22C10.6868 22 9.38642 21.7413 8.17317 21.2388C6.95991 20.7362 5.85752 19.9997 4.92893 19.0711C4.00035 18.1425 3.26375 17.0401 2.7612 15.8268C2.25866 14.6136 2 13.3132 2 12C2 10.6868 2.25866 9.38642 2.7612 8.17317C3.26375 6.95991 4.00035 5.85752 4.92893 4.92893C5.85752 4.00035 6.95991 3.26375 8.17317 2.7612ZM12 4C10.9494 4 9.90914 4.20693 8.93853 4.60896C7.96793 5.011 7.08601 5.60028 6.34315 6.34315C5.60028 7.08601 5.011 7.96793 4.60896 8.93853C4.20693 9.90914 4 10.9494 4 12C4 13.0506 4.20693 14.0909 4.60896 15.0615C5.011 16.0321 5.60028 16.914 6.34315 17.6569C7.08601 18.3997 7.96793 18.989 8.93853 19.391C9.90914 19.7931 10.9494 20 12 20C13.0506 20 14.0909 19.7931 15.0615 19.391C16.0321 18.989 16.914 18.3997 17.6569 17.6569C18.3997 16.914 18.989 16.0321 19.391 15.0615C19.7931 14.0909 20 13.0506 20 12C20 10.9494 19.7931 9.90914 19.391 8.93853C18.989 7.96793 18.3997 7.08602 17.6569 6.34315C16.914 5.60028 16.0321 5.011 15.0615 4.60896C14.0909 4.20693 13.0506 4 12 4ZM8 10C8 9.44772 8.44772 9 9 9H9.01C9.56228 9 10.01 9.44772 10.01 10C10.01 10.5523 9.56228 11 9.01 11H9C8.44772 11 8 10.5523 8 10ZM14 10C14 9.44772 14.4477 9 15 9H15.01C15.5623 9 16.01 9.44772 16.01 10C16.01 10.5523 15.5623 11 15.01 11H15C14.4477 11 14 10.5523 14 10ZM8.80015 14.2857C9.19463 13.8992 9.82777 13.9057 10.2143 14.3001C10.4471 14.5377 10.7249 14.7265 11.0315 14.8553C11.3381 14.9841 11.6674 15.0505 12 15.0505C12.3326 15.0505 12.6619 14.9841 12.9685 14.8553C13.2751 14.7265 13.5529 14.5377 13.7857 14.3001C14.1722 13.9057 14.8054 13.8992 15.1999 14.2857C15.5943 14.6722 15.6008 15.3054 15.2143 15.6999C14.7953 16.1275 14.2952 16.4672 13.7433 16.6991C13.1913 16.931 12.5987 17.0505 12 17.0505C11.4013 17.0505 10.8087 16.931 10.2567 16.6991C9.70481 16.4672 9.2047 16.1275 8.78571 15.6999C8.3992 15.3054 8.40566 14.6722 8.80015 14.2857Z"/></svg>',
+    trigger: ":",
+    items: {
+      favorites: {
+        faceTearsJoy: "\u{1F602}",
+        heart: "\u2764\uFE0F",
+        rollingFloorLaughing: "\u{1F923}",
+        thumbsUpSign: "\u{1F44D}",
+        loudlyCryingFace: "\u{1F62D}",
+        foldedHands: "\u{1F64F}",
+        throwingKiss: "\u{1F618}",
+        smilingFaceSmilingEyesThreeHearts: "\u{1F970}",
+        smilingFaceHeartShapedEyes: "\u{1F60D}",
+        partyPopper: "\u{1F389}",
+        grinningFaceSmilingEyes: "\u{1F601}",
+        fire: "\u{1F525}",
+        birthdayCake: "\u{1F382}",
+        flushedFace: "\u{1F633}",
+        smilingFaceSunglasses: "\u{1F60E}",
+        sparkles: "\u2728",
+        eyes: "\u{1F440}",
+        rightPointingBackhand: "\u{1F449}",
+        hundredPointsSymbol: "\u{1F4AF}",
+        poutingFace: "\u{1F621}"
+      },
+      smileys: {
+        slightlySmilingFace: "\u{1F642}",
+        smile: "\u{1F604}",
+        laughing: "\u{1F606}",
+        wink: "\u{1F609}",
+        heartEyes: "\u{1F60D}",
+        tongueOut: "\u{1F61B}",
+        blush: "\u{1F60A}",
+        smirk: "\u{1F60F}",
+        thinking: "\u{1F914}",
+        sleepy: "\u{1F62A}"
+      },
+      gestures: {
+        thumbsUp: "\u{1F44D}",
+        thumbsDown: "\u{1F44E}",
+        peaceSign: "\u270C\uFE0F",
+        clappingHands: "\u{1F44F}",
+        raisingHands: "\u{1F64C}",
+        facepalm: "\u{1F926}",
+        shrug: "\u{1F937}",
+        fistBump: "\u{1F44A}",
+        wavingHand: "\u{1F44B}",
+        okHand: "\u{1F44C}"
+      },
+      animals: {
+        dogFace: "\u{1F436}",
+        catFace: "\u{1F431}",
+        mouseFace: "\u{1F42D}",
+        hamsterFace: "\u{1F439}",
+        rabbitFace: "\u{1F430}",
+        bearFace: "\u{1F43B}",
+        pandaFace: "\u{1F43C}",
+        lionFace: "\u{1F981}",
+        pigFace: "\u{1F437}",
+        frogFace: "\u{1F438}"
+      },
+      food: {
+        greenApple: "\u{1F34F}",
+        pizza: "\u{1F355}",
+        hamburger: "\u{1F354}",
+        fries: "\u{1F35F}",
+        spaghetti: "\u{1F35D}",
+        sushi: "\u{1F363}",
+        iceCream: "\u{1F368}",
+        donut: "\u{1F369}",
+        cookie: "\u{1F36A}",
+        cake: "\u{1F370}"
+      },
+      activities: {
+        soccerBall: "\u26BD",
+        basketball: "\u{1F3C0}",
+        football: "\u{1F3C8}",
+        baseball: "\u26BE",
+        tennis: "\u{1F3BE}",
+        bowling: "\u{1F3B3}",
+        golf: "\u{1F3CC}\uFE0F\u200D\u2642\uFE0F",
+        fishingPole: "\u{1F3A3}",
+        bicycle: "\u{1F6B4}",
+        videoGame: "\u{1F3AE}"
+      },
+      travel: {
+        airplane: "\u2708\uFE0F",
+        car: "\u{1F697}",
+        bicycle: "\u{1F6B2}",
+        train: "\u{1F686}",
+        boat: "\u26F5",
+        map: "\u{1F5FA}\uFE0F",
+        beachUmbrella: "\u{1F3D6}\uFE0F",
+        mountain: "\u26F0\uFE0F",
+        camping: "\u{1F3D5}\uFE0F",
+        suitcase: "\u{1F9F3}"
+      }
+    }
+  },
+  subscribe: {
+    "editor.keyup": function(event) {
+      if (!this.opts.is("emoji.trigger"))
+        return;
+      this._handle(event);
+    }
+  },
+  start() {
+    const button = {
+      title: "## emoji.emoji ##",
+      icon: this.opts.get("emoji.icon"),
+      command: "emoji.popup"
+    };
+    this.handleStr = "";
+    this.handleLen = 1;
+    this.app.toolbar.add("emoji", button);
+    if (this.opts.is("emoji.context")) {
+      this.app.context.add("emoji", button);
+    }
+  },
+  popup(e, button) {
+    const stack = this.app.create("stack");
+    stack.create("emoji", { width: "372px" });
+    const $modal = stack.getBody();
+    this._buildEmoji($modal);
+    this.app.modal.open({ name: "emoji", stack, button });
+  },
+  _handle(event) {
+    const e = event.get("e");
+    const key = e.which;
+    const ctrl = e.ctrlKey || e.metaKey;
+    const arrows = [37, 38, 39, 40];
+    const ks = this.app.keycodes;
+    if (key === ks.ESC) {
+      this.app.editor.restore();
+      return;
+    }
+    if (key === ks.DELETE || key === ks.SPACE || key === ks.SHIFT || ctrl || arrows.indexOf(key) !== -1) {
+      return;
+    }
+    if (key === ks.BACKSPACE) {
+      this.handleLen = this.handleLen - 2;
+      if (this.handleLen <= 0) {
+        this.handleLen = 1;
+        this._hide();
+      } else if (this.handleLen <= 1) {
+        this._hide();
+      }
+    }
+    this._emit();
+  },
+  _emit() {
+    const selection = this.app.create("selection");
+    const trigger = this.opts.get("emoji.trigger");
+    const re = new RegExp("^" + trigger);
+    this.handleStr = selection.getText("before", this.handleLen);
+    this.handleStr2 = selection.getText("before", this.handleLen + 1);
+    if (re.test(this.handleStr)) {
+      if (this.handleStr2 && (this.handleStr2[0] === " " || this.handleStr2[0] === "" || this.handleStr2[0] === trigger)) {
+        this.handleStr = this.handleStr.replace(trigger, "");
+        this.handleLen++;
+        if (this.handleLen - 1 > 0) {
+          this._load();
+        }
+      }
+    }
+  },
+  _load() {
+    this._createPanel();
+    const sections = this._buildEmoji(this.$panel, this.handleStr, true);
+    if (sections === 0) {
+      this._hide();
+    }
+  },
+  _createPanel() {
+    this.$panel = this.app.panel.build(this, "_insertFromPanel");
+    this.$panel.addClass("rx-panel-emoji").css("max-width", "372px");
+    const scrollTop = this.app.getDoc().scrollTop();
+    const selection = this.app.create("selection");
+    const pos = selection.getPosition();
+    this.app.panel.open({ top: pos.bottom + scrollTop, left: pos.left });
+    this.app.editor.save();
+  },
+  _buildEmoji($modal, filter, panel) {
+    const items = this.opts.get("emoji.items");
+    let sections = 0;
+    const type = panel ? "panel" : "emoji";
+    for (const [name, section] of Object.entries(items)) {
+      const $section = this.dom('<div class="rx-' + type + '-section">');
+      const $title = this.dom('<div class="rx-' + type + '-title">');
+      const $box = this.dom('<div class="rx-' + type + '-box">');
+      let size = 0;
+      const title = this.lang.has("emoji." + name) ? this.lang.get("emoji." + name) : name.charAt(0).toUpperCase() + name.slice(1);
+      $title.html(title);
+      $section.append($title);
+      $section.append($box);
+      for (const [key, value] of Object.entries(section)) {
+        if (filter && filter !== "" && key.search(filter) === -1)
+          continue;
+        const $item = this.dom('<span class="rx-' + type + '-item">');
+        $item.html(value);
+        if (panel) {
+          $item.on("click", this._insertFromPanel.bind(this));
+        } else {
+          $item.on("click", this._insert.bind(this));
+        }
+        $box.append($item);
+        size++;
+      }
+      if (size > 0) {
+        sections++;
+        $modal.append($section);
+      }
+    }
+    return sections;
+  },
+  _insert(e) {
+    this.app.modal.close();
+    e.preventDefault();
+    e.stopPropagation();
+    const $target = this.dom(e.target);
+    const value = $target.html();
+    const insertion = this.app.create("insertion");
+    insertion.insertText(value, "after");
+  },
+  _insertFromPanel(e, $el) {
+    this.app.editor.restore();
+    const $item = $el || this.dom(e.target);
+    const replacement = $item.html();
+    const trigger = this.opts.get("emoji.trigger");
+    const offset2 = this.app.create("offset");
+    const selection = this.app.create("selection");
+    const current = selection.getCurrent();
+    let currentText = current.textContent;
+    const offsetObj = offset2.get();
+    const leftFix = (trigger + this.handleStr).length;
+    const what = trigger + this.handleStr;
+    const n = currentText.lastIndexOf(what);
+    if (n >= 0) {
+      currentText = currentText.substring(0, n) + replacement + currentText.substring(n + what.length);
+    }
+    current.textContent = currentText;
+    offsetObj.start = offsetObj.start - leftFix + replacement.length;
+    offsetObj.end = offsetObj.end - leftFix + replacement.length;
+    offset2.set(offsetObj);
+    this._hideForce();
+  },
+  _hidePanel(e) {
+    let hidable = false;
+    const key = e && e.which;
+    const ks = this.app.keycodes;
+    if (!e) {
+      hidable = true;
+    } else if (e.type === "click" || key === ks.ESC || key === ks.SPACE) {
+      hidable = true;
+    }
+    if (hidable) {
+      this._hideForce();
+    }
+  },
+  _hide() {
+    this.app.panel.close();
+    this._stopEvents();
+  },
+  _hideForce() {
+    this._hide();
+    this.handleStr = "";
+    this.handleLen = 1;
+  },
+  _startEvents() {
+    const name = "click.rx-plugin-emoji keydown.rx-plugin-emoji";
+    this.app.getDoc().on(name, this._hidePanel.bind(this));
+    this.app.editor.getEditor().on(name, this._hidePanel.bind(this));
+  },
+  _stopEvents() {
+    const name = ".rx-plugin-emoji";
+    this.app.getDoc().off(name);
+    this.app.editor.getEditor().off(name);
+  }
+});
+
+// app/assets/javascripts/formstrap/vendor/redactor/plugins/linkstyles.js
+Redactor.add("plugin", "linkstyles", {
+  translations: {
+    en: {
+      linkstyles: {
+        label: "Styles",
+        link: "Link",
+        primary: "Primary",
+        secondary: "Secondary"
+      }
+    }
+  },
+  defaults: {
+    items: [
+      { name: "link", value: "" },
+      { name: "primary", value: "button button-primary" },
+      { name: "secondary", value: "button button-secondary" }
+    ]
+  },
+  subscribe: {
+    "modal.before.open": function() {
+      const name = this.app.modal.getName();
+      if (name === "link") {
+        this.setDefaultValue();
+      }
+    },
+    "modal.open": function() {
+      const name = this.app.modal.getName();
+      if (name === "link") {
+        this.prepareModal();
+      }
+    },
+    "link.change": function(e) {
+      const link = e.params.element.nodes[0];
+      this.applyStylingToLink(link);
+    },
+    "link.add": function(e) {
+      const link = e.params.element.nodes[0];
+      this.applyStylingToLink(link);
+    }
+  },
+  init() {
+    this.selectedValue = "";
+  },
+  prepareModal() {
+    const stack = this.app.modal.getStack();
+    const item = stack.getFormItem("url");
+    const box = this.dom("<div>").addClass("rx-form-item");
+    box.append(this.buildLabel());
+    box.append(this.buildSelect());
+    item.after(box);
+  },
+  applyStylingToLink(link) {
+    link.classList.remove(...link.classList);
+    const classNames = this.selectedValue.split(" ");
+    classNames.forEach((className) => {
+      if (className.length === 0)
+        return;
+      link.classList.add(className);
+    });
+  },
+  buildSelect() {
+    const select = this.dom("<select>").addClass("rx-form-select");
+    const items = this.opts.get("linkstyles.items");
+    items.forEach((data, index2) => {
+      const option2 = this.dom("<option>");
+      option2.val(data.value);
+      option2.html(this.lang.get("linkstyles." + data.name));
+      select.append(option2);
+    });
+    select.val(this.selectedValue);
+    select.on("change", (e) => {
+      this.selectedValue = e.target.value;
+    });
+    return select;
+  },
+  buildLabel() {
+    const label = this.dom("<label>").addClass("rx-form-label");
+    label.html(this.lang.get("linkstyles.label"));
+    return label;
+  },
+  setDefaultValue() {
+    this.selectedValue = this.getLink().attr("class") || "";
+  },
+  getLink() {
+    const links = this.getLinks();
+    return links.length !== 0 ? links.eq(0) : this.dom();
+  },
+  getLinks() {
+    const selection = this.app.create("selection");
+    if (!selection.is()) {
+      return this.dom();
+    }
+    const links = selection.getNodes({ tags: ["a"] });
+    return links.length !== 0 ? this.dom(links) : this.dom();
+  }
+});
+
 // app/assets/javascripts/formstrap/index.js
 var Formstrap = class {
   static start() {
@@ -13378,7 +14404,7 @@ var Formstrap = class {
     Stimulus.register("nested-preview", nested_preview_controller_default);
     Stimulus.register("popup", popup_controller_default);
     Stimulus.register("preview", preview_controller_default);
-    Stimulus.register("redactorx", redactorx_controller_default);
+    Stimulus.register("redactor", redactor_controller_default);
     Stimulus.register("repeater", repeater_controller_default);
     Stimulus.register("select", select_controller_default);
     Stimulus.register("textarea", textarea_controller_default);

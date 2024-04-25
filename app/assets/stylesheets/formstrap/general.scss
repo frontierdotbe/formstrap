@@ -11,12 +11,6 @@ html {
   }
 }
 
-mark {
-  --fs-mark-padding: .1875em;
-  padding: 0;
-  box-shadow: 0 var(--fs-mark-padding) 0 var(--bs-yellow), 0 calc(-1 * #{var(--fs-mark-padding)}) 0 var(--bs-yellow);
-}
-
 .form-label[required="required"], .form-check-label[required="required"] {
   &:after {
     content: ' *';

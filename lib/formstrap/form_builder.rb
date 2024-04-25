@@ -118,8 +118,12 @@ module Formstrap
       @template.render("formstrap/repeater", form: self, attribute: attribute, **options, &block)
     end
 
-    def redactorx(attribute, options = {})
-      render_input(:redactorx, attribute, options)
+    def redactor(attribute, formstrap: true, **options)
+      if formstrap
+        render_input(:redactor, attribute, options)
+      else
+        text_area attribute, options
+      end
     end
 
     def search(attribute, options = {})
@@ -162,8 +166,12 @@ module Formstrap
       end
     end
 
-    def wysiwyg(attribute, options = {})
-      render_input(:wysiwyg, attribute, options)
+    def wysiwyg(attribute, formstrap: true, **options)
+      if formstrap
+        render_input(:wysiwyg, attribute, options)
+      else
+        text_area attribute, options
+      end
     end
 
     def render_input(name, attribute, options)

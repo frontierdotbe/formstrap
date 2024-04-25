@@ -11,10 +11,13 @@ import MediaModalController from './controllers/media_modal_controller'
 import NestedPreviewController from './controllers/nested_preview_controller'
 import PopupController from './controllers/popup_controller'
 import PreviewController from './controllers/preview_controller'
-import RedactorxController from './controllers/redactorx_controller'
+import RedactorController from './controllers/redactor_controller'
 import RepeaterController from './controllers/repeater_controller'
 import SelectController from './controllers/select_controller'
 import TextareaController from './controllers/textarea_controller'
+
+// Import redactor dependencies
+import './vendor/redactor'
 
 export class Formstrap {
   static start () {
@@ -30,7 +33,7 @@ export class Formstrap {
     Stimulus.register('nested-preview', NestedPreviewController)
     Stimulus.register('popup', PopupController)
     Stimulus.register('preview', PreviewController)
-    Stimulus.register('redactorx', RedactorxController)
+    Stimulus.register('redactor', RedactorController)
     Stimulus.register('repeater', RepeaterController)
     Stimulus.register('select', SelectController)
     Stimulus.register('textarea', TextareaController)

@@ -1,0 +1,5 @@
+import './i18n/nl.js'
+import './i18n/fr.js'
+import './i18n/de.js'
+import './plugins/emoji.js'
+import './plugins/linkstyles.js'

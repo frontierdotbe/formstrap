@@ -12,17 +12,15 @@
   # * +wrapper+ - Hash with all options for the surrounding html tag
   #
   # ==== References
-  # https://headmin.dev/docs/forms/redactorx
-  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
-  # https://apidock.com/rails/ActionView/Helpers/FormHelper/text_area
+  # https://imperavi.com/redactor/docs
   #
   # ==== Examples
   #   Basic version
   #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/redactorx", form: form, attribute: :text %#>
+  #     <%= render "formstrap/wysiwyg", form: form, attribute: :text %#>
   #   <% end %#>
 
   wysiwyg = Formstrap::WysiwygView.new(local_assigns)
 %>
 
-<%= render "formstrap/redactorx", wysiwyg.options %>
+<%= render "formstrap/redactor", wysiwyg.options %>
