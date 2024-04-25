@@ -9,30 +9,34 @@ export default class extends Controller {
     }
   }
 
-  defaultOptions (locale) {
-    const defaultOptions = {
+  defaultOptions () {
+    return {
+      plugins: ['drag_drop', 'caret_position', 'input_autogrow'],
+      persist: false,
+      create: true,
+      render: this.renderOptions()[I18n.locale]
+    }
+  }
+
+  renderOptions () {
+    return {
       en: {
-        render: {
-          option_create: function (data, escape) {
-            return '<div class="create">Add <strong>' + escape(data.input) + '</strong>&hellip;</div>'
-          },
-          no_results: function (data, escape) {
-            return '<div class="no-results">No results found</div>'
-          }
+        option_create: function (data, escape) {
+          return '<div class="create">Add <strong>' + escape(data.input) + '</strong>&hellip;</div>'
+        },
+        no_results: function (data, escape) {
+          return '<div class="no-results">No results found</div>'
         }
       },
       nl: {
-        render: {
-          option_create: function (data, escape) {
-            return '<div class="create">Voeg <strong>' + escape(data.input) + '</strong> toe &hellip;</div>'
-          },
-          no_results: function (data, escape) {
-            return '<div class="no-results">Geen resultaten gevonden</div>'
-          }
+        option_create: function (data, escape) {
+          return '<div class="create">Voeg <strong>' + escape(data.input) + '</strong> toe &hellip;</div>'
+        },
+        no_results: function (data, escape) {
+          return '<div class="no-results">Geen resultaten gevonden</div>'
         }
       }
     }
-    return defaultOptions[locale]
   }
 
   hasTags () {
@@ -40,7 +44,7 @@ export default class extends Controller {
   }
 
   initTomSelect () {
-    const defaultOptions = this.defaultOptions(I18n.locale)
+    const defaultOptions = this.defaultOptions()
     const options = { create: this.hasTags() }
 
     /* eslint-disable no-new */
