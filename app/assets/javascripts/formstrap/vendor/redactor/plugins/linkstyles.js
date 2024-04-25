@@ -120,5 +120,5 @@ Redactor.add('plugin', 'linkstyles', {
     const links = selection.getNodes({ tags: ['a'] })
 
     return (links.length !== 0) ? this.dom(links) : this.dom()
-  },
+  }
 })
