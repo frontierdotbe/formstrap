@@ -1009,6 +1009,7 @@ var require_tom_select_complete = __commonJS({
         selectOnTab: false,
         preload: null,
         allowEmptyOption: false,
+        refreshThrottle: 300,
         loadThrottle: 300,
         loadingClass: "loading",
         dataAttr: null,
@@ -1052,16 +1053,23 @@ var require_tom_select_complete = __commonJS({
       const escape_html = (str) => {
         return (str + "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
       };
+      const timeout = (fn2, timeout2) => {
+        if (timeout2 > 0) {
+          return setTimeout(fn2, timeout2);
+        }
+        fn2.call(null);
+        return null;
+      };
       const loadDebounce = (fn2, delay) => {
-        var timeout;
+        var timeout2;
         return function(value, callback) {
           var self2 = this;
-          if (timeout) {
+          if (timeout2) {
             self2.loading = Math.max(self2.loading - 1, 0);
-            clearTimeout(timeout);
+            clearTimeout(timeout2);
           }
-          timeout = setTimeout(function() {
-            timeout = null;
+          timeout2 = setTimeout(function() {
+            timeout2 = null;
             self2.loadedSearches[value] = true;
             fn2.call(self2, value, callback);
           }, delay);
@@ -1161,6 +1169,7 @@ var require_tom_select_complete = __commonJS({
           var options = settings_element.options;
           var optionsMap = {};
           var group_count = 1;
+          let $order = 0;
           var readData = (el) => {
             var data = Object.assign({}, el.dataset);
             var json = attr_data && data[attr_data];
@@ -1193,6 +1202,7 @@ var require_tom_select_complete = __commonJS({
               option_data[field_disabled] = option_data[field_disabled] || option2.disabled;
               option_data[field_optgroup] = option_data[field_optgroup] || group;
               option_data.$option = option2;
+              option_data.$order = option_data.$order || ++$order;
               optionsMap[value] = option_data;
               options.push(option_data);
             }
@@ -1206,6 +1216,7 @@ var require_tom_select_complete = __commonJS({
             optgroup_data[field_optgroup_label] = optgroup_data[field_optgroup_label] || optgroup.getAttribute("label") || "";
             optgroup_data[field_optgroup_value] = optgroup_data[field_optgroup_value] || group_count++;
             optgroup_data[field_disabled] = optgroup_data[field_disabled] || optgroup.disabled;
+            optgroup_data.$order = optgroup_data.$order || ++$order;
             settings_element.optgroups.push(optgroup_data);
             id = optgroup_data[field_optgroup_value];
             iterate(optgroup.children, (option2) => {
@@ -1271,6 +1282,7 @@ var require_tom_select_complete = __commonJS({
           this.sifter = void 0;
           this.isOpen = false;
           this.isDisabled = false;
+          this.isReadOnly = false;
           this.isRequired = void 0;
           this.isInvalid = false;
           this.isValid = true;
@@ -1292,6 +1304,7 @@ var require_tom_select_complete = __commonJS({
           this.options = {};
           this.userOptions = {};
           this.items = [];
+          this.refreshTimeout = null;
           instance_i++;
           var dir;
           var input = getDom(input_arg);
@@ -1354,7 +1367,7 @@ var require_tom_select_complete = __commonJS({
           getDom(settings.dropdownParent || wrapper).appendChild(dropdown);
           if (isHtmlString(settings.controlInput)) {
             control_input = getDom(settings.controlInput);
-            var attrs = ["autocorrect", "autocapitalize", "autocomplete"];
+            var attrs = ["autocorrect", "autocapitalize", "autocomplete", "spellcheck"];
             iterate$1(attrs, (attr) => {
               if (input.getAttribute(attr)) {
                 setAttr(control_input, {
@@ -1440,7 +1453,6 @@ var require_tom_select_complete = __commonJS({
           if (settings.load && settings.loadThrottle) {
             settings.load = loadDebounce(settings.load, settings.loadThrottle);
           }
-          self2.control_input.type = input.type;
           addEvent(dropdown, "mousemove", () => {
             self2.ignoreHover = false;
           });
@@ -1530,6 +1542,8 @@ var require_tom_select_complete = __commonJS({
           self2.isSetup = true;
           if (input.disabled) {
             self2.disable();
+          } else if (input.readOnly) {
+            self2.setReadOnly(true);
           } else {
             self2.enable();
           }
@@ -1760,19 +1774,32 @@ var require_tom_select_complete = __commonJS({
           }
         }
         onInput(e) {
-          var self2 = this;
-          if (self2.isLocked) {
+          if (this.isLocked) {
             return;
           }
-          var value = self2.inputValue();
-          if (self2.lastValue !== value) {
-            self2.lastValue = value;
-            if (self2.settings.shouldLoad.call(self2, value)) {
-              self2.load(value);
-            }
-            self2.refreshOptions();
-            self2.trigger("type", value);
+          const value = this.inputValue();
+          if (this.lastValue === value)
+            return;
+          this.lastValue = value;
+          if (value == "") {
+            this._onInput();
+            return;
           }
+          if (this.refreshTimeout) {
+            clearTimeout(this.refreshTimeout);
+          }
+          this.refreshTimeout = timeout(() => {
+            this.refreshTimeout = null;
+            this._onInput();
+          }, this.settings.refreshThrottle);
+        }
+        _onInput() {
+          const value = this.lastValue;
+          if (this.settings.shouldLoad.call(this, value)) {
+            this.load(value);
+          }
+          this.refreshOptions();
+          this.trigger("type", value);
         }
         onOptionHover(evt, option2) {
           if (this.ignoreHover)
@@ -1782,7 +1809,7 @@ var require_tom_select_complete = __commonJS({
         onFocus(e) {
           var self2 = this;
           var wasFocused = self2.isFocused;
-          if (self2.isDisabled) {
+          if (self2.isDisabled || self2.isReadOnly) {
             self2.blur();
             preventDefault(e);
             return;
@@ -1795,7 +1822,7 @@ var require_tom_select_complete = __commonJS({
           if (!wasFocused)
             self2.trigger("focus");
           if (!self2.activeItems.length) {
-            self2.showInput();
+            self2.inputState();
             self2.refreshOptions(!!self2.settings.openOnFocus);
           }
           self2.refreshState();
@@ -1933,7 +1960,7 @@ var require_tom_select_complete = __commonJS({
           if (!item) {
             self2.clearActiveItems();
             if (self2.isFocused) {
-              self2.showInput();
+              self2.inputState();
             }
             return;
           }
@@ -1964,7 +1991,7 @@ var require_tom_select_complete = __commonJS({
             self2.clearActiveItems();
             self2.setActiveItemClass(item);
           }
-          self2.hideInput();
+          self2.inputState();
           if (!self2.isFocused) {
             self2.focus();
           }
@@ -2048,7 +2075,7 @@ var require_tom_select_complete = __commonJS({
           const activeItems = self2.controlChildren();
           if (!activeItems.length)
             return;
-          self2.hideInput();
+          self2.inputState();
           self2.close();
           self2.activeItems = activeItems;
           iterate$1(activeItems, (item) => {
@@ -2075,18 +2102,12 @@ var require_tom_select_complete = __commonJS({
           }
           self2.wrapper.classList.toggle("input-hidden", self2.isInputHidden);
         }
-        hideInput() {
-          this.inputState();
-        }
-        showInput() {
-          this.inputState();
-        }
         inputValue() {
           return this.control_input.value.trim();
         }
         focus() {
           var self2 = this;
-          if (self2.isDisabled)
+          if (self2.isDisabled || self2.isReadOnly)
             return;
           self2.ignoreFocus = true;
           if (self2.control_input.offsetWidth) {
@@ -2173,6 +2194,23 @@ var require_tom_select_complete = __commonJS({
           if (n > 0) {
             show_dropdown = true;
           }
+          const getGroupFragment = (optgroup2, order2) => {
+            let group_order_i = groups[optgroup2];
+            if (group_order_i !== void 0) {
+              let order_group = groups_order[group_order_i];
+              if (order_group !== void 0) {
+                return [group_order_i, order_group.fragment];
+              }
+            }
+            let group_fragment = document.createDocumentFragment();
+            group_order_i = groups_order.length;
+            groups_order.push({
+              fragment: group_fragment,
+              order: order2,
+              optgroup: optgroup2
+            });
+            return [group_order_i, group_fragment];
+          };
           for (i = 0; i < n; i++) {
             let item = results.items[i];
             if (!item)
@@ -2190,14 +2228,14 @@ var require_tom_select_complete = __commonJS({
             optgroups = Array.isArray(optgroup) ? optgroup : [optgroup];
             for (j = 0, k = optgroups && optgroups.length; j < k; j++) {
               optgroup = optgroups[j];
-              if (!self2.optgroups.hasOwnProperty(optgroup)) {
+              let order2 = option2.$order;
+              let self_optgroup = self2.optgroups[optgroup];
+              if (self_optgroup === void 0) {
                 optgroup = "";
+              } else {
+                order2 = self_optgroup.$order;
               }
-              let group_fragment = groups[optgroup];
-              if (group_fragment === void 0) {
-                group_fragment = document.createDocumentFragment();
-                groups_order.push(optgroup);
-              }
+              const [group_order_i, group_fragment] = getGroupFragment(optgroup, order2);
               if (j > 0) {
                 option_el = option_el.cloneNode(true);
                 setAttr(option_el, {
@@ -2213,21 +2251,20 @@ var require_tom_select_complete = __commonJS({
                 }
               }
               group_fragment.appendChild(option_el);
-              groups[optgroup] = group_fragment;
+              if (optgroup != "") {
+                groups[optgroup] = group_order_i;
+              }
             }
           }
           if (self2.settings.lockOptgroupOrder) {
             groups_order.sort((a, b) => {
-              const grp_a = self2.optgroups[a];
-              const grp_b = self2.optgroups[b];
-              const a_order = grp_a && grp_a.$order || 0;
-              const b_order = grp_b && grp_b.$order || 0;
-              return a_order - b_order;
+              return a.order - b.order;
             });
           }
           html = document.createDocumentFragment();
-          iterate$1(groups_order, (optgroup2) => {
-            let group_fragment = groups[optgroup2];
+          iterate$1(groups_order, (group_order) => {
+            let group_fragment = group_order.fragment;
+            let optgroup2 = group_order.optgroup;
             if (!group_fragment || !group_fragment.children.length)
               return;
             let group_heading = self2.optgroups[optgroup2];
@@ -2638,6 +2675,7 @@ var require_tom_select_complete = __commonJS({
           const wrap_classList = self2.wrapper.classList;
           wrap_classList.toggle("focus", self2.isFocused);
           wrap_classList.toggle("disabled", self2.isDisabled);
+          wrap_classList.toggle("readonly", self2.isReadOnly);
           wrap_classList.toggle("required", self2.isRequired);
           wrap_classList.toggle("invalid", !self2.isValid);
           wrap_classList.toggle("locked", isLocked);
@@ -2731,7 +2769,7 @@ var require_tom_select_complete = __commonJS({
           if (setTextboxValue) {
             self2.setTextboxValue();
             if (self2.settings.mode === "single" && self2.items.length) {
-              self2.hideInput();
+              self2.inputState();
             }
           }
           self2.isOpen = false;
@@ -2770,7 +2808,7 @@ var require_tom_select_complete = __commonJS({
           iterate$1(items, (item) => {
             self2.removeItem(item, true);
           });
-          self2.showInput();
+          self2.inputState();
           if (!silent)
             self2.updateOriginalInput();
           self2.trigger("clear");
@@ -2817,7 +2855,7 @@ var require_tom_select_complete = __commonJS({
           while (rm_items.length) {
             self2.removeItem(rm_items.pop());
           }
-          self2.showInput();
+          self2.inputState();
           self2.positionDropdown();
           self2.refreshOptions(false);
           return true;
@@ -2877,29 +2915,34 @@ var require_tom_select_complete = __commonJS({
           return Array.from(this.control.querySelectorAll("[data-ts-item]"));
         }
         lock() {
-          this.isLocked = true;
-          this.refreshState();
+          this.setLocked(true);
         }
         unlock() {
-          this.isLocked = false;
+          this.setLocked(false);
+        }
+        setLocked(lock = this.isReadOnly || this.isDisabled) {
+          this.isLocked = lock;
           this.refreshState();
         }
         disable() {
-          var self2 = this;
-          self2.input.disabled = true;
-          self2.control_input.disabled = true;
-          self2.focus_node.tabIndex = -1;
-          self2.isDisabled = true;
+          this.setDisabled(true);
           this.close();
-          self2.lock();
         }
         enable() {
-          var self2 = this;
-          self2.input.disabled = false;
-          self2.control_input.disabled = false;
-          self2.focus_node.tabIndex = self2.tabIndex;
-          self2.isDisabled = false;
-          self2.unlock();
+          this.setDisabled(false);
+        }
+        setDisabled(disabled) {
+          this.focus_node.tabIndex = disabled ? -1 : this.tabIndex;
+          this.isDisabled = disabled;
+          this.input.disabled = disabled;
+          this.control_input.disabled = disabled;
+          this.setLocked();
+        }
+        setReadOnly(isReadOnly) {
+          this.isReadOnly = isReadOnly;
+          this.input.readOnly = isReadOnly;
+          this.control_input.readOnly = isReadOnly;
+          this.setLocked();
         }
         destroy() {
           var self2 = this;
@@ -3015,19 +3058,39 @@ var require_tom_select_complete = __commonJS({
           this.sync();
         });
       }
-      function checkbox_options() {
+      function checkbox_options(userOptions) {
         var self2 = this;
         var orig_onOptionSelect = self2.onOptionSelect;
         self2.settings.hideSelected = false;
+        const cbOptions = Object.assign({
+          className: "tomselect-checkbox",
+          checkedClassNames: void 0,
+          uncheckedClassNames: void 0
+        }, userOptions);
+        var UpdateChecked = function UpdateChecked2(checkbox, toCheck) {
+          if (toCheck) {
+            checkbox.checked = true;
+            if (cbOptions.uncheckedClassNames) {
+              checkbox.classList.remove(...cbOptions.uncheckedClassNames);
+            }
+            if (cbOptions.checkedClassNames) {
+              checkbox.classList.add(...cbOptions.checkedClassNames);
+            }
+          } else {
+            checkbox.checked = false;
+            if (cbOptions.checkedClassNames) {
+              checkbox.classList.remove(...cbOptions.checkedClassNames);
+            }
+            if (cbOptions.uncheckedClassNames) {
+              checkbox.classList.add(...cbOptions.uncheckedClassNames);
+            }
+          }
+        };
         var UpdateCheckbox = function UpdateCheckbox2(option2) {
           setTimeout(() => {
-            var checkbox = option2.querySelector("input");
+            var checkbox = option2.querySelector("input." + cbOptions.className);
             if (checkbox instanceof HTMLInputElement) {
-              if (option2.classList.contains("selected")) {
-                checkbox.checked = true;
-              } else {
-                checkbox.checked = false;
-              }
+              UpdateChecked(checkbox, option2.classList.contains("selected"));
             }
           }, 1);
         };
@@ -3036,14 +3099,15 @@ var require_tom_select_complete = __commonJS({
           self2.settings.render.option = (data, escape_html2) => {
             var rendered = getDom(orig_render_option.call(self2, data, escape_html2));
             var checkbox = document.createElement("input");
+            if (cbOptions.className) {
+              checkbox.classList.add(cbOptions.className);
+            }
             checkbox.addEventListener("click", function(evt) {
               preventDefault(evt);
             });
             checkbox.type = "checkbox";
             const hashed = hash_key(data[self2.settings.valueField]);
-            if (hashed && self2.items.indexOf(hashed) > -1) {
-              checkbox.checked = true;
-            }
+            UpdateChecked(checkbox, !!(hashed && self2.items.indexOf(hashed) > -1));
             rendered.prepend(checkbox);
             return rendered;
           };
@@ -3085,9 +3149,8 @@ var require_tom_select_complete = __commonJS({
         self2.on("initialize", () => {
           var button = getDom(options.html(options));
           button.addEventListener("click", (evt) => {
-            if (self2.isDisabled) {
+            if (self2.isLocked)
               return;
-            }
             self2.clear();
             if (self2.settings.mode === "single" && self2.settings.allowEmptyOption) {
               self2.addItem("");
@@ -3098,49 +3161,99 @@ var require_tom_select_complete = __commonJS({
           self2.control.appendChild(button);
         });
       }
+      const insertAfter = (referenceNode, newNode) => {
+        var _referenceNode$parent;
+        (_referenceNode$parent = referenceNode.parentNode) == null || _referenceNode$parent.insertBefore(newNode, referenceNode.nextSibling);
+      };
+      const insertBefore = (referenceNode, newNode) => {
+        var _referenceNode$parent2;
+        (_referenceNode$parent2 = referenceNode.parentNode) == null || _referenceNode$parent2.insertBefore(newNode, referenceNode);
+      };
+      const isBefore = (referenceNode, newNode) => {
+        do {
+          var _newNode;
+          newNode = (_newNode = newNode) == null ? void 0 : _newNode.previousElementSibling;
+          if (referenceNode == newNode) {
+            return true;
+          }
+        } while (newNode && newNode.previousElementSibling);
+        return false;
+      };
       function drag_drop() {
         var self2 = this;
-        if (!$.fn.sortable)
-          throw new Error('The "drag_drop" plugin requires jQuery UI "sortable".');
         if (self2.settings.mode !== "multi")
           return;
         var orig_lock = self2.lock;
         var orig_unlock = self2.unlock;
+        let sortable = true;
+        let drag_item;
+        self2.hook("after", "setupTemplates", () => {
+          var orig_render_item = self2.settings.render.item;
+          self2.settings.render.item = (data, escape) => {
+            const item = getDom(orig_render_item.call(self2, data, escape));
+            setAttr(item, {
+              "draggable": "true"
+            });
+            const mousedown = (evt) => {
+              if (!sortable)
+                preventDefault(evt);
+              evt.stopPropagation();
+            };
+            const dragStart2 = (evt) => {
+              drag_item = item;
+              setTimeout(() => {
+                item.classList.add("ts-dragging");
+              }, 0);
+            };
+            const dragOver = (evt) => {
+              evt.preventDefault();
+              item.classList.add("ts-drag-over");
+              moveitem(item, drag_item);
+            };
+            const dragLeave = () => {
+              item.classList.remove("ts-drag-over");
+            };
+            const moveitem = (targetitem, dragitem) => {
+              if (dragitem === void 0)
+                return;
+              if (isBefore(dragitem, item)) {
+                insertAfter(targetitem, dragitem);
+              } else {
+                insertBefore(targetitem, dragitem);
+              }
+            };
+            const dragend = () => {
+              var _drag_item;
+              document.querySelectorAll(".ts-drag-over").forEach((el) => el.classList.remove("ts-drag-over"));
+              (_drag_item = drag_item) == null || _drag_item.classList.remove("ts-dragging");
+              drag_item = void 0;
+              var values = [];
+              self2.control.querySelectorAll(`[data-value]`).forEach((el) => {
+                if (el.dataset.value) {
+                  let value = el.dataset.value;
+                  if (value) {
+                    values.push(value);
+                  }
+                }
+              });
+              self2.setValue(values);
+            };
+            addEvent(item, "mousedown", mousedown);
+            addEvent(item, "dragstart", dragStart2);
+            addEvent(item, "dragenter", dragOver);
+            addEvent(item, "dragover", dragOver);
+            addEvent(item, "dragleave", dragLeave);
+            addEvent(item, "dragend", dragend);
+            return item;
+          };
+        });
         self2.hook("instead", "lock", () => {
-          var sortable = $(self2.control).data("sortable");
-          if (sortable)
-            sortable.disable();
+          sortable = false;
           return orig_lock.call(self2);
         });
         self2.hook("instead", "unlock", () => {
-          var sortable = $(self2.control).data("sortable");
-          if (sortable)
-            sortable.enable();
+          sortable = true;
           return orig_unlock.call(self2);
-        });
-        self2.on("initialize", () => {
-          var $control = $(self2.control).sortable({
-            items: "[data-value]",
-            forcePlaceholderSize: true,
-            disabled: self2.isLocked,
-            start: (e, ui) => {
-              ui.placeholder.css("width", ui.helper.css("width"));
-              $control.css({
-                overflow: "visible"
-              });
-            },
-            stop: () => {
-              $control.css({
-                overflow: "hidden"
-              });
-              var values = [];
-              $control.children("[data-value]").each(function() {
-                if (this.dataset.value)
-                  values.push(this.dataset.value);
-              });
-              self2.setValue(values);
-            }
-          });
         });
       }
       function dropdown_header(userOptions) {
@@ -3341,6 +3454,8 @@ var require_tom_select_complete = __commonJS({
               preventDefault(evt, true);
             });
             addEvent(close_button, "click", (evt) => {
+              if (self2.isLocked)
+                return;
               preventDefault(evt, true);
               if (self2.isLocked)
                 return;
@@ -3431,8 +3546,11 @@ var require_tom_select_complete = __commonJS({
             pagination[query] = false;
             return next_url;
           }
-          pagination = {};
+          self2.clearPagination();
           return self2.settings.firstUrl.call(self2, query);
+        };
+        self2.clearPagination = () => {
+          pagination = {};
         };
         self2.hook("instead", "clearActiveOption", () => {
           if (loading_more) {
@@ -9185,11 +9303,11 @@ function scrollBy(el, x, y) {
 }
 function clone(el) {
   var Polymer = window.Polymer;
-  var $2 = window.jQuery || window.Zepto;
+  var $ = window.jQuery || window.Zepto;
   if (Polymer && Polymer.dom) {
     return Polymer.dom(el).cloneNode(true);
-  } else if ($2) {
-    return $2(el).clone(true)[0];
+  } else if ($) {
+    return $(el).clone(true)[0];
   } else {
     return el.cloneNode(true);
   }
@@ -13273,36 +13391,39 @@ var select_controller_default = class extends Controller {
       this.initTomSelect();
     }
   }
-  defaultOptions(locale) {
-    const defaultOptions = {
+  defaultOptions() {
+    return {
+      plugins: ["drag_drop", "caret_position", "input_autogrow"],
+      persist: false,
+      create: true,
+      render: this.renderOptions()[i18n_default.locale]
+    };
+  }
+  renderOptions() {
+    return {
       en: {
-        render: {
-          option_create: function(data, escape) {
-            return '<div class="create">Add <strong>' + escape(data.input) + "</strong>&hellip;</div>";
-          },
-          no_results: function(data, escape) {
-            return '<div class="no-results">No results found</div>';
-          }
+        option_create: function(data, escape) {
+          return '<div class="create">Add <strong>' + escape(data.input) + "</strong>&hellip;</div>";
+        },
+        no_results: function(data, escape) {
+          return '<div class="no-results">No results found</div>';
         }
       },
       nl: {
-        render: {
-          option_create: function(data, escape) {
-            return '<div class="create">Voeg <strong>' + escape(data.input) + "</strong> toe &hellip;</div>";
-          },
-          no_results: function(data, escape) {
-            return '<div class="no-results">Geen resultaten gevonden</div>';
-          }
+        option_create: function(data, escape) {
+          return '<div class="create">Voeg <strong>' + escape(data.input) + "</strong> toe &hellip;</div>";
+        },
+        no_results: function(data, escape) {
+          return '<div class="no-results">Geen resultaten gevonden</div>';
         }
       }
     };
-    return defaultOptions[locale];
   }
   hasTags() {
     return this.element.dataset.tags === "true";
   }
   initTomSelect() {
-    const defaultOptions = this.defaultOptions(i18n_default.locale);
+    const defaultOptions = this.defaultOptions();
     const options = { create: this.hasTags() };
     new import_tom_select.default(this.element, { ...defaultOptions, ...options });
   }
