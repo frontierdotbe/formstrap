@@ -46,11 +46,11 @@ module Formstrap
           # Options when highlighting text
           context: %w[bold underline italic],
           # Options in toolbar on the right
-          extrabar: %w[html],
+          extrabar: %w[],
           # Options in toolbar on the left
-          toolbar: %w[format bold italic deleted list table link],
+          toolbar: %w[format bold italic deleted list table link html],
         },
-        plugins: %w[emoji]
+        plugins: %w[emoji linkstyles],
       }.delete_if { |k, v| v.nil? }
     end
   end

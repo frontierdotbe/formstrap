@@ -194,5 +194,21 @@ Redactor.lang.de = {
     'meta-shift-d': 'Block duplizieren',
     'meta-shift-up': 'Zeile nach oben verschieben',
     'meta-shift-down': 'Zeile nach unten verschieben'
+  },
+  emoji: {
+    emoji: 'Emoji',
+    favorites: 'Favoriten',
+    smileys: 'Smileys',
+    gestures: 'Gesten',
+    animals: 'Tiere',
+    food: 'Essen',
+    activities: 'Aktivitäten',
+    travel: 'Reisen'
+  },
+  linkstyles: {
+    label: 'Stile',
+    link: 'Link',
+    primary: 'Primärer Button',
+    secondary: 'Sekundärer Button'
   }
 }

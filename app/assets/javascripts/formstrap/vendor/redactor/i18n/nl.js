@@ -194,5 +194,21 @@ Redactor.lang.nl = {
     'meta-shift-d': 'Blok dupliceren',
     'meta-shift-up': 'Lijn omhoog verplaatsen',
     'meta-shift-down': 'Lijn omlaag verplaatsen'
+  },
+  emoji: {
+    emoji: 'Emoji',
+    favorites: 'Favorieten',
+    smileys: 'Smiley\'s',
+    gestures: 'Gebaren',
+    animals: 'Dieren',
+    food: 'Eten',
+    activities: 'Activiteiten',
+    travel: 'Reizen'
+  },
+  linkstyles: {
+    label: 'Stijlen',
+    link: 'Link',
+    primary: 'Primaire knop',
+    secondary: 'Secundaire knop'
   }
 }

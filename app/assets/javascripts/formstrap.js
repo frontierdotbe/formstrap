@@ -13544,6 +13544,22 @@ Redactor.lang.nl = {
     "meta-shift-d": "Blok dupliceren",
     "meta-shift-up": "Lijn omhoog verplaatsen",
     "meta-shift-down": "Lijn omlaag verplaatsen"
+  },
+  emoji: {
+    emoji: "Emoji",
+    favorites: "Favorieten",
+    smileys: "Smiley's",
+    gestures: "Gebaren",
+    animals: "Dieren",
+    food: "Eten",
+    activities: "Activiteiten",
+    travel: "Reizen"
+  },
+  linkstyles: {
+    label: "Stijlen",
+    link: "Link",
+    primary: "Primaire knop",
+    secondary: "Secundaire knop"
   }
 };
 
@@ -13743,6 +13759,22 @@ Redactor.lang.fr = {
     "meta-shift-d": "Dupliquer le bloc",
     "meta-shift-up": "D\xE9placer la ligne vers le haut",
     "meta-shift-down": "D\xE9placer la ligne vers le bas"
+  },
+  emoji: {
+    emoji: "Emoji",
+    favorites: "Favoris",
+    smileys: "Smileys",
+    gestures: "Gestes",
+    animals: "Animaux",
+    food: "Nourriture",
+    activities: "Activit\xE9s",
+    travel: "Voyages"
+  },
+  linkstyles: {
+    label: "Styles",
+    link: "Lien",
+    primary: "Bouton primaire",
+    secondary: "Bouton secondaire"
   }
 };
 
@@ -13942,6 +13974,22 @@ Redactor.lang.de = {
     "meta-shift-d": "Block duplizieren",
     "meta-shift-up": "Zeile nach oben verschieben",
     "meta-shift-down": "Zeile nach unten verschieben"
+  },
+  emoji: {
+    emoji: "Emoji",
+    favorites: "Favoriten",
+    smileys: "Smileys",
+    gestures: "Gesten",
+    animals: "Tiere",
+    food: "Essen",
+    activities: "Aktivit\xE4ten",
+    travel: "Reisen"
+  },
+  linkstyles: {
+    label: "Stile",
+    link: "Link",
+    primary: "Prim\xE4rer Button",
+    secondary: "Sekund\xE4rer Button"
   }
 };
 
@@ -14240,6 +14288,104 @@ Redactor.add("plugin", "emoji", {
     const name = ".rx-plugin-emoji";
     this.app.getDoc().off(name);
     this.app.editor.getEditor().off(name);
+  }
+});
+
+// app/assets/javascripts/formstrap/vendor/redactor/plugins/linkstyles.js
+Redactor.add("plugin", "linkstyles", {
+  translations: {
+    en: {
+      linkstyles: {
+        label: "Styles",
+        link: "Link",
+        primary: "Primary",
+        secondary: "Secondary"
+      }
+    }
+  },
+  defaults: {
+    items: [
+      { name: "link", value: "" },
+      { name: "primary", value: "button button-primary" },
+      { name: "secondary", value: "button button-secondary" }
+    ]
+  },
+  subscribe: {
+    "modal.before.open": function() {
+      const name = this.app.modal.getName();
+      if (name === "link") {
+        this.setDefaultValue();
+      }
+    },
+    "modal.open": function() {
+      const name = this.app.modal.getName();
+      if (name === "link") {
+        this.prepareModal();
+      }
+    },
+    "link.change": function(e) {
+      const link = e.params.element.nodes[0];
+      this.applyStylingToLink(link);
+    },
+    "link.add": function(e) {
+      const link = e.params.element.nodes[0];
+      this.applyStylingToLink(link);
+    }
+  },
+  init() {
+    this.selectedValue = "";
+  },
+  prepareModal() {
+    const stack = this.app.modal.getStack();
+    const item = stack.getFormItem("url");
+    const box = this.dom("<div>").addClass("rx-form-item");
+    box.append(this.buildLabel());
+    box.append(this.buildSelect());
+    item.after(box);
+  },
+  applyStylingToLink(link) {
+    link.classList.remove(...link.classList);
+    const classNames = this.selectedValue.split(" ");
+    classNames.forEach((className) => {
+      if (className.length === 0)
+        return;
+      link.classList.add(className);
+    });
+  },
+  buildSelect() {
+    const select = this.dom("<select>").addClass("rx-form-select");
+    const items = this.opts.get("linkstyles.items");
+    items.forEach((data, index2) => {
+      const option2 = this.dom("<option>");
+      option2.val(data.value);
+      option2.html(this.lang.get("linkstyles." + data.name));
+      select.append(option2);
+    });
+    select.val(this.selectedValue);
+    select.on("change", (e) => {
+      this.selectedValue = e.target.value;
+    });
+    return select;
+  },
+  buildLabel() {
+    const label = this.dom("<label>").addClass("rx-form-label");
+    label.html(this.lang.get("linkstyles.label"));
+    return label;
+  },
+  setDefaultValue() {
+    this.selectedValue = this.getLink().attr("class") || "";
+  },
+  getLink() {
+    const links = this.getLinks();
+    return links.length !== 0 ? links.eq(0) : this.dom();
+  },
+  getLinks() {
+    const selection = this.app.create("selection");
+    if (!selection.is()) {
+      return this.dom();
+    }
+    const links = selection.getNodes({ tags: ["a"] });
+    return links.length !== 0 ? this.dom(links) : this.dom();
   }
 });
 

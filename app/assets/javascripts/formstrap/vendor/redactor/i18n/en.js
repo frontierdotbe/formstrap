@@ -194,5 +194,21 @@ Redactor.lang.en = {
     'meta-shift-d': 'Duplicate block',
     'meta-shift-up': 'Move line up',
     'meta-shift-down': 'Move line down'
+  },
+  emoji: {
+    emoji: 'Emoji',
+    favorites: 'Favorites',
+    smileys: 'Smileys',
+    gestures: 'Gestures',
+    animals: 'Animals',
+    food: 'Food',
+    activities: 'Activities',
+    travel: 'Travel'
+  },
+  linkstyles: {
+    label: 'Styles',
+    link: 'Link',
+    primary: 'Primary button',
+    secondary: 'Secondary button'
   }
 }
