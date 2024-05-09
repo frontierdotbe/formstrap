@@ -1367,13 +1367,15 @@ span.flatpickr-weekday {
   display: none;
 }
 .rx-form-input,
-.rx-form-textarea {
+.rx-form-textarea,
+.rx-form-select {
   border-radius: var(--bs-border-radius);
   background: var(--bs-body-bg);
   border: var(--bs-border-width) solid var(--bs-border-color);
 }
 .rx-form-input:focus,
-.rx-form-textarea:focus {
+.rx-form-textarea:focus,
+.rx-form-select:focus {
   border-color: rgba(var(--bs-primary-rgb), 0.5);
   outline: 0;
   box-shadow: 0 0 0 var(--bs-input-btn-focus-width) rgba(var(--bs-primary-rgb), 0.25);
