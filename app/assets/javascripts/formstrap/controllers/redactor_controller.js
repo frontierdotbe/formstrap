@@ -1,5 +1,6 @@
 /* global Redactor */
 import { Controller } from '@hotwired/stimulus'
+import 'redactor'
 
 export default class extends Controller {
   connect () {

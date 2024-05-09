@@ -7,5 +7,6 @@ esbuild.build({
   bundle: true,
   allowOverwrite: true,
   format: 'esm',
+  external: ['redactor'],
   watch
 }).catch((e) => console.error(e.message))

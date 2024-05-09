@@ -13229,6 +13229,7 @@ __publicField(preview_controller_default, "values", {
 });
 
 // app/assets/javascripts/formstrap/controllers/redactor_controller.js
+import "redactor";
 var redactor_controller_default = class extends Controller {
   connect() {
     this.initRedactor();
