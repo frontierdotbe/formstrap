@@ -16,12 +16,5 @@ module Formstrap
       next unless app.config.respond_to?(:assets)
       app.config.assets.precompile += %w[formstrap.js formstrap.css formstrap.scss]
     end
-
-    # Add importmap to main app
-    initializer "headmin.importmap", before: "importmap" do |app|
-      next unless app.config.respond_to?(:importmap)
-      app.config.importmap.paths << Engine.root.join("config/importmap.rb")
-      app.config.importmap.cache_sweepers << Engine.root.join("app/assets/javascripts")
-    end
   end
 end
