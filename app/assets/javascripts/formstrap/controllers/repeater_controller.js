@@ -147,6 +147,12 @@ export default class extends Controller {
       node.setAttribute('id', idValue.replace(pattern, replacement))
     })
 
+    // Replace popup ids in popup div
+    template.querySelectorAll(`div[data-popup-id="button-${pattern}"], button[data-popup-id="button-${pattern}"]`).forEach((node) => {
+      const idValue = node.getAttribute('data-popup-id')
+      node.setAttribute('data-popup-id', idValue.replace(pattern, replacement))
+    })
+
     return template
   }
 
