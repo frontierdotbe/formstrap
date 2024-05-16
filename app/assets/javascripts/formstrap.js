@@ -13276,8 +13276,7 @@ var repeater_controller_default = class extends Controller {
     return this.rowTargets.includes(row);
   }
   updatePopupButtonIndices(index2) {
-    const popup = document.querySelector(`[data-popup-target="popup"][data-popup-id="repeater-buttons-${this.idValue}"]`);
-    const buttons = popup.querySelectorAll('[data-popup-target="button"]');
+    const buttons = document.querySelectorAll(`[data-popup-target="button"][data-popup-id="repeater-buttons-${this.idValue}"]`);
     buttons.forEach((button) => {
       button.dataset.rowIndex = index2;
     });

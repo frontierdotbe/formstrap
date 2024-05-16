@@ -38,8 +38,7 @@ export default class extends Controller {
   }
 
   updatePopupButtonIndices (index) {
-    const popup = document.querySelector(`[data-popup-target="popup"][data-popup-id="repeater-buttons-${this.idValue}"]`)
-    const buttons = popup.querySelectorAll('[data-popup-target="button"]')
+    const buttons = document.querySelectorAll(`[data-popup-target="button"][data-popup-id="repeater-buttons-${this.idValue}"]`)
     buttons.forEach((button) => {
       button.dataset.rowIndex = index
     })
