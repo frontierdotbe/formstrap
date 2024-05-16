@@ -126,7 +126,8 @@ export default class extends Controller {
     const formData = new FormData()
 
     // Replace all occurrences of "page[blocks_attributes][0]" with "block"
-    const regex = /\w+\[([^\]]+)s_attributes]\[\d+]/g
+    // Replace all occurrences of "form[fields_attributes][random]" with "field"
+    const regex = /\w+\[([^\]]+)s_attributes]\[[^\]]+]/g
     const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])')
     formElements.forEach((element) => {
       const currentName = element.getAttribute('name')

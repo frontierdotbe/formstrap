@@ -1,3 +1,4 @@
+/* global crypto */
 import { Controller } from '@hotwired/stimulus'
 import Sortable from 'sortablejs'
 
@@ -193,7 +194,7 @@ export default class extends Controller {
 
   randomizeIds (template) {
     const regex = new RegExp(template.dataset.templateIdRegex, 'g')
-    const randomNumber = Math.floor(100000000 + Math.random() * 900000000)
+    const randomNumber = crypto.randomUUID().substring(0, 8)
     return template.innerHTML.replace(regex, randomNumber)
   }
 

@@ -1,3 +1,4 @@
+/* global crypto */
 import { Controller } from '@hotwired/stimulus'
 import Sortable from 'sortablejs'
 
@@ -52,8 +53,9 @@ export default class extends Controller {
     const rowIndex = button.dataset.rowIndex
 
     // Prepare html from template
-    let template = this.getTemplate(templateName).content.cloneNode(true)
-    template = this.replaceIdsWithTimestamps(template)
+    const rawTemplate = this.getTemplate(templateName)
+    let template = rawTemplate.content.cloneNode(true)
+    template = this.randomizeIds(template)
 
     // Fallback to last row if no index is set
     if (rowIndex) {
@@ -107,50 +109,24 @@ export default class extends Controller {
     })[0]
   }
 
-  replaceIdsWithTimestamps (template) {
-    const pattern = 'rrrrrrrrr'
-    const replacement = new Date().getTime().toString()
+  randomizeIds (template) {
+    const randomNumber = crypto.randomUUID().substring(0, 8)
+    const pattern = `_${this.idValue}_`
     const regex = new RegExp(pattern, 'g')
 
-    // Replace ids
-    template.querySelectorAll(`input[id*="${pattern}"], select[id*="${pattern}"], textarea[id*="${pattern}"], button[id*="${pattern}"]`).forEach((node) => {
-      const idValue = node.getAttribute('id')
-      node.setAttribute('id', idValue.replace(pattern, replacement))
-    })
+    // Loop through each node in the template
+    template.querySelectorAll('*').forEach(node => {
+      // Replace attribute values
+      for (const attribute of node.attributes) {
+        if (attribute.value.includes(pattern)) {
+          attribute.value = attribute.value.replace(pattern, randomNumber)
+        }
+      }
 
-    // Search and replace pattern in templates
-    template.querySelectorAll('template').forEach((node) => {
-      node.innerHTML = node.innerHTML.replace(regex, replacement)
-    })
-
-    // Replace labels
-    template.querySelectorAll(`label[for*="${pattern}"]`).forEach((node) => {
-      const forValue = node.getAttribute('for')
-      node.setAttribute('for', forValue.replace(pattern, replacement))
-    })
-
-    // Replace names
-    template.querySelectorAll(`input[name*="${pattern}"], select[name*="${pattern}"], textarea[name*="${pattern}"], button[name*="${pattern}"]`).forEach((node) => {
-      const nameValue = node.getAttribute('name')
-      node.setAttribute('name', nameValue.replace(pattern, replacement))
-    })
-
-    // Replace offcanvas targets
-    template.querySelectorAll(`div[data-bs-target="#offcanvas-${pattern}"]`).forEach((node) => {
-      const targetValue = node.getAttribute('data-bs-target')
-      node.setAttribute('data-bs-target', targetValue.replace(pattern, replacement))
-    })
-
-    // Replace offcanvas ids
-    template.querySelectorAll(`.offcanvas[id="offcanvas-${pattern}"]`).forEach((node) => {
-      const idValue = node.getAttribute('id')
-      node.setAttribute('id', idValue.replace(pattern, replacement))
-    })
-
-    // Replace popup ids in popup div
-    template.querySelectorAll(`div[data-popup-id="button-${pattern}"], button[data-popup-id="button-${pattern}"]`).forEach((node) => {
-      const idValue = node.getAttribute('data-popup-id')
-      node.setAttribute('data-popup-id', idValue.replace(pattern, replacement))
+      // Replace template content
+      if (node.nodeName === 'TEMPLATE' && node.innerHTML.includes(pattern)) {
+        node.innerHTML = node.innerHTML.replace(regex, randomNumber)
+      }
     })
 
     return template
