@@ -106,7 +106,7 @@
       class="btn btn-sm btn-outline-secondary"
       data-repeater-target="addButton"
       data-popup-target="button"
-      data-popup-id=""
+      data-popup-id="repeater-buttons-<%= repeater_id %>"
       data-popup-pass-thru="<%= pass_thru %>"
       data-action="click->repeater#resetButtonIndices click->popup#open"
     >
@@ -121,9 +121,9 @@
           <div
             class="btn btn-sm btn-outline-secondary"
             data-popup-target="button"
-            data-popup-id=""
+            data-popup-id="repeater"
             data-action="click->repeater#addRow click->popup#close"
-            data-row-index=""
+            data-popup-id="repeater-buttons-<%= repeater_id %>"
             data-template-name="<%= name %>"
           >
             <%= t("blocks.#{name}", default: name).humanize %>

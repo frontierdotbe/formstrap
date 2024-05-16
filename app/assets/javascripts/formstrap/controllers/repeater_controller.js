@@ -24,22 +24,7 @@ export default class extends Controller {
         this.resetPositions()
       }
     })
-    this.randomizePopupId()
     this.toggleEmpty()
-  }
-
-  randomizePopupId () {
-    const randomNumber = crypto.randomUUID().substring(0, 8)
-
-    // Set popup id on button
-    this.element.querySelectorAll('[data-popup-target="button"]').forEach((button) => {
-      button.dataset.popupId = `repeater-${randomNumber}`
-    })
-
-    // Set popup id on popup
-    this.element.querySelectorAll('[data-popup-target="popup"]').forEach((popup) => {
-      popup.dataset.popupId = `repeater-${randomNumber}`
-    })
   }
 
   resetButtonIndices (event) {
