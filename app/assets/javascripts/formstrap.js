@@ -13265,7 +13265,17 @@ var repeater_controller_default = class extends Controller {
         this.resetPositions();
       }
     });
+    this.randomizePopupId();
     this.toggleEmpty();
+  }
+  randomizePopupId() {
+    const randomNumber = crypto.randomUUID().substring(0, 8);
+    this.element.querySelectorAll('[data-popup-target="button"]').forEach((button) => {
+      button.dataset.popupId = `repeater-${randomNumber}`;
+    });
+    this.element.querySelectorAll('[data-popup-target="popup"]').forEach((popup) => {
+      popup.dataset.popupId = `repeater-${randomNumber}`;
+    });
   }
   resetButtonIndices(event) {
     const row = event.target.closest(".formstrap-repeater-row");
