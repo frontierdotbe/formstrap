@@ -52,8 +52,7 @@ export default class extends Controller {
     const rowIndex = button.dataset.rowIndex
 
     // Prepare html from template
-    const rawTemplate = this.getTemplate(templateName)
-    let template = rawTemplate.content.cloneNode(true)
+    let template = this.getTemplate(templateName).content.cloneNode(true)
     template = this.randomizeIds(template)
 
     // Fallback to last row if no index is set

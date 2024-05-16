@@ -13287,8 +13287,7 @@ var repeater_controller_default = class extends Controller {
     const button = event.target;
     const templateName = button.dataset.templateName;
     const rowIndex = button.dataset.rowIndex;
-    const rawTemplate = this.getTemplate(templateName);
-    let template = rawTemplate.content.cloneNode(true);
+    let template = this.getTemplate(templateName).content.cloneNode(true);
     template = this.randomizeIds(template);
     if (rowIndex) {
       const row = this.rowTargets[rowIndex];
