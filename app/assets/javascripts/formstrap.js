@@ -11213,7 +11213,7 @@ var media_controller_default = class extends Controller {
   }
   randomizeIds(template) {
     const regex = new RegExp(template.dataset.templateIdRegex, "g");
-    const randomNumber = Math.floor(1e8 + Math.random() * 9e8);
+    const randomNumber = crypto.randomUUID().substring(0, 8);
     return template.innerHTML.replace(regex, randomNumber);
   }
   removeAllDeselectedItems(items) {
@@ -11498,7 +11498,7 @@ var nested_preview_controller_default = class extends Controller {
   buildFormData() {
     const fields = this.fieldsTarget;
     const formData = new FormData();
-    const regex = /\w+\[([^\]]+)s_attributes]\[\d+]/g;
+    const regex = /\w+\[([^\]]+)s_attributes]\[[^\]]+]/g;
     const formElements = fields.querySelectorAll('input[name]:not([name$="[id]"]), select[name]:not([name$="[id]"]), textarea[name]:not([name$="[id]"]), button[name]:not([name$="[id]"])');
     formElements.forEach((element) => {
       const currentName = element.getAttribute("name");
@@ -13276,8 +13276,7 @@ var repeater_controller_default = class extends Controller {
     return this.rowTargets.includes(row);
   }
   updatePopupButtonIndices(index2) {
-    const popup = document.querySelector(`[data-popup-target="popup"][data-popup-id="repeater-buttons-${this.idValue}"]`);
-    const buttons = popup.querySelectorAll('[data-popup-target="button"]');
+    const buttons = document.querySelectorAll(`[data-popup-target="button"][data-popup-id="repeater-buttons-${this.idValue}"]`);
     buttons.forEach((button) => {
       button.dataset.rowIndex = index2;
     });
@@ -13288,7 +13287,7 @@ var repeater_controller_default = class extends Controller {
     const templateName = button.dataset.templateName;
     const rowIndex = button.dataset.rowIndex;
     let template = this.getTemplate(templateName).content.cloneNode(true);
-    template = this.replaceIdsWithTimestamps(template);
+    template = this.randomizeIds(template);
     if (rowIndex) {
       const row = this.rowTargets[rowIndex];
       this.listTarget.insertBefore(template, row.nextSibling);
@@ -13324,32 +13323,19 @@ var repeater_controller_default = class extends Controller {
       return template.dataset.templateName === name;
     })[0];
   }
-  replaceIdsWithTimestamps(template) {
-    const pattern = "rrrrrrrrr";
-    const replacement = new Date().getTime().toString();
+  randomizeIds(template) {
+    const randomNumber = crypto.randomUUID().substring(0, 8);
+    const pattern = `_${this.idValue}_`;
     const regex = new RegExp(pattern, "g");
-    template.querySelectorAll(`input[id*="${pattern}"], select[id*="${pattern}"], textarea[id*="${pattern}"], button[id*="${pattern}"]`).forEach((node) => {
-      const idValue = node.getAttribute("id");
-      node.setAttribute("id", idValue.replace(pattern, replacement));
-    });
-    template.querySelectorAll("template").forEach((node) => {
-      node.innerHTML = node.innerHTML.replace(regex, replacement);
-    });
-    template.querySelectorAll(`label[for*="${pattern}"]`).forEach((node) => {
-      const forValue = node.getAttribute("for");
-      node.setAttribute("for", forValue.replace(pattern, replacement));
-    });
-    template.querySelectorAll(`input[name*="${pattern}"], select[name*="${pattern}"], textarea[name*="${pattern}"], button[name*="${pattern}"]`).forEach((node) => {
-      const nameValue = node.getAttribute("name");
-      node.setAttribute("name", nameValue.replace(pattern, replacement));
-    });
-    template.querySelectorAll(`div[data-bs-target="#offcanvas-${pattern}"]`).forEach((node) => {
-      const targetValue = node.getAttribute("data-bs-target");
-      node.setAttribute("data-bs-target", targetValue.replace(pattern, replacement));
-    });
-    template.querySelectorAll(`.offcanvas[id="offcanvas-${pattern}"]`).forEach((node) => {
-      const idValue = node.getAttribute("id");
-      node.setAttribute("id", idValue.replace(pattern, replacement));
+    template.querySelectorAll("*").forEach((node) => {
+      for (const attribute of node.attributes) {
+        if (attribute.value.includes(pattern)) {
+          attribute.value = attribute.value.replace(pattern, randomNumber);
+        }
+      }
+      if (node.nodeName === "TEMPLATE" && node.innerHTML.includes(pattern)) {
+        node.innerHTML = node.innerHTML.replace(regex, randomNumber);
+      }
     });
     return template;
   }

@@ -106,8 +106,9 @@
       class="btn btn-sm btn-outline-secondary"
       data-repeater-target="addButton"
       data-popup-target="button"
-      data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
+      data-popup-id="repeater-buttons-<%= repeater_id %>"
       data-popup-pass-thru="<%= pass_thru %>"
+      data-row-index=""
       data-action="click->repeater#resetButtonIndices click->popup#open"
     >
       <%= bootstrap_icon("plus") %>
@@ -121,7 +122,7 @@
           <div
             class="btn btn-sm btn-outline-secondary"
             data-popup-target="button"
-            data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
+            data-popup-id="repeater-buttons-<%= repeater_id %>"
             data-action="click->repeater#addRow click->popup#close"
             data-row-index=""
             data-template-name="<%= name %>"
@@ -135,7 +136,7 @@
     <!-- Templates -->
     <% template_names.each do |template_name| %>
       <template data-repeater-target="template" data-template-name="<%= template_name %>">
-        <%= form.fields_for attribute, association_object, child_index: "rrrrrrrrr" do |ff| %>
+        <%= form.fields_for attribute, association_object, child_index: "_#{repeater_id}_" do |ff| %>
           <%= render "formstrap/repeater/row", row_options.merge(form: ff, pass_thru: pass_thru, repeater_id: repeater_id, index: nil, template_name: template_name) do %>
             <%= yield(ff, template_name) %>
           <% end %>

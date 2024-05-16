@@ -41,7 +41,7 @@
     title="<%= t(".add") %>"
     data-repeater-target="addButton"
     data-popup-target="button"
-    data-popup-id="<%= "repeater-buttons-#{repeater_id}" %>"
+    data-popup-id="repeater-buttons-<%= repeater_id %>"
     data-popup-pass-thru="<%= pass_thru %>"
     data-action="click->repeater#resetButtonIndices click->popup#open"
   >
