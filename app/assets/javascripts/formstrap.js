@@ -13374,7 +13374,7 @@ var repeater_controller_default = class extends Controller {
 var import_tom_select = __toESM(require_tom_select_complete());
 var select_controller_default = class extends Controller {
   connect() {
-    if (this.element.hasAttribute("multiple")) {
+    if (this.element.hasAttribute("multiple") || this.element.dataset.tomSelect === "true") {
       this.initTomSelect();
     }
   }

@@ -4,7 +4,7 @@ import I18n from '../config/i18n'
 
 export default class extends Controller {
   connect () {
-    if (this.element.hasAttribute('multiple')) {
+    if (this.element.hasAttribute('multiple') || this.element.dataset.tomSelect === 'true') {
       this.initTomSelect()
     }
   }
