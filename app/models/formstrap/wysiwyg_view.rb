@@ -11,13 +11,16 @@ module Formstrap
     end
 
     def default_options
-      {
+      options = {
         redactor: {
           context: !toolbar,
           extrabar: toolbar,
-          toolbar: toolbar
         }
       }
+
+      options[:redactor][:toolbar] = false if @toolbar == false
+
+      options
     end
   end
 end

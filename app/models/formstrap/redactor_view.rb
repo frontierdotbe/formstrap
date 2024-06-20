@@ -28,8 +28,6 @@ module Formstrap
         theme: "light",
         # Popup when highlighting text
         context: false,
-        # Top toolbar
-        toolbar: true,
         popups: {
           # Options in addbar popup (press + button)
           addbar: %w[format bold italic deleted list table link embed],
