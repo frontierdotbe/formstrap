@@ -11200,7 +11200,7 @@ var media_controller_default = class extends Controller {
     const template = this.templateTarget;
     const html = this.randomizeIds(template);
     this.thumbnailsTarget.insertAdjacentHTML("beforeend", html);
-    const newItem = this.itemTargets.pop();
+    const newItem = thjs.itemTargets.pop();
     newItem.querySelector('input[name*="[blob_id]"]').value = item.blobId;
     newItem.querySelector('input[name*="[_destroy]"]').value = false;
     const editButton = newItem.querySelector('[data-media-target="editButton"]');
@@ -13337,6 +13337,10 @@ var repeater_controller_default = class extends Controller {
         node.innerHTML = node.innerHTML.replace(regex, randomNumber);
       }
     });
+    const medias = template.querySelectorAll(".mb-3");
+    for (const media of medias) {
+      media.outerHTML = media.outerHTML.replace(new RegExp("bbbbbbbb", "g"), crypto.randomUUID().substring(0, 8));
+    }
     return template;
   }
   visibleRowsCount() {

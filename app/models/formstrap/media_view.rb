@@ -149,7 +149,11 @@ module Formstrap
     end
 
     def name
-      "#{attribute}_#{object_id}"
+      if form.object.new_record?
+        "#{attribute}_bbbbbbbb"
+      else
+        "#{attribute}_#{object_id}"
+      end
     end
 
     def sort

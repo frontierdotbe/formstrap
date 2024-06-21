@@ -176,7 +176,7 @@ export default class extends Controller {
     this.thumbnailsTarget.insertAdjacentHTML('beforeend', html)
 
     // Set new values
-    const newItem = this.itemTargets.pop()
+    const newItem = thjs.itemTargets.pop()
     newItem.querySelector('input[name*="[blob_id]"]').value = item.blobId
     newItem.querySelector('input[name*="[_destroy]"]').value = false
 
