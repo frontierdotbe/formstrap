@@ -11200,7 +11200,7 @@ var media_controller_default = class extends Controller {
     const template = this.templateTarget;
     const html = this.randomizeIds(template);
     this.thumbnailsTarget.insertAdjacentHTML("beforeend", html);
-    const newItem = thjs.itemTargets.pop();
+    const newItem = this.itemTargets.pop();
     newItem.querySelector('input[name*="[blob_id]"]').value = item.blobId;
     newItem.querySelector('input[name*="[_destroy]"]').value = false;
     const editButton = newItem.querySelector('[data-media-target="editButton"]');
