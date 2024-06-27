@@ -18,7 +18,6 @@ module Formstrap
         class: ["mb-3", ("form-floating" if float)],
         data: {
           controller: "media",
-          name: name,
           sort: sort,
           accept: accept,
           required: required.nil? ? 0 : required
@@ -122,7 +121,7 @@ module Formstrap
     end
 
     def modal_url
-      formstrap_media_path(
+      formstrap_media_url(
         name: name,
         ids: blob_ids,
         min: min,
