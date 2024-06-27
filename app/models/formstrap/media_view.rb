@@ -121,7 +121,7 @@ module Formstrap
     end
 
     def modal_url
-      formstrap_media_path(
+      formstrap_media_url(
         name: name,
         ids: blob_ids,
         min: min,

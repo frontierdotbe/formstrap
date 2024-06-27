@@ -11112,11 +11112,9 @@ var media_controller_default = class extends Controller {
   }
   updateModalButtonUrls() {
     this.modalButtonTargets.forEach((button) => {
-      console.log("before", button.getAttribute("href"));
       const url = new URL(button.getAttribute("href"));
       url.searchParams.set("name", this.nameValue);
       button.setAttribute("href", url.toString());
-      console.log("after", button.getAttribute("href"));
     });
   }
   listenForMediaSelection() {

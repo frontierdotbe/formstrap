@@ -53,14 +53,9 @@ export default class extends Controller {
 
   updateModalButtonUrls () {
     this.modalButtonTargets.forEach((button) => {
-      console.log("before", button.getAttribute('href'))
-
-      // read the href and replace a query parameter called "name" with the random name
       const url = new URL(button.getAttribute('href'))
       url.searchParams.set('name', this.nameValue)
       button.setAttribute('href', url.toString())
-
-      console.log("after", button.getAttribute('href'))
     })
   }
 
