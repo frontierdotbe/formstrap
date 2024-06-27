@@ -3,22 +3,20 @@ import { Controller } from '@hotwired/stimulus'
 import Sortable from 'sortablejs'
 
 export default class extends Controller {
+  static get values () {
+    return {
+      name: String
+    }
+  }
+
   static get targets () {
     return ['item', 'template', 'thumbnails', 'modalButton', 'placeholder', 'count', 'editButton', 'validationInput']
   }
 
   connect () {
-    document.addEventListener('mediaSelectionSubmitted', (event) => {
-      if (event.detail.name === this.element.dataset.name) {
-        this.selectItems(event.detail.items)
-      }
-    })
-
-    // Init sorting
-    if (this.hasSorting()) {
-      this.initSortable()
-    }
-
+    this.randomizeName()
+    this.listenForMediaSelection()
+    this.initializeSorting()
     this.validate()
   }
 
@@ -48,6 +46,39 @@ export default class extends Controller {
   }
 
   // Methods
+  randomizeName () {
+    this.nameValue = crypto.randomUUID().substring(0, 8)
+    this.updateModalButtonUrls()
+  }
+
+  updateModalButtonUrls () {
+    this.modalButtonTargets.forEach((button) => {
+      console.log("before", button.getAttribute('href'))
+
+      // read the href and replace a query parameter called "name" with the random name
+      const url = new URL(button.getAttribute('href'))
+      url.searchParams.set('name', this.nameValue)
+      button.setAttribute('href', url.toString())
+
+      console.log("after", button.getAttribute('href'))
+    })
+  }
+
+  listenForMediaSelection () {
+    document.addEventListener('mediaSelectionSubmitted', (event) => {
+      if (event.detail.name === this.nameValue) {
+        this.selectItems(event.detail.items)
+        this.updateModalButtonUrls()
+      }
+    })
+  }
+
+  initializeSorting () {
+    if (this.hasSorting()) {
+      this.initSortable()
+    }
+  }
+
   initSortable () {
     Sortable.create(this.thumbnailsTarget, {
       handle: '.media-drag-sort-handle',
@@ -171,9 +202,8 @@ export default class extends Controller {
 
   createItem (item) {
     // Copy template
-    const template = this.templateTarget
-    const html = this.randomizeIds(template)
-    this.thumbnailsTarget.insertAdjacentHTML('beforeend', html)
+    const templateHtml = this.templateTarget.innerHTML
+    this.thumbnailsTarget.insertAdjacentHTML('beforeend', templateHtml)
 
     // Set new values
     const newItem = this.itemTargets.pop()
@@ -190,12 +220,6 @@ export default class extends Controller {
     const oldThumbnail = newItem.querySelector('.formstrap-thumbnail')
     const newThumbnail = item.thumbnail.cloneNode(true)
     oldThumbnail.parentNode.replaceChild(newThumbnail, oldThumbnail)
-  }
-
-  randomizeIds (template) {
-    const regex = new RegExp(template.dataset.templateIdRegex, 'g')
-    const randomNumber = crypto.randomUUID().substring(0, 8)
-    return template.innerHTML.replace(regex, randomNumber)
   }
 
   removeAllDeselectedItems (items) {

@@ -124,14 +124,7 @@ export default class extends Controller {
       if (node.nodeName === 'TEMPLATE' && node.innerHTML.includes(pattern)) {
         node.innerHTML = node.innerHTML.replace(regex, randomNumber)
       }
-
-      
     })
-
-    const medias = template.querySelectorAll(".mb-3");
-    for (const media of medias) {
-      media.outerHTML = media.outerHTML.replace(new RegExp("bbbbbbbb", 'g'), crypto.randomUUID().substring(0, 8))
-    }
 
     return template
   }

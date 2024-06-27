@@ -11076,18 +11076,18 @@ var sortable_esm_default = Sortable;
 
 // app/assets/javascripts/formstrap/controllers/media_controller.js
 var media_controller_default = class extends Controller {
+  static get values() {
+    return {
+      name: String
+    };
+  }
   static get targets() {
     return ["item", "template", "thumbnails", "modalButton", "placeholder", "count", "editButton", "validationInput"];
   }
   connect() {
-    document.addEventListener("mediaSelectionSubmitted", (event) => {
-      if (event.detail.name === this.element.dataset.name) {
-        this.selectItems(event.detail.items);
-      }
-    });
-    if (this.hasSorting()) {
-      this.initSortable();
-    }
+    this.randomizeName();
+    this.listenForMediaSelection();
+    this.initializeSorting();
     this.validate();
   }
   destroy(event) {
@@ -11105,6 +11105,32 @@ var media_controller_default = class extends Controller {
       });
       button.setAttribute("href", url.toString());
     });
+  }
+  randomizeName() {
+    this.nameValue = crypto.randomUUID().substring(0, 8);
+    this.updateModalButtonUrls();
+  }
+  updateModalButtonUrls() {
+    this.modalButtonTargets.forEach((button) => {
+      console.log("before", button.getAttribute("href"));
+      const url = new URL(button.getAttribute("href"));
+      url.searchParams.set("name", this.nameValue);
+      button.setAttribute("href", url.toString());
+      console.log("after", button.getAttribute("href"));
+    });
+  }
+  listenForMediaSelection() {
+    document.addEventListener("mediaSelectionSubmitted", (event) => {
+      if (event.detail.name === this.nameValue) {
+        this.selectItems(event.detail.items);
+        this.updateModalButtonUrls();
+      }
+    });
+  }
+  initializeSorting() {
+    if (this.hasSorting()) {
+      this.initSortable();
+    }
   }
   initSortable() {
     sortable_esm_default.create(this.thumbnailsTarget, {
@@ -11197,9 +11223,8 @@ var media_controller_default = class extends Controller {
     item.classList.remove("d-none");
   }
   createItem(item) {
-    const template = this.templateTarget;
-    const html = this.randomizeIds(template);
-    this.thumbnailsTarget.insertAdjacentHTML("beforeend", html);
+    const templateHtml = this.templateTarget.innerHTML;
+    this.thumbnailsTarget.insertAdjacentHTML("beforeend", templateHtml);
     const newItem = this.itemTargets.pop();
     newItem.querySelector('input[name*="[blob_id]"]').value = item.blobId;
     newItem.querySelector('input[name*="[_destroy]"]').value = false;
@@ -11210,11 +11235,6 @@ var media_controller_default = class extends Controller {
     const oldThumbnail = newItem.querySelector(".formstrap-thumbnail");
     const newThumbnail = item.thumbnail.cloneNode(true);
     oldThumbnail.parentNode.replaceChild(newThumbnail, oldThumbnail);
-  }
-  randomizeIds(template) {
-    const regex = new RegExp(template.dataset.templateIdRegex, "g");
-    const randomNumber = crypto.randomUUID().substring(0, 8);
-    return template.innerHTML.replace(regex, randomNumber);
   }
   removeAllDeselectedItems(items) {
     this.removeDeselectedItems(items, this.itemTargets);
@@ -13337,10 +13357,6 @@ var repeater_controller_default = class extends Controller {
         node.innerHTML = node.innerHTML.replace(regex, randomNumber);
       }
     });
-    const medias = template.querySelectorAll(".mb-3");
-    for (const media of medias) {
-      media.outerHTML = media.outerHTML.replace(new RegExp("bbbbbbbb", "g"), crypto.randomUUID().substring(0, 8));
-    }
     return template;
   }
   visibleRowsCount() {

@@ -18,7 +18,6 @@ module Formstrap
         class: ["mb-3", ("form-floating" if float)],
         data: {
           controller: "media",
-          name: name,
           sort: sort,
           accept: accept,
           required: required.nil? ? 0 : required
@@ -149,11 +148,7 @@ module Formstrap
     end
 
     def name
-      if form.object.new_record?
-        "#{attribute}_bbbbbbbb"
-      else
-        "#{attribute}_#{object_id}"
-      end
+      "#{attribute}_#{object_id}"
     end
 
     def sort
