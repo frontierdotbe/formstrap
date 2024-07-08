@@ -197,7 +197,8 @@ export default class extends Controller {
 
   createItem (item) {
     // Copy template
-    const templateHtml = this.templateTarget.innerHTML
+    let templateHtml = this.templateTarget
+    templateHtml = this.randomizeIds(templateHtml)
     this.thumbnailsTarget.insertAdjacentHTML('beforeend', templateHtml)
 
     // Set new values
@@ -215,6 +216,12 @@ export default class extends Controller {
     const oldThumbnail = newItem.querySelector('.formstrap-thumbnail')
     const newThumbnail = item.thumbnail.cloneNode(true)
     oldThumbnail.parentNode.replaceChild(newThumbnail, oldThumbnail)
+  }
+
+  randomizeIds (template) {
+    const regex = new RegExp(template.dataset.templateIdRegex, 'g')
+    const randomNumber = crypto.randomUUID().substring(0, 8)
+    return template.innerHTML.replace(regex, randomNumber)
   }
 
   removeAllDeselectedItems (items) {
