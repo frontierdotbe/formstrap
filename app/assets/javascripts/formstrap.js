@@ -11221,7 +11221,7 @@ var media_controller_default = class extends Controller {
     item.classList.remove("d-none");
   }
   createItem(item) {
-    var templateHtml = this.templateTarget;
+    let templateHtml = this.templateTarget;
     templateHtml = this.randomizeIds(templateHtml);
     this.thumbnailsTarget.insertAdjacentHTML("beforeend", templateHtml);
     const newItem = this.itemTargets.pop();
@@ -11236,10 +11236,7 @@ var media_controller_default = class extends Controller {
     oldThumbnail.parentNode.replaceChild(newThumbnail, oldThumbnail);
   }
   randomizeIds(template) {
-    console.log("Hello");
-    console.log(template.dataset.templateIdRegex);
     const regex = new RegExp(template.dataset.templateIdRegex, "g");
-    console.log(template.dataset.templateIdRegex);
     const randomNumber = crypto.randomUUID().substring(0, 8);
     return template.innerHTML.replace(regex, randomNumber);
   }
