@@ -47,7 +47,8 @@ module Formstrap
         class: [form_control_class, validation_class],
         data: {
           tags: tags,
-          controller: "select"
+          controller: "select",
+          "select_selected_value": select_options[:selected]
         },
         multiple: tags,
         placeholder: placeholder
