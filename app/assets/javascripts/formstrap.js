@@ -13435,10 +13435,16 @@ var select_controller_default = class extends Controller {
   }
   initTomSelect() {
     const defaultOptions = this.defaultOptions();
-    const options = { create: this.hasTags() };
+    const options = {
+      create: this.hasTags(),
+      items: this.selectedValue
+    };
     new import_tom_select.default(this.element, { ...defaultOptions, ...options });
   }
 };
+__publicField(select_controller_default, "values", {
+  selected: Array
+});
 
 // app/assets/javascripts/formstrap/controllers/textarea_controller.js
 var textarea_controller_default = class extends Controller {

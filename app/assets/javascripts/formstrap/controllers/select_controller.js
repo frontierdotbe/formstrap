@@ -3,6 +3,10 @@ import TomSelect from 'tom-select'
 import I18n from '../config/i18n'
 
 export default class extends Controller {
+  static values = {
+    selected: Array
+  }
+  
   connect () {
     if (this.element.hasAttribute('multiple') || this.element.dataset.tomSelect === 'true') {
       this.initTomSelect()
@@ -45,7 +49,10 @@ export default class extends Controller {
 
   initTomSelect () {
     const defaultOptions = this.defaultOptions()
-    const options = { create: this.hasTags() }
+    const options = { 
+      create: this.hasTags(),
+      items: this.selectedValue
+    }
 
     /* eslint-disable no-new */
     new TomSelect(this.element, { ...defaultOptions, ...options })
