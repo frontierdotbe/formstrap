@@ -14,7 +14,7 @@ module Formstrap
       options = {
         redactor: {
           context: !toolbar,
-          extrabar: toolbar,
+          extrabar: toolbar
         }
       }
 

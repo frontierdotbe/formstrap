@@ -24,7 +24,7 @@ class ViewModel
 
   def initialize(hash = {})
     hash.each do |key, value|
-      instance_variable_set("@#{key}", value)
+      instance_variable_set(:"@#{key}", value)
     end
   end
 
@@ -45,11 +45,11 @@ class ViewModel
   end
 
   def value_for(attribute)
-    reserved_methods.include?(attribute) ? instance_variable_get("@#{attribute}") : send(attribute)
+    reserved_methods.include?(attribute) ? instance_variable_get(:"@#{attribute}") : send(attribute)
   end
 
   def method_missing(m, *args, &block)
-    instance_variable_get("@#{m}")
+    instance_variable_get(:"@#{m}")
   end
 
   def respond_to_missing?

@@ -24,7 +24,7 @@ module Formstrap
         lang: I18n.locale,
         # button to control a block/line in the editor
         control: false,
-        minHeight: '57px',
+        minHeight: "57px",
         theme: "light",
         # Popup when highlighting text
         context: false,
@@ -34,11 +34,11 @@ module Formstrap
           # Options in block/line popup
           control: [],
           # Options in format popup
-          format: %w[text h1 h2 h3 h4],
+          format: %w[text h1 h2 h3 h4]
         },
         block: {
           # Outline block/line in the editor
-          outline: false,
+          outline: false
         },
         buttons: {
           # Options when highlighting text
@@ -46,9 +46,9 @@ module Formstrap
           # Options in toolbar on the right
           extrabar: %w[],
           # Options in toolbar on the left
-          toolbar: %w[format bold italic deleted list table link html],
+          toolbar: %w[format bold italic deleted list table link html]
         },
-        plugins: %w[emoji linkstyles],
+        plugins: %w[emoji linkstyles]
       }.delete_if { |k, v| v.nil? }
     end
   end

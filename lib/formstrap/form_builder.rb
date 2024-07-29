@@ -11,7 +11,7 @@ module Formstrap
       render_input(:association, attribute, options)
     end
 
-    def preview_button(value = nil, options = {}, &block)
+    def preview_button(value = nil, options = {}, &)
       default_options = {
         data: {
           controller: "preview",
@@ -19,7 +19,7 @@ module Formstrap
         },
         type: nil
       }
-      button value, default_options.deep_merge(options.except(:url)), &block
+      button(value, default_options.deep_merge(options.except(:url)), &)
     end
 
     def checkbox(attribute, formstrap: true, **options)
@@ -114,8 +114,8 @@ module Formstrap
       end
     end
 
-    def repeater_for(attribute, options = {}, &block)
-      @template.render("formstrap/repeater", form: self, attribute: attribute, **options, &block)
+    def repeater_for(attribute, options = {}, &)
+      @template.render("formstrap/repeater", form: self, attribute: attribute, **options, &)
     end
 
     def redactor(attribute, formstrap: true, **options)
