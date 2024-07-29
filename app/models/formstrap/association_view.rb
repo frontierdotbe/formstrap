@@ -36,7 +36,7 @@ module Formstrap
     end
 
     def attribute_with_id
-      attribute_with_id = collection? ? "#{association_foreign_key}s" : foreign_key
+      attribute_with_id = collection? ? "#{reflection.name.to_s.singularize}_ids" : foreign_key
 
       if attribute_with_id.nil?
         raise(AssociationDoesNotExistError, "Association attribute that was passed does not exist.")
