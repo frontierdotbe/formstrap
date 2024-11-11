@@ -14462,11 +14462,13 @@ Redactor.add("plugin", "linkstyles", {
       }
     },
     "link.change": function(e) {
-      const link = e.params.element.nodes[0];
+      var link = e.params.element.nodes[0];
+      link = this.addHttps(link);
       this.applyStylingToLink(link);
     },
     "link.add": function(e) {
-      const link = e.params.element.nodes[0];
+      var link = e.params.element.nodes[0];
+      link = this.addHttps(link);
       this.applyStylingToLink(link);
     }
   },
@@ -14489,6 +14491,17 @@ Redactor.add("plugin", "linkstyles", {
         return;
       link.classList.add(className);
     });
+  },
+  addHttps(link) {
+    var url = link.getAttribute("href");
+    if (url.startsWith("http://")) {
+      url = url.replace("http://", "https://");
+    }
+    if (!url.startsWith("https://")) {
+      url = "https://" + url;
+    }
+    link.setAttribute("href", url);
+    return link;
   },
   buildSelect() {
     const select = this.dom("<select>").addClass("rx-form-select");
