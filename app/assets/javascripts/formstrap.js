@@ -14462,12 +14462,12 @@ Redactor.add("plugin", "linkstyles", {
       }
     },
     "link.change": function(e) {
-      var link = e.params.element.nodes[0];
+      let link = e.params.element.nodes[0];
       link = this.ensureValidProtocol(link);
       this.applyStylingToLink(link);
     },
     "link.add": function(e) {
-      var link = e.params.element.nodes[0];
+      let link = e.params.element.nodes[0];
       link = this.ensureValidProtocol(link);
       this.applyStylingToLink(link);
     }
@@ -14493,7 +14493,7 @@ Redactor.add("plugin", "linkstyles", {
     });
   },
   ensureValidProtocol(link) {
-    var url = link.getAttribute("href");
+    let url = link.getAttribute("href");
     const regex = /^(https?:\/\/|mailto:|ftp:\/\/)/i;
     if (!regex.test(url)) {
       url = `https://${url}`;
