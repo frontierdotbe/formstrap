@@ -32,12 +32,12 @@ Redactor.add('plugin', 'linkstyles', {
     },
     'link.change': function (e) {
       var link = e.params.element.nodes[0]
-      link = this.addHttps(link) 
+      link = this.ensureValidProtocol(link) 
       this.applyStylingToLink(link)
     },
     'link.add': function (e) {
       var link = e.params.element.nodes[0]
-      link = this.addHttps(link) 
+      link = this.ensureValidProtocol(link) 
       this.applyStylingToLink(link)
     }
   },
@@ -72,20 +72,17 @@ Redactor.add('plugin', 'linkstyles', {
       link.classList.add(className)
     })
   },
-  addHttps(link) {
-    var url = link.getAttribute("href")
+  ensureValidProtocol (link) {
+    var url = link.getAttribute('href')
 
-    if (url.startsWith("http://")) {
-        url = url.replace("http://", "https://")
+    // Match valid protocols
+    const regex = /^(https?:\/\/|mailto:|ftp:\/\/)/i
+    if (!regex.test(url)) {
+      url = `https://${url}`
     }
 
-    if (!url.startsWith("https://")) {
-
-        url = "https://" + url  
-    }
-
-    link.setAttribute("href", url)
-    return link;
+    link.setAttribute('href', url)
+    return link
   },
   buildSelect () {
     // Create a select node
