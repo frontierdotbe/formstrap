@@ -31,11 +31,13 @@ Redactor.add('plugin', 'linkstyles', {
       }
     },
     'link.change': function (e) {
-      const link = e.params.element.nodes[0]
+      let link = e.params.element.nodes[0]
+      link = this.ensureValidProtocol(link)
       this.applyStylingToLink(link)
     },
     'link.add': function (e) {
-      const link = e.params.element.nodes[0]
+      let link = e.params.element.nodes[0]
+      link = this.ensureValidProtocol(link)
       this.applyStylingToLink(link)
     }
   },
@@ -47,6 +49,7 @@ Redactor.add('plugin', 'linkstyles', {
     const stack = this.app.modal.getStack()
 
     const item = stack.getFormItem('url')
+
     const box = this.dom('<div>').addClass('rx-form-item')
 
     // Add a select
@@ -68,6 +71,18 @@ Redactor.add('plugin', 'linkstyles', {
       if (className.length === 0) return
       link.classList.add(className)
     })
+  },
+  ensureValidProtocol (link) {
+    let url = link.getAttribute('href')
+
+    // Match valid protocols
+    const regex = /^(https?:\/\/|mailto:|ftp:\/\/)/i
+    if (!regex.test(url)) {
+      url = `https://${url}`
+    }
+
+    link.setAttribute('href', url)
+    return link
   },
   buildSelect () {
     // Create a select node

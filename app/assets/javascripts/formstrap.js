@@ -13398,9 +13398,12 @@ var repeater_controller_default = class extends Controller {
 var import_tom_select = __toESM(require_tom_select_complete());
 var select_controller_default = class extends Controller {
   connect() {
-    if (this.element.hasAttribute("multiple") || this.element.dataset.tomSelect === "true") {
+    if (this.isMultiple() || this.isTomSelect() || this.isRemote()) {
       this.initTomSelect();
     }
+  }
+  disconnect() {
+    this.element.tomselect.destroy();
   }
   defaultOptions() {
     return {
@@ -13408,6 +13411,26 @@ var select_controller_default = class extends Controller {
       persist: false,
       create: true,
       render: this.renderOptions()[i18n_default.locale]
+    };
+  }
+  isMultiple() {
+    return this.element.hasAttribute("multiple");
+  }
+  isTomSelect() {
+    return this.element.dataset.tomSelect === "true";
+  }
+  isRemote() {
+    return this.remoteUrlValue;
+  }
+  defaultLoadOptions() {
+    return (query, callback) => {
+      if (!query.length)
+        return callback();
+      fetch(`${this.remoteUrlValue}.json?${this.remoteQueryParamValue}=${encodeURIComponent(query)}`).then((response) => response.json()).then((data) => {
+        callback(data);
+      }).catch(() => {
+        callback();
+      });
     };
   }
   renderOptions() {
@@ -13435,10 +13458,24 @@ var select_controller_default = class extends Controller {
   }
   initTomSelect() {
     const defaultOptions = this.defaultOptions();
-    const options = { create: this.hasTags() };
+    const options = {
+      create: this.hasTags(),
+      ...this.isRemote() && {
+        valueField: this.remoteValueValue,
+        labelField: this.remoteLabelValue,
+        searchField: this.remoteLabelValue,
+        load: this.defaultLoadOptions()
+      }
+    };
     new import_tom_select.default(this.element, { ...defaultOptions, ...options });
   }
 };
+__publicField(select_controller_default, "values", {
+  remoteUrl: String,
+  remoteValue: String,
+  remoteLabel: String,
+  remoteQueryParam: String
+});
 
 // app/assets/javascripts/formstrap/controllers/textarea_controller.js
 var textarea_controller_default = class extends Controller {
@@ -14456,11 +14493,13 @@ Redactor.add("plugin", "linkstyles", {
       }
     },
     "link.change": function(e) {
-      const link = e.params.element.nodes[0];
+      let link = e.params.element.nodes[0];
+      link = this.ensureValidProtocol(link);
       this.applyStylingToLink(link);
     },
     "link.add": function(e) {
-      const link = e.params.element.nodes[0];
+      let link = e.params.element.nodes[0];
+      link = this.ensureValidProtocol(link);
       this.applyStylingToLink(link);
     }
   },
@@ -14483,6 +14522,15 @@ Redactor.add("plugin", "linkstyles", {
         return;
       link.classList.add(className);
     });
+  },
+  ensureValidProtocol(link) {
+    let url = link.getAttribute("href");
+    const regex = /^(https?:\/\/|mailto:|ftp:\/\/)/i;
+    if (!regex.test(url)) {
+      url = `https://${url}`;
+    }
+    link.setAttribute("href", url);
+    return link;
   },
   buildSelect() {
     const select = this.dom("<select>").addClass("rx-form-select");

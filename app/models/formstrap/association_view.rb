@@ -46,10 +46,27 @@ module Formstrap
     end
 
     def collection
-      association_class.all.map { |item| [item.to_s, item.id] }
+      if remote
+        collection_for_values
+      else
+        association_class.all.map { |item| [item.to_s, item.id] }
+      end
     end
 
     private
+
+    def collection_for_values
+      if collection?
+        form.object.send(attribute).map { |item| option_for_item[item] }
+      else
+        [option_for_item(form.object.send(attribute))]
+      end
+    end
+
+    def option_for_item(item)
+      return unless item
+      [item.send(remote[:label]), item.send(remote[:value])]
+    end
 
     def association_foreign_key
       reflection.association_foreign_key
@@ -89,6 +106,7 @@ module Formstrap
           tags: tags,
           controller: "select"
         },
+        remote: remote,
         multiple: tags,
         placeholder: placeholder
       }

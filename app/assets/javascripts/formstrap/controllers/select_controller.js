@@ -3,10 +3,21 @@ import TomSelect from 'tom-select'
 import I18n from '../config/i18n'
 
 export default class extends Controller {
+  static values = {
+    remoteUrl: String,
+    remoteValue: String,
+    remoteLabel: String,
+    remoteQueryParam: String,
+  }
+
   connect () {
-    if (this.element.hasAttribute('multiple') || this.element.dataset.tomSelect === 'true') {
+    if (this.isMultiple() || this.isTomSelect() || this.isRemote()) {
       this.initTomSelect()
     }
+  }
+
+  disconnect () {
+    this.element.tomselect.destroy()
   }
 
   defaultOptions () {
@@ -14,7 +25,30 @@ export default class extends Controller {
       plugins: ['drag_drop', 'caret_position', 'input_autogrow'],
       persist: false,
       create: true,
-      render: this.renderOptions()[I18n.locale]
+      render: this.renderOptions()[I18n.locale],
+    }
+  }
+
+  isMultiple () {
+    return this.element.hasAttribute('multiple')
+  }
+
+  isTomSelect () {
+    return this.element.dataset.tomSelect === 'true'
+  }
+
+  isRemote () {
+    return this.remoteUrlValue
+  }
+
+  defaultLoadOptions () {
+    return (query, callback) => {
+      if (!query.length) return callback();
+
+      fetch(`${this.remoteUrlValue}.json?${this.remoteQueryParamValue}=${encodeURIComponent(query)}`)
+      .then(response => response.json())
+      .then(data => {callback(data)})
+      .catch(() => {callback()})
     }
   }
 
@@ -45,7 +79,15 @@ export default class extends Controller {
 
   initTomSelect () {
     const defaultOptions = this.defaultOptions()
-    const options = { create: this.hasTags() }
+    const options = {
+      create: this.hasTags(),
+      ...(this.isRemote() && {
+        valueField: this.remoteValueValue,
+        labelField: this.remoteLabelValue,
+        searchField: this.remoteLabelValue,
+        load: this.defaultLoadOptions()}
+      )
+    }
 
     /* eslint-disable no-new */
     new TomSelect(this.element, { ...defaultOptions, ...options })

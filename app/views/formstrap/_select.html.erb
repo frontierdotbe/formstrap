@@ -16,6 +16,13 @@
   # * +prepend+ - Display as input group with text on the left-hand side
   # * +tags+ - Allow options to be created dynamically. This will set the multiple attribute to true
   # * +wrapper+ - Hash with all options for the surrounding html tag
+  # * +remote+ - Hash with all options for remote data fetching
+  #
+  # ==== Remote options
+  # * +url+ -- JSON endpoint to fetch data from
+  # * +value+ -- JSON attribute to use as the value for the option tag
+  # * +label+ -- JSON attribute to use as the label for the option tag
+  # * +query_param+ -- The query parameter used for searching the json endpoint 
   #
   # ==== References
   # https://headmin.dev/docs/forms/select
@@ -27,6 +34,11 @@
   #   <%= form_with do |form| %#>
   #     <%= render "formstrap/select", form: form, attribute: :color, collection: %w[red green blue] %#>
   #   <% end %#>
+  #
+  #   Remote data 
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/select", form: form, attribute: :id, collection: [["Page 1", 1]], remote: {url: admin_pages_path, value: "id", label: "title"} %#>
+  #   <% end %#>
 
   select = Formstrap::SelectView.new(local_assigns)
 %>
@@ -34,7 +46,13 @@
 <%= render "formstrap/wrapper", select.wrapper_options do %>
   <%= render "formstrap/label", select.label_options if select.prepend_label? %>
   <%= render "formstrap/input_group", select.input_group_options do %>
-    <%= form.select(select.attribute, formstrap: false, choices: select.collection, options: select.select_options, html_options: select.input_options) %>
+    <%= form.select(
+      select.attribute, 
+      formstrap: false, 
+      choices: select.collection, 
+      options: select.select_options, 
+      html_options: select.input_options
+    ) %>
   <% end %>
   <%= render "formstrap/validation", select.validation_options if select.validate? %>
   <%= render "formstrap/hint", select.hint_options if select.hint? %>

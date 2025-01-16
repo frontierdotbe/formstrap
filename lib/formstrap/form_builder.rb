@@ -11,15 +11,15 @@ module Formstrap
       render_input(:association, attribute, options)
     end
 
-    def preview_button(value = nil, options = {}, &)
+    def preview_button(url = nil, options = {}, &block)
       default_options = {
         data: {
           controller: "preview",
-          "preview-url-value": options[:url]
-        },
-        type: nil
+          preview_url_value: url
+        }
       }
-      button(value, default_options.deep_merge(options.except(:url)), &)
+
+      @template.render("formstrap/link", form: self, url: url, options: default_options.deep_merge(options), &block)
     end
 
     def checkbox(attribute, formstrap: true, **options)
