@@ -9,7 +9,7 @@ module Formstrap
     include Formstrap::Wrappable
 
     def input_options
-      keys = attributes - %i[append attribute collection float form input_group include_blank label prepend validate selected tags wrapper]
+      keys = attributes - %i[append attribute collection float form input_group include_blank label prepend validate selected tags wrapper remote]
       options = to_h.slice(*keys)
       default_input_options.deep_merge(options)
     end
@@ -35,10 +35,13 @@ module Formstrap
     private
 
     def default_options
-      selected = attribute.nil? ? nil : form.object&.send(attribute)
       {
-        selected: selected
+        selected: value
       }
+    end
+
+    def value
+      attribute.nil? ? nil : form.object&.send(attribute)
     end
 
     def default_input_options
@@ -48,7 +51,10 @@ module Formstrap
         data: {
           tags: tags,
           controller: "select",
-          "select_selected_value": select_options[:selected]
+          select_remote_url_value: remote&.dig(:url),
+          select_remote_value_value: remote&.dig(:value) || "name",
+          select_remote_label_value: remote&.dig(:label) || "id",
+          select_remote_query_param_value: remote&.dig(:query_param) || "search"
         },
         multiple: tags,
         placeholder: placeholder
