@@ -44,6 +44,21 @@ module Formstrap
       attribute.nil? ? nil : form.object&.send(attribute)
     end
 
+    def is_remote?
+      return false unless remote
+      remote.has_key?(:url)
+    end
+
+    def remote_options
+      return nil unless is_remote?
+      {
+        select_remote_url_value: remote[:url],
+        select_remote_value_value: remote&.dig(:value) || "name",
+        select_remote_label_value: remote&.dig(:label) || "id",
+        select_remote_query_param_value: remote&.dig(:query_param) || "search"
+      }
+    end
+
     def default_input_options
       {
         aria: {describedby: validation_id},
@@ -51,10 +66,7 @@ module Formstrap
         data: {
           tags: tags,
           controller: "select",
-          select_remote_url_value: remote&.dig(:url),
-          select_remote_value_value: remote&.dig(:value) || "name",
-          select_remote_label_value: remote&.dig(:label) || "id",
-          select_remote_query_param_value: remote&.dig(:query_param) || "search"
+          **remote_options
         },
         multiple: tags,
         placeholder: placeholder
