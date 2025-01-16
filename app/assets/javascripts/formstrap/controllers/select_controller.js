@@ -7,7 +7,7 @@ export default class extends Controller {
     remoteUrl: String,
     remoteValue: String,
     remoteLabel: String,
-    remoteQueryParam: String,
+    remoteQueryParam: String
   }
 
   connect () {
@@ -25,7 +25,7 @@ export default class extends Controller {
       plugins: ['drag_drop', 'caret_position', 'input_autogrow'],
       persist: false,
       create: true,
-      render: this.renderOptions()[I18n.locale],
+      render: this.renderOptions()[I18n.locale]
     }
   }
 
@@ -43,12 +43,12 @@ export default class extends Controller {
 
   defaultLoadOptions () {
     return (query, callback) => {
-      if (!query.length) return callback();
+      if (!query.length) return callback()
 
       fetch(`${this.remoteUrlValue}.json?${this.remoteQueryParamValue}=${encodeURIComponent(query)}`)
-      .then(response => response.json())
-      .then(data => {callback(data)})
-      .catch(() => {callback()})
+        .then(response => response.json())
+        .then(data => { callback(data) })
+        .catch(() => { callback() })
     }
   }
 
@@ -85,7 +85,8 @@ export default class extends Controller {
         valueField: this.remoteValueValue,
         labelField: this.remoteLabelValue,
         searchField: this.remoteLabelValue,
-        load: this.defaultLoadOptions()}
+        load: this.defaultLoadOptions()
+      }
       )
     }
 
