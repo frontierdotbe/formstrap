@@ -92,7 +92,7 @@ module Formstrap
       if attached.is_a?(ActiveStorage::Attached::Many)
         form.object.send(nested_attribute).build
       else
-        form.object.send("build_#{nested_attribute}")
+        form.object.send(:"build_#{nested_attribute}")
       end
     end
 

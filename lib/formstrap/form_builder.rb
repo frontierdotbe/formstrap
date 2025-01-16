@@ -114,8 +114,8 @@ module Formstrap
       end
     end
 
-    def repeater_for(attribute, options = {}, &block)
-      @template.render("formstrap/repeater", form: self, attribute: attribute, **options, &block)
+    def repeater_for(attribute, options = {}, &)
+      @template.render("formstrap/repeater", form: self, attribute: attribute, **options, &)
     end
 
     def redactor(attribute, formstrap: true, **options)
