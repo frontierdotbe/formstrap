@@ -11289,7 +11289,9 @@ var media_modal_controller_default = class extends Controller {
   }
   connect() {
     this.validate();
-    this.updateCount();
+    if (this.maxSelectedItems() != 1) {
+      this.updateCount();
+    }
   }
   select() {
     this.dispatchSelectionEvent();
@@ -11300,12 +11302,13 @@ var media_modal_controller_default = class extends Controller {
     this.triggerFormSubmission();
   }
   inputChange(event) {
-    console.log("Change event!");
     if (this.maxSelectedItems() == 1) {
       this.selectOneItem(event.target);
     }
     this.handleIdsUpdate(event.target);
-    this.updateCount();
+    if (this.maxSelectedItems() != 1) {
+      this.updateCount();
+    }
   }
   selectOneItem(element) {
     this.idsValue = [];
