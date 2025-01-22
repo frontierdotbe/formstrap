@@ -11300,8 +11300,22 @@ var media_modal_controller_default = class extends Controller {
     this.triggerFormSubmission();
   }
   inputChange(event) {
+    console.log("Change event!");
+    if (this.maxSelectedItems() == 1) {
+      this.selectOneItem(event.target);
+    }
     this.handleIdsUpdate(event.target);
     this.updateCount();
+  }
+  selectOneItem(element) {
+    this.idsValue = [];
+    for (const checkbox of this.idCheckboxTargets) {
+      if (checkbox.value == element.value) {
+        this.idsValue.push(checkbox.value);
+        continue;
+      }
+      checkbox.checked = false;
+    }
   }
   hidePlaceholder() {
     this.placeholderTarget.classList.add("d-none");

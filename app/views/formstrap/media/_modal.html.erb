@@ -59,7 +59,10 @@
         <% end %>
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"><%= t(".close") %></button>
         <button type="button" class="btn btn-primary" data-bs-dismiss="modal" data-action="click->media-modal#select" data-media-modal-target="selectButton">
-          <%= t(".select") %> (<span data-media-modal-target="count">0</span><%= t(".maximum", count: max.to_i) if max.present? %>)
+          <%= t(".select") %> 
+          <% if request.query_parameters["max"] && request.query_parameters["max"].to_i != 1 %>
+            (<span data-media-modal-target="count">0</span><%= t(".maximum", count: max.to_i) if max.present? %>)
+          <% end %>
         </button>
       </div>
     </div>
