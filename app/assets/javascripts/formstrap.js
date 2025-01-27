@@ -11304,21 +11304,20 @@ var media_modal_controller_default = class extends Controller {
   inputChange(event) {
     if (this.maxSelectedItems() == 1) {
       this.selectOneItem(event.target);
-    }
-    this.handleIdsUpdate(event.target);
-    if (this.maxSelectedItems() != 1) {
-      this.updateCount();
+    } else {
+      this.selectMultipleItems(event.target);
     }
   }
   selectOneItem(element) {
     this.idsValue = [];
-    for (const checkbox of this.idCheckboxTargets) {
-      if (checkbox.value == element.value) {
-        this.idsValue.push(checkbox.value);
-        continue;
-      }
+    for (const checkbox of this.idCheckboxTargets.filter((e) => e.value != element.value)) {
       checkbox.checked = false;
     }
+    this.handleIdsUpdate(element);
+  }
+  selectMultipleItems(element) {
+    this.handleIdsUpdate(element);
+    this.updateCount();
   }
   hidePlaceholder() {
     this.placeholderTarget.classList.add("d-none");
@@ -11338,7 +11337,7 @@ var media_modal_controller_default = class extends Controller {
         return element.value !== value;
       });
     }
-    this.handleSearchdIdsUpdate();
+    this.handleSearchIdsUpdate();
   }
   itemTargetConnected(element) {
     this.updateItem(element.querySelector("input"));
@@ -11422,7 +11421,7 @@ var media_modal_controller_default = class extends Controller {
   updateCount() {
     this.countTarget.innerHTML = this.selectedItemsCount();
   }
-  handleSearchdIdsUpdate() {
+  handleSearchIdsUpdate() {
     this.deleteSearchIdInputs();
     this.createSearchIdInputs();
   }

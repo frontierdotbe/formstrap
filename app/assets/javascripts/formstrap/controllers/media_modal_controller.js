@@ -32,12 +32,8 @@ export default class extends Controller {
   inputChange (event) {
     if (this.maxSelectedItems() == 1) {
       this.selectOneItem(event.target)
-    }
-
-    this.handleIdsUpdate(event.target)
-
-    if (this.maxSelectedItems() != 1) {
-      this.updateCount() 
+    } else {
+      this.selectMultipleItems(event.target)
     }
   }
 
@@ -45,14 +41,16 @@ export default class extends Controller {
   selectOneItem(element) {
     this.idsValue = []
 
-    for (const checkbox of this.idCheckboxTargets) {
-      if (checkbox.value == element.value) {
-        this.idsValue.push(checkbox.value)
-        continue
-      }
-
+    for (const checkbox of this.idCheckboxTargets.filter(e => e.value != element.value)) {
       checkbox.checked = false
     }
+
+    this.handleIdsUpdate(element)
+  }
+
+  selectMultipleItems(element) {
+    this.handleIdsUpdate(element)
+    this.updateCount() 
   }
 
   hidePlaceholder () {
@@ -77,7 +75,7 @@ export default class extends Controller {
       })
     }
 
-    this.handleSearchdIdsUpdate()
+    this.handleSearchIdsUpdate()
   }
 
   itemTargetConnected (element) {
@@ -178,7 +176,7 @@ export default class extends Controller {
     this.countTarget.innerHTML = this.selectedItemsCount()
   }
 
-  handleSearchdIdsUpdate () {
+  handleSearchIdsUpdate () {
     this.deleteSearchIdInputs()
     this.createSearchIdInputs()
   }
