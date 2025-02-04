@@ -12,7 +12,10 @@ export default class extends Controller {
 
   connect () {
     this.validate()
-    this.updateCount()
+
+    if (this.maxSelectedItems() != 1) {
+      this.updateCount() 
+    }
   }
 
   // Actions
@@ -27,11 +30,29 @@ export default class extends Controller {
   }
 
   inputChange (event) {
-    this.handleIdsUpdate(event.target)
-    this.updateCount()
+    if (this.maxSelectedItems() == 1) {
+      this.selectOneItem(event.target)
+    } else {
+      this.selectMultipleItems(event.target)
+    }
   }
 
   // Methods
+  selectOneItem(element) {
+    this.idsValue = []
+
+    for (const checkbox of this.idCheckboxTargets.filter(e => e.value != element.value)) {
+      checkbox.checked = false
+    }
+
+    this.handleIdsUpdate(element)
+  }
+
+  selectMultipleItems(element) {
+    this.handleIdsUpdate(element)
+    this.updateCount() 
+  }
+
   hidePlaceholder () {
     this.placeholderTarget.classList.add('d-none')
   }
@@ -54,7 +75,7 @@ export default class extends Controller {
       })
     }
 
-    this.handleSearchdIdsUpdate()
+    this.handleSearchIdsUpdate()
   }
 
   itemTargetConnected (element) {
@@ -155,7 +176,7 @@ export default class extends Controller {
     this.countTarget.innerHTML = this.selectedItemsCount()
   }
 
-  handleSearchdIdsUpdate () {
+  handleSearchIdsUpdate () {
     this.deleteSearchIdInputs()
     this.createSearchIdInputs()
   }
