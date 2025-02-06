@@ -13413,7 +13413,13 @@ var repeater_controller_default = class extends Controller {
 // app/assets/javascripts/formstrap/controllers/select_controller.js
 var import_tom_select = __toESM(require_tom_select_complete());
 var select_controller_default = class extends Controller {
+  initialize() {
+    this.tomSelect = void 0;
+    this.perPage = 24;
+    this.lastResponseLength = 0;
+  }
   connect() {
+    console.log("tom-select");
     if (this.isMultiple() || this.isTomSelect() || this.isRemote()) {
       this.initTomSelect();
     }
@@ -13423,7 +13429,12 @@ var select_controller_default = class extends Controller {
   }
   defaultOptions() {
     return {
-      plugins: ["drag_drop", "caret_position", "input_autogrow"],
+      plugins: {
+        "caret_position": {},
+        "drag_drop": {},
+        "input_autogrow": {},
+        "virtual_scroll": {}
+      },
       persist: false,
       create: true,
       render: this.renderOptions()[i18n_default.locale]
@@ -13438,12 +13449,40 @@ var select_controller_default = class extends Controller {
   isRemote() {
     return this.remoteUrlValue;
   }
+  setQueryParam(url, key, value) {
+    let urlObj = new URL(url);
+    let params = urlObj.searchParams;
+    params.set(key, value);
+    return urlObj.toString();
+  }
+  getQueryParam(url, key) {
+    let urlObj = new URL(url);
+    let params = urlObj.searchParams;
+    return params.get(key);
+  }
+  firstUrl() {
+    return (query) => {
+      let url = `${this.remoteUrlValue}.json`;
+      url = this.setQueryParam(url, this.remoteQueryParamValue, query);
+      url = this.setQueryParam(url, "per_page", this.perPage);
+      url = this.setQueryParam(url, "page", 1);
+      return url;
+    };
+  }
   defaultLoadOptions() {
     return (query, callback) => {
       if (!query.length)
         return callback();
-      fetch(`${this.remoteUrlValue}.json?${this.remoteQueryParamValue}=${encodeURIComponent(query)}`).then((response) => response.json()).then((data) => {
-        callback(data);
+      let url = this.tomSelect.getUrl(query);
+      fetch(url).then((response) => response.json()).then((json) => {
+        if (json.length == this.perPage) {
+          const currentPage = parseInt(this.getQueryParam(url, "page")) || 1;
+          url = this.setQueryParam(url, "page", currentPage + 1);
+          this.tomSelect.setNextUrl(query, url);
+        } else {
+          this.tomSelect.setNextUrl(query, void 0);
+        }
+        callback(json);
       }).catch(() => {
         callback();
       });
@@ -13457,6 +13496,12 @@ var select_controller_default = class extends Controller {
         },
         no_results: function(data, escape) {
           return '<div class="no-results">No results found</div>';
+        },
+        loading_more: function(data, escape) {
+          return `<div class="loading-more-results">Loading more results ... </div>`;
+        },
+        no_more_results: function(data, escape) {
+          return `<div class="no-more-results">No more results</div>`;
         }
       },
       nl: {
@@ -13465,6 +13510,12 @@ var select_controller_default = class extends Controller {
         },
         no_results: function(data, escape) {
           return '<div class="no-results">Geen resultaten gevonden</div>';
+        },
+        loading_more: function(data, escape) {
+          return `<div class="loading-more-results">Laad meer resultaten ... </div>`;
+        },
+        no_more_results: function(data, escape) {
+          return `<div class="no-more-results">Geen resultaten meer</div>`;
         }
       }
     };
@@ -13480,10 +13531,11 @@ var select_controller_default = class extends Controller {
         valueField: this.remoteValueValue,
         labelField: this.remoteLabelValue,
         searchField: this.remoteLabelValue,
+        firstUrl: this.firstUrl(),
         load: this.defaultLoadOptions()
       }
     };
-    new import_tom_select.default(this.element, { ...defaultOptions, ...options });
+    this.tomSelect = new import_tom_select.default(this.element, { ...defaultOptions, ...options });
   }
 };
 __publicField(select_controller_default, "values", {
