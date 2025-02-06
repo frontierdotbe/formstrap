@@ -17,7 +17,6 @@ export default class extends Controller {
   }
 
   connect () {
-    console.log('tom-select')
     if (this.isMultiple() || this.isTomSelect() || this.isRemote()) {
       this.initTomSelect()
     }
@@ -149,7 +148,6 @@ export default class extends Controller {
         firstUrl: this.firstUrl(),
         load: this.defaultLoadOptions(),
         onFocus: () => {
-          console.log('focus')
           this.tomSelect.clearOptions()
           this.tomSelect.load('')
         }
