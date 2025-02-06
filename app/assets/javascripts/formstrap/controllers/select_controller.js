@@ -11,13 +11,13 @@ export default class extends Controller {
   }
 
   initialize () {
-    this.tomSelect = undefined;
-    this.perPage = 24;
-    this.lastResponseLength = 0;
+    this.tomSelect = undefined
+    this.perPage = 24
+    this.lastResponseLength = 0
   }
 
   connect () {
-    console.log("tom-select")
+    console.log('tom-select')
     if (this.isMultiple() || this.isTomSelect() || this.isRemote()) {
       this.initTomSelect()
     }
@@ -30,10 +30,10 @@ export default class extends Controller {
   defaultOptions () {
     return {
       plugins: {
-        'caret_position': {},
-        'drag_drop': {}, 
-        'input_autogrow': {},
-        'virtual_scroll': {}
+        caret_position: {},
+        drag_drop: {},
+        input_autogrow: {},
+        virtual_scroll: {}
       },
       persist: false,
       create: true,
@@ -53,18 +53,18 @@ export default class extends Controller {
     return this.remoteUrlValue
   }
 
-  setQueryParam(url, key, value) {
-    let urlObj = new URL(url);
-    let params = urlObj.searchParams;
+  setQueryParam (url, key, value) {
+    const urlObj = new URL(url)
+    const params = urlObj.searchParams
 
-    params.set(key, value); // Adds if not exists, updates if exists
+    params.set(key, value) // Adds if not exists, updates if exists
 
-    return urlObj.toString();
+    return urlObj.toString()
   }
 
-  getQueryParam(url, key) {
-    let urlObj = new URL(url);
-    let params = urlObj.searchParams;
+  getQueryParam (url, key) {
+    const urlObj = new URL(url)
+    const params = urlObj.searchParams
 
     return params.get(key)
   }
@@ -73,33 +73,29 @@ export default class extends Controller {
     return (query) => {
       let url = `${this.remoteUrlValue}.json`
       url = this.setQueryParam(url, this.remoteQueryParamValue, query)
-      url = this.setQueryParam(url, "per_page", this.perPage)
-      url = this.setQueryParam(url, "page", 1)
+      url = this.setQueryParam(url, 'per_page', this.perPage)
+      url = this.setQueryParam(url, 'page', 1)
       return url
     }
   }
 
   defaultLoadOptions () {
     return (query, callback) => {
-      if (!query.length) return callback()
-
       let url = this.tomSelect.getUrl(query)
 
       fetch(url)
         .then(response => response.json())
-        .then(json => { 
-
-          if(json.length == this.perPage) {
+        .then(json => {
+          if (json.length === this.perPage) {
             // Update page param for next call
-            const currentPage = parseInt(this.getQueryParam(url, "page")) || 1 
-            url = this.setQueryParam(url, "page", currentPage + 1)
+            const currentPage = parseInt(this.getQueryParam(url, 'page')) || 1
+            url = this.setQueryParam(url, 'page', currentPage + 1)
             this.tomSelect.setNextUrl(query, url)
-
           } else {
             this.tomSelect.setNextUrl(query, undefined)
           }
 
-          callback(json) 
+          callback(json)
         })
         .catch(() => { callback() })
     }
@@ -109,30 +105,30 @@ export default class extends Controller {
     return {
       en: {
         option_create: function (data, escape) {
-          return '<div class="create">Add <strong>' + escape(data.input) + '</strong>&hellip;</div>'
+          return `<div class="create">Add <strong>${escape(data.input)}</strong>&hellip;</div>`
         },
         no_results: function (data, escape) {
           return '<div class="no-results">No results found</div>'
         },
         loading_more: function (data, escape) {
-          return `<div class="loading-more-results">Loading more results ... </div>`;
+          return '<div class="loading-more-results">Loading more results ... </div>'
         },
         no_more_results: function (data, escape) {
-          return `<div class="no-more-results">No more results</div>`;
+          return '<div class="no-more-results">No more results</div>'
         }
       },
       nl: {
         option_create: function (data, escape) {
-          return '<div class="create">Voeg <strong>' + escape(data.input) + '</strong> toe &hellip;</div>'
+          return `<div class="create">Voeg <strong>${escape(data.input)}</strong> toe &hellip;</div>`
         },
         no_results: function (data, escape) {
           return '<div class="no-results">Geen resultaten gevonden</div>'
         },
         loading_more: function (data, escape) {
-          return `<div class="loading-more-results">Laad meer resultaten ... </div>`;
+          return '<div class="loading-more-results">Laad meer resultaten ... </div>'
         },
         no_more_results: function (data, escape) {
-          return `<div class="no-more-results">Geen resultaten meer</div>`;
+          return '<div class="no-more-results">Geen resultaten meer</div>'
         }
       }
     }
@@ -152,10 +148,14 @@ export default class extends Controller {
         searchField: this.remoteLabelValue,
         firstUrl: this.firstUrl(),
         load: this.defaultLoadOptions(),
+        onFocus: () => {
+          console.log('focus')
+          this.tomSelect.clearOptions()
+          this.tomSelect.load('')
+        }
       })
     }
 
-    /* eslint-disable no-new */
     this.tomSelect = new TomSelect(this.element, { ...defaultOptions, ...options })
   }
 }

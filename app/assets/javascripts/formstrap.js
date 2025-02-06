@@ -11289,7 +11289,7 @@ var media_modal_controller_default = class extends Controller {
   }
   connect() {
     this.validate();
-    if (this.maxSelectedItems() != 1) {
+    if (this.maxSelectedItems() !== 1) {
       this.updateCount();
     }
   }
@@ -11302,7 +11302,7 @@ var media_modal_controller_default = class extends Controller {
     this.triggerFormSubmission();
   }
   inputChange(event) {
-    if (this.maxSelectedItems() == 1) {
+    if (this.maxSelectedItems() === 1) {
       this.selectOneItem(event.target);
     } else {
       this.selectMultipleItems(event.target);
@@ -11310,7 +11310,7 @@ var media_modal_controller_default = class extends Controller {
   }
   selectOneItem(element) {
     this.idsValue = [];
-    for (const checkbox of this.idCheckboxTargets.filter((e) => e.value != element.value)) {
+    for (const checkbox of this.idCheckboxTargets.filter((e) => e.value !== element.value)) {
       checkbox.checked = false;
     }
     this.handleIdsUpdate(element);
@@ -13430,10 +13430,10 @@ var select_controller_default = class extends Controller {
   defaultOptions() {
     return {
       plugins: {
-        "caret_position": {},
-        "drag_drop": {},
-        "input_autogrow": {},
-        "virtual_scroll": {}
+        caret_position: {},
+        drag_drop: {},
+        input_autogrow: {},
+        virtual_scroll: {}
       },
       persist: false,
       create: true,
@@ -13450,14 +13450,14 @@ var select_controller_default = class extends Controller {
     return this.remoteUrlValue;
   }
   setQueryParam(url, key, value) {
-    let urlObj = new URL(url);
-    let params = urlObj.searchParams;
+    const urlObj = new URL(url);
+    const params = urlObj.searchParams;
     params.set(key, value);
     return urlObj.toString();
   }
   getQueryParam(url, key) {
-    let urlObj = new URL(url);
-    let params = urlObj.searchParams;
+    const urlObj = new URL(url);
+    const params = urlObj.searchParams;
     return params.get(key);
   }
   firstUrl() {
@@ -13471,11 +13471,9 @@ var select_controller_default = class extends Controller {
   }
   defaultLoadOptions() {
     return (query, callback) => {
-      if (!query.length)
-        return callback();
       let url = this.tomSelect.getUrl(query);
       fetch(url).then((response) => response.json()).then((json) => {
-        if (json.length == this.perPage) {
+        if (json.length === this.perPage) {
           const currentPage = parseInt(this.getQueryParam(url, "page")) || 1;
           url = this.setQueryParam(url, "page", currentPage + 1);
           this.tomSelect.setNextUrl(query, url);
@@ -13492,30 +13490,30 @@ var select_controller_default = class extends Controller {
     return {
       en: {
         option_create: function(data, escape) {
-          return '<div class="create">Add <strong>' + escape(data.input) + "</strong>&hellip;</div>";
+          return `<div class="create">Add <strong>${escape(data.input)}</strong>&hellip;</div>`;
         },
         no_results: function(data, escape) {
           return '<div class="no-results">No results found</div>';
         },
         loading_more: function(data, escape) {
-          return `<div class="loading-more-results">Loading more results ... </div>`;
+          return '<div class="loading-more-results">Loading more results ... </div>';
         },
         no_more_results: function(data, escape) {
-          return `<div class="no-more-results">No more results</div>`;
+          return '<div class="no-more-results">No more results</div>';
         }
       },
       nl: {
         option_create: function(data, escape) {
-          return '<div class="create">Voeg <strong>' + escape(data.input) + "</strong> toe &hellip;</div>";
+          return `<div class="create">Voeg <strong>${escape(data.input)}</strong> toe &hellip;</div>`;
         },
         no_results: function(data, escape) {
           return '<div class="no-results">Geen resultaten gevonden</div>';
         },
         loading_more: function(data, escape) {
-          return `<div class="loading-more-results">Laad meer resultaten ... </div>`;
+          return '<div class="loading-more-results">Laad meer resultaten ... </div>';
         },
         no_more_results: function(data, escape) {
-          return `<div class="no-more-results">Geen resultaten meer</div>`;
+          return '<div class="no-more-results">Geen resultaten meer</div>';
         }
       }
     };
@@ -13532,7 +13530,12 @@ var select_controller_default = class extends Controller {
         labelField: this.remoteLabelValue,
         searchField: this.remoteLabelValue,
         firstUrl: this.firstUrl(),
-        load: this.defaultLoadOptions()
+        load: this.defaultLoadOptions(),
+        onFocus: () => {
+          console.log("focus");
+          this.tomSelect.clearOptions();
+          this.tomSelect.load("");
+        }
       }
     };
     this.tomSelect = new import_tom_select.default(this.element, { ...defaultOptions, ...options });
