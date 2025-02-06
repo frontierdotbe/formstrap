@@ -147,6 +147,9 @@ export default class extends Controller {
         searchField: this.remoteLabelValue,
         firstUrl: this.firstUrl(),
         load: this.defaultLoadOptions(),
+        // Infinite options
+        maxOptions: null,
+        // Fetch first items when focused
         onFocus: () => {
           this.tomSelect.clearOptions()
           this.tomSelect.load('')

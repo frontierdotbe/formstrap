@@ -13530,6 +13530,7 @@ var select_controller_default = class extends Controller {
         searchField: this.remoteLabelValue,
         firstUrl: this.firstUrl(),
         load: this.defaultLoadOptions(),
+        maxOptions: null,
         onFocus: () => {
           this.tomSelect.clearOptions();
           this.tomSelect.load("");
