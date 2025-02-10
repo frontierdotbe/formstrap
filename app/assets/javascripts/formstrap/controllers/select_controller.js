@@ -131,6 +131,34 @@ export default class extends Controller {
         no_more_results: function (data, escape) {
           return '<div class="no-more-results">Geen resultaten meer</div>'
         }
+      },
+      fr: {
+        option_create: function (data, escape) {
+          return `<div class="create">Ajouter <strong>${escape(data.input)}</strong>&hellip;</div>`;
+        },
+        no_results: function (data, escape) {
+          return '<div class="no-results">Aucun résultat trouvé</div>';
+        },
+        loading_more: function (data, escape) {
+          return '<div class="loading-more-results">Chargement de plus de résultats ... </div>';
+        },
+        no_more_results: function (data, escape) {
+          return '<div class="no-more-results">Plus de résultats</div>';
+        }
+      },
+      de: {
+        option_create: function (data, escape) {
+          return `<div class="create">Hinzufügen <strong>${escape(data.input)}</strong>&hellip;</div>`;
+        },
+        no_results: function (data, escape) {
+          return '<div class="no-results">Keine Ergebnisse gefunden</div>';
+        },
+        loading_more: function (data, escape) {
+          return '<div class="loading-more-results">Lade weitere Ergebnisse ... </div>';
+        },
+        no_more_results: function (data, escape) {
+          return '<div class="no-more-results">Keine weiteren Ergebnisse</div>';
+        }
       }
     }
   }

@@ -13515,6 +13515,34 @@ var select_controller_default = class extends Controller {
         no_more_results: function(data, escape) {
           return '<div class="no-more-results">Geen resultaten meer</div>';
         }
+      },
+      fr: {
+        option_create: function(data, escape) {
+          return `<div class="create">Ajouter <strong>${escape(data.input)}</strong>&hellip;</div>`;
+        },
+        no_results: function(data, escape) {
+          return '<div class="no-results">Aucun r\xE9sultat trouv\xE9</div>';
+        },
+        loading_more: function(data, escape) {
+          return '<div class="loading-more-results">Chargement de plus de r\xE9sultats ... </div>';
+        },
+        no_more_results: function(data, escape) {
+          return '<div class="no-more-results">Plus de r\xE9sultats</div>';
+        }
+      },
+      de: {
+        option_create: function(data, escape) {
+          return `<div class="create">Hinzuf\xFCgen <strong>${escape(data.input)}</strong>&hellip;</div>`;
+        },
+        no_results: function(data, escape) {
+          return '<div class="no-results">Keine Ergebnisse gefunden</div>';
+        },
+        loading_more: function(data, escape) {
+          return '<div class="loading-more-results">Lade weitere Ergebnisse ... </div>';
+        },
+        no_more_results: function(data, escape) {
+          return '<div class="no-more-results">Keine weiteren Ergebnisse</div>';
+        }
       }
     };
   }
