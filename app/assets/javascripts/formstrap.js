@@ -13420,19 +13420,20 @@ var select_controller_default = class extends Controller {
   }
   connect() {
     if (this.isMultiple() || this.isTomSelect() || this.isRemote()) {
-      this.initTomSelect();
+      this.tomSelect = this.initTomSelect();
     }
   }
   disconnect() {
-    this.element.tomselect.destroy();
+    if (this.element.tomselect) {
+      this.element.tomselect.destroy();
+    }
   }
   defaultOptions() {
     return {
       plugins: {
         caret_position: {},
         drag_drop: {},
-        input_autogrow: {},
-        virtual_scroll: {}
+        input_autogrow: {}
       },
       persist: false,
       create: true,
@@ -13468,7 +13469,7 @@ var select_controller_default = class extends Controller {
       return url;
     };
   }
-  defaultLoadOptions() {
+  load() {
     return (query, callback) => {
       let url = this.tomSelect.getUrl(query);
       fetch(url).then((response) => response.json()).then((json) => {
@@ -13525,19 +13526,26 @@ var select_controller_default = class extends Controller {
     const options = {
       create: this.hasTags(),
       ...this.isRemote() && {
+        plugins: {
+          caret_position: {},
+          drag_drop: {},
+          input_autogrow: {},
+          virtual_scroll: {}
+        },
         valueField: this.remoteValueValue,
         labelField: this.remoteLabelValue,
         searchField: this.remoteLabelValue,
         firstUrl: this.firstUrl(),
-        load: this.defaultLoadOptions(),
+        load: this.load(),
         maxOptions: null,
         onFocus: () => {
           this.tomSelect.clearOptions();
+          this.tomSelect.setNextUrl("", this.firstUrl()(""));
           this.tomSelect.load("");
         }
       }
     };
-    this.tomSelect = new import_tom_select.default(this.element, { ...defaultOptions, ...options });
+    return new import_tom_select.default(this.element, { ...defaultOptions, ...options });
   }
 };
 __publicField(select_controller_default, "values", {

@@ -18,12 +18,14 @@ export default class extends Controller {
 
   connect () {
     if (this.isMultiple() || this.isTomSelect() || this.isRemote()) {
-      this.initTomSelect()
+      this.tomSelect = this.initTomSelect()
     }
   }
 
   disconnect () {
-    this.element.tomselect.destroy()
+    if(this.element.tomselect) {
+      this.element.tomselect.destroy()
+    }
   }
 
   defaultOptions () {
@@ -32,7 +34,6 @@ export default class extends Controller {
         caret_position: {},
         drag_drop: {},
         input_autogrow: {},
-        virtual_scroll: {}
       },
       persist: false,
       create: true,
@@ -56,7 +57,8 @@ export default class extends Controller {
     const urlObj = new URL(url)
     const params = urlObj.searchParams
 
-    params.set(key, value) // Adds if not exists, updates if exists
+    // Adds if not exists, updates if exists
+    params.set(key, value)
 
     return urlObj.toString()
   }
@@ -78,7 +80,7 @@ export default class extends Controller {
     }
   }
 
-  defaultLoadOptions () {
+  load () {
     return (query, callback) => {
       let url = this.tomSelect.getUrl(query)
 
@@ -142,21 +144,28 @@ export default class extends Controller {
     const options = {
       create: this.hasTags(),
       ...(this.isRemote() && {
+        plugins: {
+          caret_position: {},
+          drag_drop: {},
+          input_autogrow: {},
+          virtual_scroll: {}
+        },
         valueField: this.remoteValueValue,
         labelField: this.remoteLabelValue,
         searchField: this.remoteLabelValue,
         firstUrl: this.firstUrl(),
-        load: this.defaultLoadOptions(),
+        load: this.load(),
         // Infinite options
         maxOptions: null,
         // Fetch first items when focused
         onFocus: () => {
           this.tomSelect.clearOptions()
+          this.tomSelect.setNextUrl('', this.firstUrl()(''))
           this.tomSelect.load('')
         }
       })
     }
 
-    this.tomSelect = new TomSelect(this.element, { ...defaultOptions, ...options })
+    return new TomSelect(this.element, { ...defaultOptions, ...options })
   }
 }
