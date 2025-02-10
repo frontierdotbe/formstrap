@@ -13,8 +13,8 @@ export default class extends Controller {
   connect () {
     this.validate()
 
-    if (this.maxSelectedItems() != 1) {
-      this.updateCount() 
+    if (this.maxSelectedItems() !== 1) {
+      this.updateCount()
     }
   }
 
@@ -30,7 +30,7 @@ export default class extends Controller {
   }
 
   inputChange (event) {
-    if (this.maxSelectedItems() == 1) {
+    if (this.maxSelectedItems() === 1) {
       this.selectOneItem(event.target)
     } else {
       this.selectMultipleItems(event.target)
@@ -38,19 +38,19 @@ export default class extends Controller {
   }
 
   // Methods
-  selectOneItem(element) {
+  selectOneItem (element) {
     this.idsValue = []
 
-    for (const checkbox of this.idCheckboxTargets.filter(e => e.value != element.value)) {
+    for (const checkbox of this.idCheckboxTargets.filter(e => e.value !== element.value)) {
       checkbox.checked = false
     }
 
     this.handleIdsUpdate(element)
   }
 
-  selectMultipleItems(element) {
+  selectMultipleItems (element) {
     this.handleIdsUpdate(element)
-    this.updateCount() 
+    this.updateCount()
   }
 
   hidePlaceholder () {
