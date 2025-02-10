@@ -23,7 +23,7 @@ export default class extends Controller {
   }
 
   disconnect () {
-    if(this.element.tomselect) {
+    if (this.element.tomselect) {
       this.element.tomselect.destroy()
     }
   }
@@ -33,7 +33,7 @@ export default class extends Controller {
       plugins: {
         caret_position: {},
         drag_drop: {},
-        input_autogrow: {},
+        input_autogrow: {}
       },
       persist: false,
       create: true,
