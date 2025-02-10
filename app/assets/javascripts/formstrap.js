@@ -13416,7 +13416,6 @@ var select_controller_default = class extends Controller {
   initialize() {
     this.tomSelect = void 0;
     this.perPage = 24;
-    this.lastResponseLength = 0;
   }
   connect() {
     if (this.isMultiple() || this.isTomSelect() || this.isRemote()) {
