@@ -54,7 +54,7 @@ module Formstrap
     end
 
     def ai
-      @ai.present? ? @ai : Formstrap::Engine.configuration.ai
+      @ai.present? ? @ai : Formstrap.configuration.ai
     end
 
     def ai_redactor_options
@@ -68,7 +68,6 @@ module Formstrap
           translate: I18n.available_locales.map{|locale| I18n.t("languages.#{locale.to_s}")},
           text: {
             url: "/formstrap/ai",
-            endpoint: "https://api.openai.com/v1/chat/completions",
             model: "gpt-4o",
             stream: false
           }

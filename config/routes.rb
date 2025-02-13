@@ -3,7 +3,7 @@
 Rails.application.routes.draw do
   namespace(:formstrap) do
     # AI
-    post "ai", to: "ai#open_ai"
+    post "ai", to: "ai#create"
 
     # Media
     get "media", to: "media#index", as: :media

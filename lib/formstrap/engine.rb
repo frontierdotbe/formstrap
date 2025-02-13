@@ -1,5 +1,3 @@
-require_relative "configuration"
-
 module Formstrap
   class Engine < Rails::Engine
     engine_name "formstrap"
@@ -7,14 +5,7 @@ module Formstrap
     # require "closure_tree"
     # require "redcarpet"
     # require "rouge"
-
-    # Configuration
-    mattr_accessor :configuration, default: Formstrap::Configuration.new
-
-    def self.configure
-      yield configuration if block_given?
-    end
-    
+        
     # Add translations to main app
     config.before_configuration do
       config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]
