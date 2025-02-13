@@ -46,3 +46,7 @@ de:
         title: "%{model} bearbeiten"
     thumbnail:
       title: Titel
+  redactor:
+    ai:
+      fix: Verbessern
+      translate: Übersetzen

@@ -60,6 +60,12 @@ module Formstrap
     def ai_redactor_options
       {
         ai: {
+          items: {
+            set: true,
+            fix: { title: I18n.t("redactor.ai.fix"), command: 'ai.set', params: { prompt: 'Fix any grammatical or spelling mistakes' } },
+            translate: { title: I18n.t("redactor.ai.translate"), command: 'ai.popupTranslate' }
+          },
+          translate: I18n.available_locales.map{|locale| I18n.t("languages.#{locale.to_s}")},
           text: {
             url: "/formstrap/ai",
             endpoint: "https://api.openai.com/v1/chat/completions",
@@ -67,7 +73,7 @@ module Formstrap
             stream: false
           }
         }
-      }
+      }            
     end
   end
 end

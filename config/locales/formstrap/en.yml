@@ -46,3 +46,7 @@ en:
         title: "Edit %{model}"
     thumbnail:
       title: Title
+  redactor:
+    ai:
+      fix: Fix
+      translate: Translate

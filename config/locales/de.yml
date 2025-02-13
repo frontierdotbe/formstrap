@@ -1,5 +1,10 @@
 de:
   language_name: Deutsch
+  languages:
+    de: Deutsch
+    en: Englisch
+    fr: Französisch
+    nl: Holländisch
   date:
     formats:
       default: "%d/%m/%Y"

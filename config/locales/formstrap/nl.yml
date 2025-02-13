@@ -46,3 +46,7 @@ nl:
         title: "%{model} bewerken"
     thumbnail:
       title: Titel
+  redactor:
+    ai:
+      fix: Verbeter 
+      translate: Vertalen
