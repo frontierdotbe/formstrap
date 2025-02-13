@@ -62,7 +62,7 @@ module Formstrap
         ai: {
           items: {
             set: true,
-            fix: { title: I18n.t("redactor.ai.fix"), command: 'ai.set', params: { prompt: 'Fix any grammatical or spelling mistakes' } },
+            fix: { title: I18n.t("redactor.ai.fix"), command: 'ai.set', params: { prompt: 'You are a professional copy writer. Each command requires a best effort result. Don’t ask questions, only return the improved text. Fix any grammatical or spelling mistakes in the language of the text that is provided.' } },
             translate: { title: I18n.t("redactor.ai.translate"), command: 'ai.popupTranslate' }
           },
           translate: I18n.available_locales.map{|locale| I18n.t("languages.#{locale.to_s}")},
