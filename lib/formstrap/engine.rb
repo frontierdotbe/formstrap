@@ -5,7 +5,7 @@ module Formstrap
     # require "closure_tree"
     # require "redcarpet"
     # require "rouge"
-        
+
     # Add translations to main app
     config.before_configuration do
       config.i18n.load_path += Dir["#{config.root}/config/locales/**/*.yml"]

@@ -4,7 +4,7 @@ class Formstrap::AiController < FormstrapController
 
   def create
     client = OpenAI::Client.new(
-      access_token: Formstrap.configuration.open_ai_key,
+      access_token: Formstrap.configuration.open_ai_key
     )
 
     data = JSON.parse(params["data"])

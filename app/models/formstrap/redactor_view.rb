@@ -16,7 +16,7 @@ module Formstrap
     end
 
     def redactor_options
-    ro = ai ? default_redactor_options.deep_merge(ai_redactor_options) : default_redactor_options
+      ro = ai ? default_redactor_options.deep_merge(ai_redactor_options) : default_redactor_options
       ro.deep_merge(redactor || {})
     end
 
@@ -62,17 +62,17 @@ module Formstrap
         ai: {
           items: {
             set: true,
-            fix: { title: I18n.t("redactor.ai.fix"), command: 'ai.set', params: { prompt: 'You are a professional copy writer. Each command requires a best effort result. Don’t ask questions, only return the improved text. Fix any grammatical or spelling mistakes in the language of the text that is provided.' } },
-            translate: { title: I18n.t("redactor.ai.translate"), command: 'ai.popupTranslate' }
+            fix: {title: I18n.t("redactor.ai.fix"), command: "ai.set", params: {prompt: "You are a professional copy writer. Each command requires a best effort result. Don’t ask questions, only return the improved text. Fix any grammatical or spelling mistakes in the language of the text that is provided."}},
+            translate: {title: I18n.t("redactor.ai.translate"), command: "ai.popupTranslate"}
           },
-          translate: I18n.available_locales.map{|locale| I18n.t("languages.#{locale.to_s}")},
+          translate: I18n.available_locales.map { |locale| I18n.t("languages.#{locale}") },
           text: {
             url: "/formstrap/ai",
             model: "gpt-4o",
             stream: false
           }
         }
-      }            
+      }
     end
   end
 end
