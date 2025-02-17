@@ -46,3 +46,7 @@ fr:
         title: "Modifier %{model}"
     thumbnail:
       title: Titre
+  redactor:
+    ai:
+      fix: Améliorer
+      translate: Traduire

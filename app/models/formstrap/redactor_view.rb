@@ -16,7 +16,8 @@ module Formstrap
     end
 
     def redactor_options
-      default_redactor_options.deep_merge(redactor || {})
+      ro = ai ? default_redactor_options.deep_merge(ai_redactor_options) : default_redactor_options
+      ro.deep_merge(redactor || {})
     end
 
     def default_redactor_options
@@ -46,10 +47,32 @@ module Formstrap
           # Options in toolbar on the right
           extrabar: %w[],
           # Options in toolbar on the left
-          toolbar: %w[format bold italic deleted list table link html]
+          toolbar: %w[format bold italic deleted list table link html ai-tools]
         },
-        plugins: %w[emoji linkstyles]
+        plugins: %w[emoji linkstyles ai]
       }.delete_if { |k, v| v.nil? }
+    end
+
+    def ai
+      @ai.present? ? @ai : Formstrap.configuration.ai
+    end
+
+    def ai_redactor_options
+      {
+        ai: {
+          items: {
+            set: true,
+            fix: {title: I18n.t("redactor.ai.fix"), command: "ai.set", params: {prompt: "You are a professional copy writer. Each command requires a best effort result. Don’t ask questions, only return the improved text. Fix any grammatical or spelling mistakes in the language of the text that is provided."}},
+            translate: {title: I18n.t("redactor.ai.translate"), command: "ai.popupTranslate"}
+          },
+          translate: I18n.available_locales.map { |locale| I18n.t("languages.#{locale}") },
+          text: {
+            url: "/formstrap/ai",
+            model: "gpt-4o",
+            stream: false
+          }
+        }
+      }
     end
   end
 end
