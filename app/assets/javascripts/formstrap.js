@@ -13461,7 +13461,7 @@ var select_controller_default = class extends Controller {
   }
   firstUrl() {
     return (query) => {
-      let url = `${this.remoteUrlValue}.json`;
+      let url = this.remoteUrlValue;
       url = this.setQueryParam(url, this.remoteQueryParamValue, query);
       url = this.setQueryParam(url, "per_page", this.perPage);
       url = this.setQueryParam(url, "page", 1);
@@ -13471,7 +13471,12 @@ var select_controller_default = class extends Controller {
   load() {
     return (query, callback) => {
       let url = this.tomSelect.getUrl(query);
-      fetch(url).then((response) => response.json()).then((json) => {
+      fetch(url, {
+        headers: {
+          Accept: "application/json",
+          "Conent-Type": "application/json"
+        }
+      }).then((response) => response.json()).then((json) => {
         if (json.length === this.perPage) {
           const currentPage = parseInt(this.getQueryParam(url, "page")) || 1;
           url = this.setQueryParam(url, "page", currentPage + 1);

@@ -71,7 +71,7 @@ export default class extends Controller {
 
   firstUrl () {
     return (query) => {
-      let url = `${this.remoteUrlValue}.json`
+      let url = this.remoteUrlValue
       url = this.setQueryParam(url, this.remoteQueryParamValue, query)
       url = this.setQueryParam(url, 'per_page', this.perPage)
       url = this.setQueryParam(url, 'page', 1)
@@ -83,7 +83,12 @@ export default class extends Controller {
     return (query, callback) => {
       let url = this.tomSelect.getUrl(query)
 
-      fetch(url)
+      fetch(url, {
+        headers: {
+          Accept: 'application/json',
+          'Conent-Type': 'application/json'
+        }
+      })
         .then(response => response.json())
         .then(json => {
           if (json.length === this.perPage) {
