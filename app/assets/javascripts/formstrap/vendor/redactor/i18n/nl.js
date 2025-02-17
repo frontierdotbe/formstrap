@@ -119,7 +119,7 @@ Redactor.lang.nl = {
     stop: 'Stoppen',
     discard: 'Verwerpen',
     insert: 'Invoegen',
-    prompt: 'Prompt',
+    prompt: 'Prompt'
   },
   pathbar: {
     title: 'Inhoud'

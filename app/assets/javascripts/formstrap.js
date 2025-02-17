@@ -14683,14 +14683,14 @@ Redactor.add("plugin", "linkstyles", {
 Redactor.add("plugin", "ai", {
   translations: {
     en: {
-      "ai": {
+      ai: {
         "placeholder-image": "Describe the image you want to generate.",
         "placeholder-text": "Tell me what you want to write.",
-        "send": "Send",
-        "stop": "Stop",
-        "discard": "Discard",
-        "insert": "Insert",
-        "prompt": "Prompt",
+        send: "Send",
+        stop: "Stop",
+        discard: "Discard",
+        insert: "Insert",
+        prompt: "Prompt",
         "image-style": "Image style",
         "change-tone": "Change tone"
       }
@@ -14771,7 +14771,7 @@ Redactor.add("plugin", "ai", {
     return obj;
   },
   popup(e, button) {
-    let uiState = this.app.ui.getState();
+    const uiState = this.app.ui.getState();
     if (uiState.type !== "addbar") {
       this.app.dropdown.create("ai-tools", { items: this.opts.get("ai.items") || this.dropdowns.items });
       this.app.dropdown.open(e, button);
@@ -14783,8 +14783,8 @@ Redactor.add("plugin", "ai", {
     this._buildPrompt({ image: true });
   },
   popupTone(e, button) {
-    let buttons = {};
-    let items = this.opts.get("ai.tone") || this.defaults.tone;
+    const buttons = {};
+    const items = this.opts.get("ai.tone") || this.defaults.tone;
     const makeit = this.opts.get("ai.makeit") || this.defaults.makeit;
     for (let i = 0; i < items.length; i++) {
       buttons[i] = { title: items[i], command: "ai.set", params: { prompt: makeit + " " + items[i] } };
@@ -14793,8 +14793,8 @@ Redactor.add("plugin", "ai", {
     this.app.dropdown.open(e, button);
   },
   popupTranslate(e, button) {
-    let buttons = {};
-    let items = this.opts.get("ai.translate") || this.defaults.translate;
+    const buttons = {};
+    const items = this.opts.get("ai.translate") || this.defaults.translate;
     const translateto = this.opts.get("ai.translateto") || this.defaults.translateto;
     for (let i = 0; i < items.length; i++) {
       buttons[i] = { title: items[i], command: "ai.set", params: { prompt: translateto + " " + items[i] } };
@@ -14815,7 +14815,7 @@ Redactor.add("plugin", "ai", {
       this.promptButton.setIcon(this.defaults.spinner);
     }
     let message = params.prompt;
-    let event = this.app.broadcast("ai.create", { prompt: message });
+    const event = this.app.broadcast("ai.create", { prompt: message });
     message = event.get("prompt");
     this.modifiedValue = message;
     this._setPrompt(text, html, message, params.empty);
@@ -14823,18 +14823,18 @@ Redactor.add("plugin", "ai", {
   sendPrompt(e) {
     e.preventDefault();
     e.stopPropagation();
-    let apimodel = this.opts.get("ai." + this.promptType + ".model");
+    const apimodel = this.opts.get("ai." + this.promptType + ".model");
     let message = this._getMessage();
-    let event = this.app.broadcast("ai.create", { prompt: message });
+    const event = this.app.broadcast("ai.create", { prompt: message });
     message = event.get("prompt");
     this.modifiedValue = message;
     if (message === "")
       return;
-    let tone = this._getTone(message);
+    const tone = this._getTone(message);
     if (this.promptType === "text") {
-      this.conversation.push({ "role": "user", "content": message });
+      this.conversation.push({ role: "user", content: message });
       if (tone) {
-        this.conversation.push({ "role": "user", "content": tone });
+        this.conversation.push({ role: "user", content: tone });
       }
     }
     let request = {
@@ -14857,20 +14857,20 @@ Redactor.add("plugin", "ai", {
   insertPrompt(e) {
     e.preventDefault();
     e.stopPropagation();
-    let insertion = this.app.create("insertion");
+    const insertion = this.app.create("insertion");
     let html = this.$preview.html();
     if (this.promptType === "image") {
       const tag = this.opts.get("image.tag");
       html = `<${tag}>${html}</${tag}>`;
     }
-    let event = this.app.broadcast("ai.before.insert", { html });
+    const event = this.app.broadcast("ai.before.insert", { html });
     html = event.get("html");
-    let $target = this.savedInstance ? this.savedInstance.getBlock() : this.$prompt;
-    let position = this.savedInstance ? "after" : "before";
-    let remove = this.savedInstance ? false : true;
+    const $target = this.savedInstance ? this.savedInstance.getBlock() : this.$prompt;
+    const position = this.savedInstance ? "after" : "before";
+    const remove = !this.savedInstance;
     setTimeout(function() {
       this.app.block.setTool(false);
-      let inserted = insertion.insert({ html, target: $target, position, remove });
+      const inserted = insertion.insert({ html, target: $target, position, remove });
       this.$prompt.remove();
       this.conversation = [];
       this.app.broadcast("ai.insert", { nodes: inserted });
@@ -14890,9 +14890,9 @@ Redactor.add("plugin", "ai", {
     this.$insert.show();
     this.$stop.hide();
     this.$generate.show();
-    let eventName = e ? "ai.stop" : "ai.complete";
-    let prompt = this.$previewLabel.text();
-    let result = e ? { prompt } : { prompt, response: this._parseReply(reply) };
+    const eventName = e ? "ai.stop" : "ai.complete";
+    const prompt = this.$previewLabel.text();
+    const result = e ? { prompt } : { prompt, response: this._parseReply(reply) };
     this.app.broadcast(eventName, result);
   },
   closePrompt(e) {
@@ -14907,7 +14907,7 @@ Redactor.add("plugin", "ai", {
     this.app.broadcast("ai.discard");
   },
   _getTone(message) {
-    let tone = this.$select.val();
+    const tone = this.$select.val();
     if (tone === "0" || tone === "1") {
       return false;
     }
@@ -14916,7 +14916,7 @@ Redactor.add("plugin", "ai", {
   _getHtml() {
     let html = "";
     let instances = this.app.blocks.get({ selected: true, instances: true });
-    let instance = this.app.block.get();
+    const instance = this.app.block.get();
     if (instances.length === 0 && instance) {
       instances = [instance];
     }
@@ -14928,13 +14928,14 @@ Redactor.add("plugin", "ai", {
   _getText() {
     let text = "";
     let instances = this.app.blocks.get({ selected: true, instances: true });
-    let instance = this.app.block.get();
+    const instance = this.app.block.get();
     if (instances.length === 0 && instance) {
       instances = [instance];
     }
     for (let i = 0; i < instances.length; i++) {
       if (instances[i].isEditable()) {
-        let type = instances[i].getType(), prefix = type === "listitem" ? "- " : "";
+        const type = instances[i].getType();
+        const prefix = type === "listitem" ? "- " : "";
         text = text + prefix + instances[i].getPlainText() + "\n";
       }
     }
@@ -14946,7 +14947,7 @@ Redactor.add("plugin", "ai", {
     return this.$textarea.val().trim();
   },
   _getNode() {
-    let node = this.app.block.create();
+    const node = this.app.block.create();
     let $node = node.getBlock();
     $node = this._buildNode($node, { traverse: true });
     return $node;
@@ -14963,13 +14964,13 @@ Redactor.add("plugin", "ai", {
     this.promptType = "text";
     this.promptText = text;
     this.promptHtml = html;
-    let messages = [{ "role": "user", "content": text }, { "role": "user", "content": prompt }];
-    let request = {
+    const messages = [{ role: "user", content: text }, { role: "user", content: prompt }];
+    const request = {
       model: this.opts.get("ai." + this.promptType + ".model"),
       messages
     };
     if (this.opts.is("ai.text.stream")) {
-      let $node = this._getInsertedNode();
+      const $node = this._getInsertedNode();
       $node.html(this.defaults.spinner);
       this.app.dropdown.close();
       this.app.context.close();
@@ -14989,7 +14990,7 @@ Redactor.add("plugin", "ai", {
       url: this.opts.get("ai." + this.promptType + ".url"),
       data,
       before: function(xhr) {
-        let event = this.app.broadcast("ai.before.send", { xhr, data });
+        const event = this.app.broadcast("ai.before.send", { xhr, data });
         if (event.isStopped()) {
           return false;
         }
@@ -15002,7 +15003,7 @@ Redactor.add("plugin", "ai", {
     const apimodel = this.opts.get("ai." + this.promptType + ".model");
     const apiurl = this.opts.get("ai." + this.promptType + ".endpoint");
     const serverurl = this.opts.get("ai." + this.promptType + ".url");
-    let request = {
+    const request = {
       model: apimodel,
       stream: this.opts.get("ai.text.stream"),
       messages: preview ? this.conversation : message
@@ -15014,15 +15015,17 @@ Redactor.add("plugin", "ai", {
     const utils = this.app.create("utils");
     data = utils.extendData(data, this.opts.get("ai." + this.promptType + ".data"));
     let responseContent = "";
-    let source = this._createSource(serverurl, data);
+    const source = this._createSource(serverurl, data);
     this.isEvent = source;
     this.currentIndex = 0;
-    let $target = this.app.scroll.getTarget();
+    const $target = this.app.scroll.getTarget();
     $node.removeClass("rx-inserted-node-started");
     source.addEventListener("message", function(event) {
       this.app.dropdown.close();
       this.app.context.close();
-      let message2 = event.data, start2 = message2.indexOf(": ", "data") + 2, data2 = message2.slice(start2, message2.length);
+      const message2 = event.data;
+      const start2 = message2.indexOf(": ", "data") + 2;
+      let data2 = message2.slice(start2, message2.length);
       if (data2 === "[DONE]") {
         this._sendStreamDone(source, $node, responseContent, preview);
       } else {
@@ -15033,7 +15036,7 @@ Redactor.add("plugin", "ai", {
         }
         const choices = data2.choices;
         if (choices && choices.length > 0) {
-          let content = choices[0].delta.content;
+          const content = choices[0].delta.content;
           if (content) {
             if (!$node.hasClass("rx-inserted-node-started")) {
               $node.html("");
@@ -15060,11 +15063,11 @@ Redactor.add("plugin", "ai", {
     if (!preview) {
       this._insertAfterNode($node, responseContent);
     } else {
-      let checkInterval = setInterval(function() {
+      const checkInterval = setInterval(function() {
         if (this.currentIndex === responseContent.length) {
           clearInterval(checkInterval);
           this.stopPrompt(false, responseContent);
-          this.conversation.push({ "role": "assistant", "content": responseContent });
+          this.conversation.push({ role: "assistant", content: responseContent });
         }
       }.bind(this), 100);
     }
@@ -15074,7 +15077,7 @@ Redactor.add("plugin", "ai", {
   _sendStreamPreviewSet(preview) {
     if (!preview)
       return;
-    let value = this.modifiedValue || this.$textarea.val();
+    const value = this.modifiedValue || this.$textarea.val();
     this.$progress.html("");
     this.$previewLabel.html(this._sanitize(value));
     this.$textarea.val("");
@@ -15092,7 +15095,7 @@ Redactor.add("plugin", "ai", {
         $last = $last.closest("[data-rx-first-level]");
         $last.before($node);
       }
-      let isAll = this.app.editor.isSelectAll();
+      const isAll = this.app.editor.isSelectAll();
       $last = this.app.blocks.removeAll();
       if (isAll) {
         $node = $last;
@@ -15101,7 +15104,7 @@ Redactor.add("plugin", "ai", {
       this.instance = this.app.block.get();
       if (!this.instance) {
         this.instance = this.app.block.create();
-        let $first = this.app.blocks.get({ first: true });
+        const $first = this.app.blocks.get({ first: true });
         $first.before(this.instance.getBlock());
       }
       if (this.instance.isType("listitem")) {
@@ -15123,7 +15126,7 @@ Redactor.add("plugin", "ai", {
       this.app.block.setTool("ai");
     }.bind(this));
     let instance = this.app.block.get();
-    let isMultiple = this.app.blocks.is();
+    const isMultiple = this.app.blocks.is();
     this.app.dropdown.close();
     this.app.context.close();
     if (instance || isMultiple) {
@@ -15131,8 +15134,8 @@ Redactor.add("plugin", "ai", {
         instance = this.app.blocks.get({ last: true, selected: true, instances: true });
       }
       const types = ["layout", "table", "quote", "list", "todo", "image", "embed"];
-      let $parent = instance.getBlock().closest("[data-rx-type=" + types.join("],[data-rx-type=") + "]");
-      let $column = instance.getBlock().closest("[data-rx-type=column]");
+      const $parent = instance.getBlock().closest("[data-rx-type=" + types.join("],[data-rx-type=") + "]");
+      const $column = instance.getBlock().closest("[data-rx-type=column]");
       if ($parent.length !== 0) {
         if ($column.length !== 0) {
           this.savedInstance = instance;
@@ -15149,11 +15152,11 @@ Redactor.add("plugin", "ai", {
     this.app.editor.adjustHeight();
   },
   _error(error2, response) {
-    let $node = this.app.editor.getEditor().find(".rx-inserted-node");
+    const $node = this.app.editor.getEditor().find(".rx-inserted-node");
     if ($node.length !== 0) {
       this.app.dropdown.close();
       this.app.context.close();
-      let insertion = this.app.create("insertion");
+      const insertion = this.app.create("insertion");
       insertion.insert({ target: $node, remove: true, caret: "end", html: this.promptHtml });
     }
     if (this.$progress) {
@@ -15161,7 +15164,7 @@ Redactor.add("plugin", "ai", {
         this.$progress.html("").removeAttr("style");
       }.bind(this));
     }
-    this.app.broadcast("ai.error", error2 ? error2 : response);
+    this.app.broadcast("ai.error", error2 || response);
   },
   _insert(response) {
     this.promptButton.setIcon("");
@@ -15169,20 +15172,20 @@ Redactor.add("plugin", "ai", {
       return this._error(response.error.message, response);
     if (!response.choices)
       return this._error(response);
-    let reply = response.choices[0].message.content;
+    const reply = response.choices[0].message.content;
     let html = this._parseReply(reply);
-    let insertion = this.app.create("insertion");
-    let event = this.app.broadcast("ai.before.insert", { html });
+    const insertion = this.app.create("insertion");
+    const event = this.app.broadcast("ai.before.insert", { html });
     html = event.get("html");
     this.app.dropdown.close();
     this.app.context.close();
     let inserted;
-    let instanceType = this.instance && this.instance.isType(["listitem", "todoitem"]);
+    const instanceType = this.instance && this.instance.isType(["listitem", "todoitem"]);
     if (instanceType) {
       this.instance.setContent(reply);
       inserted = this.instance.getBlock();
     } else {
-      let $node = this._getNode();
+      const $node = this._getNode();
       this.app.block.set($node);
       inserted = insertion.insert({ html, caret: "end" });
     }
@@ -15192,7 +15195,7 @@ Redactor.add("plugin", "ai", {
     let reply;
     let html;
     let imageUrl;
-    let value = this.modifiedValue || this.$textarea.val();
+    const value = this.modifiedValue || this.$textarea.val();
     let result;
     this.$progress.html("");
     this.$previewLabel.html("");
@@ -15214,7 +15217,7 @@ Redactor.add("plugin", "ai", {
       result = html;
       this.$preview.html(html);
       this.$insert.show();
-      let prompt = this.$previewLabel.text();
+      const prompt = this.$previewLabel.text();
       this.app.broadcast("ai.complete", { prompt, response: result });
       this.app.editor.adjustHeight();
     } else if (this.promptType === "image") {
@@ -15232,7 +15235,7 @@ Redactor.add("plugin", "ai", {
           url: saveUrl,
           data,
           before: function(xhr) {
-            let event = this.app.broadcast("ai.before.save", { xhr, data });
+            const event = this.app.broadcast("ai.before.save", { xhr, data });
             if (event.isStopped()) {
               return false;
             }
@@ -15249,17 +15252,17 @@ Redactor.add("plugin", "ai", {
     }
   },
   _completeImage(imageUrl) {
-    let $image = this.dom("<img>").attr("src", imageUrl);
-    let result = $image.get().outerHTML;
+    const $image = this.dom("<img>").attr("src", imageUrl);
+    const result = $image.get().outerHTML;
     this.$preview.html($image);
     this.$insert.show();
-    let prompt = this.$previewLabel.text();
+    const prompt = this.$previewLabel.text();
     this.app.broadcast("ai.complete", { prompt, response: result });
     this.app.editor.adjustHeight();
   },
   _parseReply(reply) {
-    let utils = this.app.create("utils");
-    let cleaner = this.app.create("cleaner");
+    const utils = this.app.create("utils");
+    const cleaner = this.app.create("cleaner");
     let text = utils.parseMarkdown(reply);
     text = cleaner.store(text, "lists");
     text = cleaner.store(text, "headings");
@@ -15278,19 +15281,19 @@ Redactor.add("plugin", "ai", {
   _createPrompt(params) {
     params = Redactor.extend(true, {}, { image: false }, params);
     this.promptType = params.image ? "image" : "text";
-    let placeholder = this.lang.get("ai.placeholder-" + this.promptType);
-    let $editor = this.app.editor.getEditor();
+    const placeholder = this.lang.get("ai.placeholder-" + this.promptType);
+    const $editor = this.app.editor.getEditor();
     $editor.find(".rx-ai-main").remove();
-    let $main = this.dom('<div class="rx-in-tool rx-ai-main">').attr({ "contenteditable": false });
-    let $body = this.dom('<div class="rx-ai-body">');
-    let $footer = this.dom('<div class="rx-ai-footer">');
-    let $buttons = this.dom('<div class="rx-ai-buttons">');
+    const $main = this.dom('<div class="rx-in-tool rx-ai-main">').attr({ contenteditable: false });
+    const $body = this.dom('<div class="rx-ai-body">');
+    const $footer = this.dom('<div class="rx-ai-footer">');
+    const $buttons = this.dom('<div class="rx-ai-buttons">');
     this.$progress = this.dom('<div class="rx-ai-progress">');
     this.$previewLabel = this.dom('<div class="rx-ai-preview-label">');
     this.$preview = this.dom('<div class="rx-ai-preview">');
     this.$prompt = this.dom('<div class="rx-ai-prompt">');
     this.$label = this.dom('<label class="rx-ai-label">').html(this.lang.get("ai.prompt"));
-    this.$textarea = this.dom('<textarea class="rx-ai-textarea rx-form-textarea">').attr({ "placeholder": placeholder });
+    this.$textarea = this.dom('<textarea class="rx-ai-textarea rx-form-textarea">').attr({ placeholder });
     this.$select = this.dom('<select class="rx-ai-select rx-form-select">');
     this.$size = this.dom('<select class="rx-ai-size rx-form-select">');
     this._createPromptFooter($footer, $buttons);
@@ -15318,14 +15321,14 @@ Redactor.add("plugin", "ai", {
     return this.dom('<button class="rx-ai-button rx-form-button">').html(label);
   },
   _createSize($size) {
-    let items = this.opts.get("ai.size");
-    for (let [key, name] of Object.entries(items)) {
-      let $option = this.dom("<option>").val(key).html(name);
+    const items = this.opts.get("ai.size");
+    for (const [key, name] of Object.entries(items)) {
+      const $option = this.dom("<option>").val(key).html(name);
       $size.append($option);
     }
   },
   _createTone($select) {
-    let items = this.promptType === "image" ? this.opts.get("ai.style") || this.defaults.style : this.opts.get("ai.tone") || this.defaults.tone;
+    const items = this.promptType === "image" ? this.opts.get("ai.style") || this.defaults.style : this.opts.get("ai.tone") || this.defaults.tone;
     let name = this.promptType === "image" ? this.lang.get("ai.image-style") : this.lang.get("ai.change-tone");
     let $option = this.dom("<option>").val(0).html(name);
     $select.append($option);
@@ -15349,19 +15352,20 @@ Redactor.add("plugin", "ai", {
   },
   _createSource(url, data) {
     const eventTarget = new EventTarget();
-    let ajax = this.ajax.post({
+    const ajax = this.ajax.post({
       url,
       data,
       before: function(xhr2) {
-        let event = this.app.broadcast("ai.before.send", { xhr: xhr2, data });
+        const event = this.app.broadcast("ai.before.send", { xhr: xhr2, data });
         if (event.isStopped()) {
           return false;
         }
       }.bind(this)
     });
-    let xhr = ajax.xhr;
-    let that = this;
-    var ongoing = false, start2 = 0;
+    const xhr = ajax.xhr;
+    const that = this;
+    let ongoing = false;
+    let start2 = 0;
     xhr.onprogress = function() {
       if (!ongoing) {
         ongoing = true;
@@ -15373,7 +15377,7 @@ Redactor.add("plugin", "ai", {
       }
       let i, chunk;
       if (that._isJsonString(xhr.responseText)) {
-        let response = JSON.parse(xhr.responseText);
+        const response = JSON.parse(xhr.responseText);
         if (response.error) {
           that._error(response.error.message, response);
           eventTarget.close();
@@ -15394,7 +15398,9 @@ Redactor.add("plugin", "ai", {
     return eventTarget;
   },
   _isElementBottomBeyond(element) {
-    let $target = this.app.scroll.getTarget(), rect = element.getBoundingClientRect(), elementBottom = rect.top + rect.height;
+    const $target = this.app.scroll.getTarget();
+    const rect = element.getBoundingClientRect();
+    const elementBottom = rect.top + rect.height;
     return elementBottom > $target.get().innerHeight;
   },
   _isJsonString(str) {
@@ -15407,16 +15413,16 @@ Redactor.add("plugin", "ai", {
   },
   _insertAfterNode($tmp, content) {
     let inserted;
-    let instanceType = this.instance && this.instance.isType(["listitem", "todoitem"]);
-    let event = this.app.broadcast("ai.before.insert", { html: content });
+    const instanceType = this.instance && this.instance.isType(["listitem", "todoitem"]);
+    const event = this.app.broadcast("ai.before.insert", { html: content });
     content = event.get("html");
     if (instanceType) {
       this.instance.setContent(content);
       inserted = this.instance.getBlock();
     } else {
-      let insertion = this.app.create("insertion");
-      let node = this.app.block.create();
-      let $node = node.getBlock();
+      const insertion = this.app.create("insertion");
+      const node = this.app.block.create();
+      const $node = node.getBlock();
       content = this._parseReply(content);
       $tmp.after($node);
       $tmp.remove();
@@ -15426,7 +15432,7 @@ Redactor.add("plugin", "ai", {
     this.app.broadcast("ai.insert", { nodes: inserted });
   },
   _insertPrompt($prompt, current, params) {
-    let elm = this.app.create("element");
+    const elm = this.app.create("element");
     let position = "after";
     if (!current) {
       if (this.opts.get("addPosition") === "top") {
@@ -15437,7 +15443,7 @@ Redactor.add("plugin", "ai", {
         position = "after";
       }
     }
-    let $current = current.getBlock();
+    const $current = current.getBlock();
     $current[position]($prompt);
     elm.scrollTo($prompt);
     this.app.observer.observeUnset();
@@ -15497,8 +15503,8 @@ Redactor.add("plugin", "ai", {
         result += inCodeBlock ? this._escapeHtml(line) + "\n" : `<p>${this._escapeHtml(line)}</p>`;
       }
     }
-    let bTag = tags.b ? tags.b : "b";
-    let iTag = tags.i ? tags.i : "i";
+    const bTag = tags.b ? tags.b : "b";
+    const iTag = tags.i ? tags.i : "i";
     result = result.replace(/\*\*\_(.*?)\_\*\*/g, "<" + bTag + "><" + iTag + ">$1</" + iTag + "></" + bTag + ">");
     result = result.replace(/\*\*(.*?)\*\*/g, "<" + bTag + ">$1</" + bTag + ">");
     result = result.replace(/\*(.*?)\*/g, "<" + iTag + ">$1</" + iTag + ">");
@@ -15506,7 +15512,7 @@ Redactor.add("plugin", "ai", {
   },
   _replaceCodeLine(line) {
     return line.replace(/\`\`\`(([^\s]+))?/gm, function(match, p1, p2) {
-      let classAttribute = p2 ? ' class="' + p2 + '"' : "";
+      const classAttribute = p2 ? ' class="' + p2 + '"' : "";
       return "<pre" + classAttribute + "><code>";
     });
   },
