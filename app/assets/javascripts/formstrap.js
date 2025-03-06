@@ -14603,12 +14603,12 @@ Redactor.add("plugin", "linkstyles", {
       }
     },
     "link.change": function(e) {
-      let link = e.params.element.nodes[0];
+      let link = e.data.element.nodes[0];
       link = this.ensureValidProtocol(link);
       this.applyStylingToLink(link);
     },
     "link.add": function(e) {
-      let link = e.params.element.nodes[0];
+      let link = e.data.element.nodes[0];
       link = this.ensureValidProtocol(link);
       this.applyStylingToLink(link);
     }
