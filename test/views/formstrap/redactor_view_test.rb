@@ -112,7 +112,7 @@ module Formstrap
       end
 
       it "has set the ai options in the data-redactor-options" do
-        redactor_options = find("textarea")[:'data-redactor-options']
+        redactor_options = find("textarea")[:"data-redactor-options"]
         redactor_options = JSON.parse(redactor_options)
 
         assert redactor_options.has_key?("ai")
