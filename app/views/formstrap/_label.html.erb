@@ -20,3 +20,6 @@
 
 <% label = Formstrap::LabelView.new(local_assigns) %>
 <%= form.label label.attribute, label.text, label.options %>
+<% if label.translatable %>
+  <%= bootstrap_icon "translate", class: "ms-1" %>
+<% end %>

@@ -23,7 +23,8 @@ module Formstrap
           attribute: attribute,
           form: form,
           required: required,
-          text: label
+          text: label,
+          translatable: translatable
         }
       end
     end
