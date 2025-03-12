@@ -175,10 +175,12 @@ export default class extends Controller {
   }
 
   togglePlaceholder () {
-    if (this.activeItems().length > 0) {
-      this.hidePlaceholder()
-    } else {
+    const count = this.activeItems().length
+
+    if (count < this.maxActiveItems()) {
       this.showPlaceholder()
+    } else {
+      this.hidePlaceholder()
     }
   }
 
@@ -199,7 +201,9 @@ export default class extends Controller {
     // Copy template
     let templateHtml = this.templateTarget
     templateHtml = this.randomizeIds(templateHtml)
-    this.thumbnailsTarget.insertAdjacentHTML('beforeend', templateHtml)
+
+    // Add new thumbnail before the last element (thumbnail)
+    this.thumbnailsTarget.children[this.thumbnailsTarget.children.length - 1].insertAdjacentHTML("beforebegin", templateHtml);
 
     // Set new values
     const newItem = this.itemTargets.pop()

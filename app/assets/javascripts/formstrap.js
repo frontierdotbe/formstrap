@@ -11204,10 +11204,11 @@ var media_controller_default = class extends Controller {
     }
   }
   togglePlaceholder() {
-    if (this.activeItems().length > 0) {
-      this.hidePlaceholder();
-    } else {
+    const count = this.activeItems().length;
+    if (count < this.maxActiveItems()) {
       this.showPlaceholder();
+    } else {
+      this.hidePlaceholder();
     }
   }
   showPlaceholder() {
@@ -11223,7 +11224,7 @@ var media_controller_default = class extends Controller {
   createItem(item) {
     let templateHtml = this.templateTarget;
     templateHtml = this.randomizeIds(templateHtml);
-    this.thumbnailsTarget.insertAdjacentHTML("beforeend", templateHtml);
+    this.thumbnailsTarget.children[this.thumbnailsTarget.children.length - 1].insertAdjacentHTML("beforebegin", templateHtml);
     const newItem = this.itemTargets.pop();
     newItem.querySelector('input[name*="[blob_id]"]').value = item.blobId;
     newItem.querySelector('input[name*="[_destroy]"]').value = false;
