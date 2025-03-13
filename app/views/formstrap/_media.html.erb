@@ -41,7 +41,7 @@
     <% end %>
 
     <!-- Placeholder -->
-    <div class="<%= "d-none" if media.attachments.any? %>" data-media-target="placeholder">
+    <div data-media-target="placeholder">
       <a href="<%= media.modal_url %>" data-turbo-frame="modal" data-media-target="modalButton">
         <%= render "formstrap/shared/thumbnail", media.thumbnail_options %>
       </a>
