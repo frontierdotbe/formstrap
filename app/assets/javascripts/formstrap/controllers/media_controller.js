@@ -203,7 +203,7 @@ export default class extends Controller {
     templateHtml = this.randomizeIds(templateHtml)
 
     // Add new thumbnail before the last element (thumbnail)
-    this.thumbnailsTarget.children[this.thumbnailsTarget.children.length - 1].insertAdjacentHTML("beforebegin", templateHtml);
+    this.thumbnailsTarget.children[this.thumbnailsTarget.children.length - 1].insertAdjacentHTML('beforebegin', templateHtml)
 
     // Set new values
     const newItem = this.itemTargets.pop()
