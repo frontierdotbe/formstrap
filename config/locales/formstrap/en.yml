@@ -7,6 +7,8 @@ en:
         other: Browse files or drag & drop them here
     group:
       save: Save
+    label:
+      translatable_tooltip: This field is translatable and can contain a different value per language
     media:
       modal:
         close: Close

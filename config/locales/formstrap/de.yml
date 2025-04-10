@@ -7,6 +7,8 @@ de:
         other: Dateien durchsuchen oder hierher ziehen und ablegen
     group:
       save: Speichern
+    label:
+      translatable_tooltip: Dieses Feld ist übersetzbar und kann je nach Sprache einen anderen Wert enthalten
     media:
       modal:
         close: Schließen

@@ -7,6 +7,8 @@ nl:
         other: Kies bestanden of sleep ze hierheen
     group:
       save: Opslaan
+    label:
+      translatable_tooltip: "Dit veld is vertaalbaar en kan per taal een andere waarde bevatten"
     media:
       modal:
         close: Sluiten
