@@ -1,9 +1,11 @@
 <%
   # name: formstrap/label
   #
+  # * +translatable+ - Adds a translatable icon next to the label if it is set to true. Defaults depends on initializer.
   # ==== Required parameters
   # * +form+ - Form object
   # * +attribute+ - Name of the attribute of the form model
+  # * +translatable+ - Adds a translatable icon next to the label if it is set to true. Defaults depends on initializer.
   #
   # ==== Optional parameters
   # * +text+ - Custom label to be used instead of the attribute
@@ -20,3 +22,6 @@
 
 <% label = Formstrap::LabelView.new(local_assigns) %>
 <%= form.label label.attribute, label.text, label.options %>
+<% if label.translatable %>
+  <%= bootstrap_icon "translate", class: "ms-1 text-black text-opacity-50", title: t(".translatable_tooltip") %>
+<% end %>
