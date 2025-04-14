@@ -133,8 +133,16 @@ export default class extends Controller {
       const currentName = element.getAttribute('name')
       const newName = currentName.replace(regex, '$1')
       const values = this.readValues(element)
+
       values.forEach((value) => {
-        formData.append(newName, value)
+        // Check if element is a checkbox input
+        if (element.tagName.toLowerCase() === "input" && element.type === "checkbox") {
+          if (this.isAppendableCheckbox(element)) {
+            formData.append(newName, value)
+          }
+        } else {
+          formData.append(newName, value)
+        }
       })
     })
 
@@ -153,16 +161,21 @@ export default class extends Controller {
     }
   }
 
+  isAppendableCheckbox(element) {
+  // Only append checkboxes that are checked OR that are not checked and their value is 0
+    return element.checked || (!element.checked && element.value === "0")
+  }
+
   // Prepare the iFrame for rendering
   // Objective: render the iframe content at the scale of the browser window, but resize it to fit the preview container
   prepareIframe () {
     const scaleFactor = this.scaleFactor()
     const style = `
-      transform: scale(${scaleFactor}); 
-      opacity: 0;
-      transform-origin: 0 0; 
-      width: ${100 / scaleFactor}%;
-    `
+transform: scale(${scaleFactor}); 
+opacity: 0;
+transform-origin: 0 0; 
+width: ${100 / scaleFactor}%;
+`
     this.iframeTarget.setAttribute('style', style)
   }
 
