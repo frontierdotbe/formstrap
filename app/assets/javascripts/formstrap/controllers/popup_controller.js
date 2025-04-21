@@ -39,6 +39,7 @@ export default class extends Controller {
     // Open the popup
     createPopper(button, popup)
     this.openPopup(popup)
+    this.sendEvent("popup-open")
 
     if (passThru) {
       // Pass click event to an element inside the popup
@@ -57,6 +58,7 @@ export default class extends Controller {
     const button = event.target.closest('[data-popup-target="button"]')
     const popup = this.popupById(button.dataset.popupId)
     this.closePopup(popup)
+    this.sendEvent("popup-close")
   }
 
   popupById (id) {
@@ -71,5 +73,10 @@ export default class extends Controller {
 
   closePopup (popup) {
     popup.classList.add('closed')
+  }
+
+  sendEvent (name) {
+    const event = new CustomEvent(name);
+    window.dispatchEvent(event);
   }
 }

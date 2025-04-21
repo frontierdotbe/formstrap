@@ -13201,6 +13201,7 @@ var popup_controller_default = class extends Controller {
     const passThru = button.dataset.popupPassThru;
     createPopper(button, popup);
     this.openPopup(popup);
+    this.sendEvent("popup-open");
     if (passThru) {
       const passThruElement = popup.querySelector(passThru);
       passThruElement.click();
@@ -13214,6 +13215,7 @@ var popup_controller_default = class extends Controller {
     const button = event.target.closest('[data-popup-target="button"]');
     const popup = this.popupById(button.dataset.popupId);
     this.closePopup(popup);
+    this.sendEvent("popup-close");
   }
   popupById(id) {
     return this.popupTargets.find((popup) => {
@@ -13225,6 +13227,10 @@ var popup_controller_default = class extends Controller {
   }
   closePopup(popup) {
     popup.classList.add("closed");
+  }
+  sendEvent(name) {
+    const event = new CustomEvent(name);
+    window.dispatchEvent(event);
   }
 };
 
