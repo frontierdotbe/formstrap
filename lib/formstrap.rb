@@ -6,6 +6,9 @@ require_relative "formstrap/configuration"
 require "formstrap/form_builder"
 require "formstrap/form_helper"
 
+# Load generators
+Dir[File.join(__dir__, "generators", "**", "*_generator.rb")].each { |g| require g }
+
 module Formstrap
   mattr_accessor :configuration, default: Formstrap::Configuration.new
 
