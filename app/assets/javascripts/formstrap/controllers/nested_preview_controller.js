@@ -135,14 +135,7 @@ export default class extends Controller {
       const values = this.readValues(element)
 
       values.forEach((value) => {
-        // Check if element is a checkbox input
-        if (element.tagName.toLowerCase() === "input" && element.type === "checkbox") {
-          if (this.isAppendableCheckbox(element)) {
-            formData.append(newName, value)
-          }
-        } else {
-          formData.append(newName, value)
-        }
+        formData.append(newName, value)
       })
     })
 
@@ -156,14 +149,15 @@ export default class extends Controller {
     // Check if the element is a select with multiple selection
     if (element.tagName.toLowerCase() === 'select' && element.multiple) {
       return [...element.selectedOptions].map(option => option.value)
+    } else if (element.tagName.toLowerCase() === "input" && element.type === "checkbox") {
+      if (element.checked) {
+        return [element.value]
+      } else {
+        return []
+      }
     } else {
       return [element.value]
     }
-  }
-
-  isAppendableCheckbox(element) {
-  // Only append checkboxes that are checked OR that are not checked and their value is 0
-    return element.checked || (!element.checked && element.value === "0")
   }
 
   // Prepare the iFrame for rendering
@@ -171,11 +165,11 @@ export default class extends Controller {
   prepareIframe () {
     const scaleFactor = this.scaleFactor()
     const style = `
-transform: scale(${scaleFactor}); 
-opacity: 0;
-transform-origin: 0 0; 
-width: ${100 / scaleFactor}%;
-`
+      transform: scale(${scaleFactor}); 
+      opacity: 0;
+      transform-origin: 0 0; 
+      width: ${100 / scaleFactor}%;
+      `
     this.iframeTarget.setAttribute('style', style)
   }
 

@@ -11546,13 +11546,7 @@ var nested_preview_controller_default = class extends Controller {
       const newName = currentName.replace(regex, "$1");
       const values = this.readValues(element);
       values.forEach((value) => {
-        if (element.tagName.toLowerCase() === "input" && element.type === "checkbox") {
-          if (this.isAppendableCheckbox(element)) {
-            formData.append(newName, value);
-          }
-        } else {
-          formData.append(newName, value);
-        }
+        formData.append(newName, value);
       });
     });
     formData.append("authenticity_token", this.getAuthenticityToken());
@@ -11561,21 +11555,24 @@ var nested_preview_controller_default = class extends Controller {
   readValues(element) {
     if (element.tagName.toLowerCase() === "select" && element.multiple) {
       return [...element.selectedOptions].map((option2) => option2.value);
+    } else if (element.tagName.toLowerCase() === "input" && element.type === "checkbox") {
+      if (element.checked) {
+        return [element.value];
+      } else {
+        return [];
+      }
     } else {
       return [element.value];
     }
   }
-  isAppendableCheckbox(element) {
-    return element.checked || !element.checked && element.value === "0";
-  }
   prepareIframe() {
     const scaleFactor = this.scaleFactor();
     const style = `
-transform: scale(${scaleFactor}); 
-opacity: 0;
-transform-origin: 0 0; 
-width: ${100 / scaleFactor}%;
-`;
+      transform: scale(${scaleFactor}); 
+      opacity: 0;
+      transform-origin: 0 0; 
+      width: ${100 / scaleFactor}%;
+      `;
     this.iframeTarget.setAttribute("style", style);
   }
   scaleFactor() {
