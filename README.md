@@ -16,6 +16,12 @@ Afterwards, run:
 bundle
 ```
 
+In order to setup the initializer, run the following command:
+```bash
+rails generate formstrap:install
+```
+
+
 ## Usage
 
 ### Getting started
