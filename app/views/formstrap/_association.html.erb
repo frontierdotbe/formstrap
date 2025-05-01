@@ -26,13 +26,13 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/association", form: form, attribute: :product %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.association :product %#>
   #   <% end %#>
   #
   #   Remote data
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/association", form: form, attribute: :product, remote: {url: admin_products_path, value: "id", label: "name"} %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.association :product, remote: {url: admin_products_path, value: "id", label: "name"} %#>
   #   <% end %#>
 
   association = Formstrap::AssociationView.new(local_assigns)

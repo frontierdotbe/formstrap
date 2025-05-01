@@ -22,8 +22,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/date_range", form: form, start: {attribute: :start_date}, end: {attribute: :end_date} %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.date_range start: {attribute: :start_date}, end: {attribute: :end_date} %#>
   #   <% end %#>
 
   date_range = Formstrap::DateRangeView.new(local_assigns)

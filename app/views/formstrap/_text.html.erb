@@ -24,8 +24,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/text", form: form, attribute: :title %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.text :title %#>
   #   <% end %#>
   text = Formstrap::TextView.new(local_assigns)
 %>

@@ -20,8 +20,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/checkbox", form: form, attribute: :active %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.checkbox :active %#>
   #   <% end %#>
 
   checkbox = Formstrap::CheckboxView.new(local_assigns)

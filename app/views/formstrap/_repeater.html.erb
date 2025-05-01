@@ -15,29 +15,39 @@
   #
   # ==== Examples
   #   # Basic version
-  #   <% render "formstrap/repeater", form: form, attribute: :questions do |question| %#>
-  #     <% render "admin/questions/fields, form: :question" %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <% form.repeater_for :questions do |question| %#>
+  #      <% render "admin/questions/fields, form: :question" %#>
+  #    <% end %#>
   #   <% end %#>
   #
   #   # Let list group sit flush within its container
-  #   <% render "formstrap/repeater", form: form, attribute: :questions, flush: true do |question| %#>
-  #     <% render "admin/questions/fields, form: :question" %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <% form.repeater_for :questions, flush: true do |question| %#>
+  #      <% render "admin/questions/fields, form: :question" %#>
+  #     <% end %#>
   #   <% end %#>
   #
   #   # With fixed header row. A header row can be used to show the labels, so you can omit them in the repeated fields
-  #   <% render "formstrap/repeater", form: form, attribute: :questions, header: "admin/questions/header" do |question| %#>
-  #     <% render "admin/questions/fields, form: :question" %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <% form.repeater_for :questions, header: "admin/questions/header" do |question| %#>
+  #      <% render "admin/questions/fields, form: :question" %#>
+  #     <% end %#>
   #   <% end %#>
   #
   #   # Allow more than one type of fields to be inserted. You must specify the templates as an array of view paths
   #   <% templates = ["admin/questions/fields/type_1", "admin/questions/fields/type_2"] %#>
-  #   <% render "formstrap/repeater", form: form, attribute: :questions, templates: templates do |question, template_name| %#>
-  #     <% render "admin/questions/#{template_name}, form: :question" %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <% form.repeater_for :questions, templates: templates do |question, template_name| %#>
+  #      <% render "admin/questions/#{template_name}, form: :question" %#>
+  #     <% end %#>
   #   <% end %#>
   #
   #   # Enable previews
-  #   <% render "formstrap/repeater", form: form, attribute: :questions, preview_url: admin_preview_question_path do |question| %#>
-  #     <% render "admin/questions/fields, form: :question" %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <% form.repeater_for :questions, preview_url: admin_preview_question_path do |question| %#>
+  #      <% render "admin/questions/fields, form: :question" %#>
+  #     <% end %#>
   #   <% end %#>
 
   label = local_assigns.has_key?(:label) ? label : nil

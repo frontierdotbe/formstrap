@@ -24,8 +24,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/file", form: form, attribute: :file %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.file :file %#>
   #   <% end %#>
 
   file = Formstrap::FileView.new(local_assigns)

@@ -22,8 +22,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/textarea", form: form, attribute: :text %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.textarea :text %#>
   #   <% end %#>
 
   textarea = Formstrap::TextareaView.new(local_assigns)

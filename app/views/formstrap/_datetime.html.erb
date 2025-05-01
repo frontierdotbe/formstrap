@@ -22,8 +22,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/datetime", form: form, attribute: :deadline %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.datetime :deadline %#>
   #   <% end %#>
 
   datetime = Formstrap::DatetimeView.new(local_assigns)

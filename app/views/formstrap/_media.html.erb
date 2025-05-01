@@ -24,8 +24,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/media", form: form, attribute: :file %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.media :file %#>
   #   <% end %#>
 
   media = Formstrap::MediaView.new(local_assigns)

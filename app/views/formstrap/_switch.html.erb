@@ -20,8 +20,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/switch", form: form, attribute: :active %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.switch :active %#>
   #   <% end %#>
 
   switch = Formstrap::SwitchView.new(local_assigns)

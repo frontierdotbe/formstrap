@@ -24,8 +24,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/email", form: form, attribute: :email_address %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.email :email_address %#>
   #   <% end %#>
 
   email = Formstrap::EmailView.new(local_assigns)

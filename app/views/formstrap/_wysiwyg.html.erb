@@ -17,8 +17,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/wysiwyg", form: form, attribute: :text %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.wysiwyg :text %#>
   #   <% end %#>
 
   wysiwyg = Formstrap::WysiwygView.new(local_assigns)

@@ -23,8 +23,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/search", form: form, attribute: "basic_example" %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.search :example %#>
   #   <% end %#>
 
   search = Formstrap::SearchView.new(local_assigns)

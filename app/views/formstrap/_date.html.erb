@@ -23,8 +23,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/date", form: form, attribute: :date_of_birth %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.date :date_of_birth %#>
   #   <% end %#>
 
   date = Formstrap::DateView.new(local_assigns)

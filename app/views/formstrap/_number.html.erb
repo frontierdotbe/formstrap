@@ -23,8 +23,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/number", form: form, attribute: :number %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.number :number %#>
   #   <% end %#>
 
   number = Formstrap::NumberView.new(local_assigns)

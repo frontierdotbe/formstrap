@@ -19,8 +19,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/redactor", form: form, attribute: :text %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.redactor :text %#>
   #   <% end %#>
 
   redactor = Formstrap::RedactorView.new(local_assigns)

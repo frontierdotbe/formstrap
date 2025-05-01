@@ -23,8 +23,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/url", form: form, attribute: :website_url %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.url :website_url %#>
   #   <% end %#>
 
   url = Formstrap::UrlView.new(local_assigns)

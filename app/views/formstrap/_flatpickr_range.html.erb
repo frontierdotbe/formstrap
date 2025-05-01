@@ -19,8 +19,8 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/flatpickr_range", form: form, start: {attribute: :start_date}, end: {attribute: :end_date} %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.flatpickr_range, start: {attribute: :start_date}, end: {attribute: :end_date} %#>
   #   <% end %#>
 
   flatpickr_range = Formstrap::FlatpickrRangeView.new(local_assigns)

@@ -32,13 +32,13 @@
   #
   # ==== Examples
   #   Basic version
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/select", form: form, attribute: :color, collection: %w[red green blue] %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.select :color, collection: %w[red green blue] %#>
   #   <% end %#>
   #
   #   Remote data 
-  #   <%= form_with do |form| %#>
-  #     <%= render "formstrap/select", form: form, attribute: :id, collection: [["Page 1", 1]], remote: {url: admin_pages_path, value: "id", label: "title"} %#>
+  #   <%= formstrap_form_with do |form| %#>
+  #     <%= form.select :id, collection: [["Page 1", 1]], remote: {url: admin_pages_path, value: "id", label: "title"} %#>
   #   <% end %#>
 
   select = Formstrap::SelectView.new(local_assigns)
