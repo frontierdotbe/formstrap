@@ -1,7 +1,7 @@
 module Formstrap
   class FormBuilder < ActionView::Helpers::FormBuilder
     def initialize(object_name, object, template, options)
-      super(object_name, object, template, options)
+      super
 
       custom_helpers_path = "app/views/formstrap/"
       @custom_helpers = Dir["#{custom_helpers_path}*.html.erb"].map { |item| item.gsub("#{custom_helpers_path}_", "").split(".").first.to_sym }
