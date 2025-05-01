@@ -1,7 +1,7 @@
 {
   "name": "@frontierdotbe/formstrap",
-  "version": "0.4.11",
-  "description": "Bootstrap-powered Form Helpers",
+  "version": "0.4.12",
+  "description": "An extensive Bootstrap form library to power your Ruby On Rails application.",
   "module": "app/assets/javascripts/formstrap.js",
   "main": "app/assets/javascripts/formstrap.js",
   "sass": "app/assets/stylesheets/formstrap.scss",
