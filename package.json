@@ -1,6 +1,6 @@
 {
   "name": "@frontierdotbe/formstrap",
-  "version": "0.4.12",
+  "version": "0.5.0",
   "description": "An extensive Bootstrap form library to power your Ruby On Rails application.",
   "module": "app/assets/javascripts/formstrap.js",
   "main": "app/assets/javascripts/formstrap.js",
