@@ -1,0 +1,10 @@
+en:
+  language_name: English
+  languages:
+    de: German
+    en: English
+    fr: French
+    nl: Dutch
+  date:
+    formats:
+      default: "%d/%m/%Y"

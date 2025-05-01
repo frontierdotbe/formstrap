@@ -1,0 +1,2 @@
+file_1: <%= ActiveStorage::FixtureSet.blob filename: "file1.jpg" %>
+file_2: <%= ActiveStorage::FixtureSet.blob filename: "file2.jpg" %>

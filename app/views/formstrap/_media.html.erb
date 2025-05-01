@@ -1,0 +1,63 @@
+<%
+  # formstrap/media
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +destroy+ - Adds delete buttons to the preview thumbnails
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label
+  # * +min+ - Limit the selection to a minimum amount of items
+  # * +max+ - Limit the selection to a maximum amount of items
+  # * +sort+ - Allow sorting by dragging items. `active_storage_attachments` must have a position column
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  # * +width+ - Width of the thumbnail
+  # * +height+ - Height of the thumbnail
+  # * +exclude_models+ - Array of model names to exclude from selection (e.g. ["User", "Company"])
+  # * +edit_url+ - Placeholder link for the edit page of the attachment. Needs to contain a ":id" part, e.g. "admin_media_edit_url(":id"). This url be opened in a modal
+  # * +translatable+ - Adds a translatable icon next to the label if it is set to true. Defaults depends on initializer.
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/media
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/media", form: form, attribute: :file %#>
+  #   <% end %#>
+
+  media = Formstrap::MediaView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", media.wrapper_options do %>
+  <%= render "formstrap/label", media.label_options if media.prepend_label? %>
+  <div class="formstrap-file-thumbnails" data-media-target="thumbnails">
+    <%= render "formstrap/media/validation", media.custom_validation_options %>
+
+    <!-- Render previews for attachments -->
+    <%= form.fields_for(media.nested_attribute, media.association_object) do |ff| %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, edit_url: media.edit_modal_url(ff.object)) %>
+    <% end %>
+
+    <!-- Placeholder -->
+    <div data-media-target="placeholder">
+      <a href="<%= media.modal_url %>" data-turbo-frame="modal" data-media-target="modalButton">
+        <%= render "formstrap/shared/thumbnail", media.thumbnail_options %>
+      </a>
+    </div>
+  </div>
+
+  <!-- Template -->
+  <% association_object = ActiveStorage::Attachment.new %>
+  <template data-media-target="template" data-template-id-regex="<%= association_object.object_id %>">
+    <%= form.fields_for(media.nested_attribute, ActiveStorage::Attachment.new, child_index: association_object.object_id) do |ff| %>
+      <%= render "formstrap/media/item", media.item_options.merge(form: ff, edit_url: media.edit_modal_url(ff.object)) %>
+    <% end %>
+  </template>
+
+  <%= render "formstrap/validation", media.validation_options if media.validate? %>
+  <%= render "formstrap/hint", media.hint_options if media.hint? %>
+  <%= render "formstrap/label", media.label_options if media.append_label? %>
+<% end %>

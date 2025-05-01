@@ -1,0 +1,29 @@
+<%
+  # formstrap/redactor
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +redactor+ - Hash with all options you can pass to redactor JS config
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  # * +translatable+ - Adds a translatable icon next to the label if it is set to true. Defaults depends on initializer.
+  #
+  # ==== References
+  # https://imperavi.com/redactor/docs
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/redactor", form: form, attribute: :text %#>
+  #   <% end %#>
+
+  redactor = Formstrap::RedactorView.new(local_assigns)
+%>
+
+<%= render "formstrap/textarea", redactor.options %>

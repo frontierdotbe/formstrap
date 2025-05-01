@@ -1,0 +1,9 @@
+image_1:
+  name: image_1
+  record: welcome (Post)
+  blob: file_1
+
+image_2:
+  name: image_2
+  record: image (Field)
+  blob: file_2

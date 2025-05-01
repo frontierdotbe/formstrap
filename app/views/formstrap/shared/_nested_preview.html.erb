@@ -1,0 +1,55 @@
+<div
+  data-controller="nested-preview"
+  data-nested-preview-url-value="<%= url %>"
+>
+  <!-- Preview placeholder -->
+  <div
+    class="nested-preview-iframe-wrapper position-relative"
+    role="button"
+    data-nested-preview-target="iframeWrapper"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvas-<%= form.options[:child_index] %>"
+    aria-controls="offcanvasRight"
+    data-turbo-temporary
+  >
+    <iframe src="<%= url %>" class="pe-none" data-nested-preview-target="iframe"></iframe>
+    <div data-nested-preview-target="loader" class="nested-preview-loader">
+      <div class="spinner-grow text-secondary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
+  </div>
+  <!-- Preview fields wrapper -->
+  <div
+    class="offcanvas offcanvas-end nested-preview-offcanvas"
+    tabindex="-1"
+    id="offcanvas-<%= form.options[:child_index] %>"
+    aria-labelledby="offcanvasRightLabel"
+    data-nested-preview-target="offcanvas"
+  >
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasRightLabel"><%= t(".title", model: form.object.model_name.human) %></h5>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="offcanvas"
+        aria-label="Close"
+      ></button>
+    </div>
+    <div class="offcanvas-body">
+
+      <div class="alert alert-danger d-none" data-nested-preview-target="error">
+        <%= t(".error") %>
+      </div>
+      <!-- Row content -->
+      <div data-nested-preview-target="fields">
+        <%= yield %>
+      </div>
+      <!-- Preview sync button -->
+      <div class="btn btn-primary" data-action="click->nested-preview#update">
+        <%= bootstrap_icon("arrow-repeat") %>
+        <%= t(".button") %>
+      </div>
+    </div>
+  </div>
+</div>

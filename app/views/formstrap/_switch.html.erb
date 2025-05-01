@@ -1,0 +1,30 @@
+<%
+  # formstrap/switch
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +checked_value+ - Value for checked state
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +unchecked_value+ - Value for unchecked state
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  # * +translatable+ - Adds a translatable icon next to the label if it is set to true. Defaults depends on initializer.
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/switch
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/checkbox
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/check_box
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/switch", form: form, attribute: :active %#>
+  #   <% end %#>
+
+  switch = Formstrap::SwitchView.new(local_assigns)
+%>
+
+<%= render "formstrap/checkbox", switch.options %>

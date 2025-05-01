@@ -1,0 +1,24 @@
+en:
+  activerecord:
+    models:
+      block:
+        one: Block
+        other: Blocks
+      field:
+        one: Field
+        other: Fields
+      page:
+        one: Page
+        other: Pages
+      poll:
+        one: Poll
+        other: Polls
+      question:
+        one: Question
+        other: Questions
+      setting:
+        one: Setting
+        other: Settings
+      user:
+        one: User
+        other: Users

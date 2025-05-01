@@ -1,0 +1,54 @@
+<%
+  # formstrap/association
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the association
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +collection+ - Values to create option tags for
+  # * +float+ - Use floating labels. Defaults to false
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +plaintext+ - Render input as plain text.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +remote+ - Hash with all options for remote data fetching
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  # * +translatable+ - Adds a translatable icon next to the label if it is set to true. Defaults depends on initializer.
+  #
+  # ==== Remote options
+  # * +url+ -- JSON endpoint to fetch data from
+  # * +value+ -- JSON attribute to use as the value for the option tag
+  # * +label+ -- JSON attribute to use as the label for the option tag
+  # * +query_param+ -- The query parameter used for searching the json endpoint, default: "search"
+  #
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/association", form: form, attribute: :product %#>
+  #   <% end %#>
+  #
+  #   Remote data
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/association", form: form, attribute: :product, remote: {url: admin_products_path, value: "id", label: "name"} %#>
+  #   <% end %#>
+
+  association = Formstrap::AssociationView.new(local_assigns)
+%>
+
+<%= render(
+  "formstrap/select",
+  form: form,
+  attribute: association.attribute_with_id,
+  collection: association.collection,
+  wrapper: association.wrapper_options,
+  float: association.float,
+  hint: association.hint,
+  plaintext: association.plaintext,
+  prepend: association.prepend,
+  append: association.append,
+  remote: association.remote,
+  label: association.label,
+) %>

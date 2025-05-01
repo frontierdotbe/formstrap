@@ -1,0 +1,40 @@
+<%
+  # formstrap/textarea
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +float+ - Use floating labels. Defaults to false
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +plaintext+ - Render input as plain text.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  # * +translatable+ - Adds a translatable icon next to the label if it is set to true. Defaults depends on initializer.
+  #
+  # ==== References
+  # https://headmin.dev/docs/forms/textarea
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/textarea
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/text_area
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/textarea", form: form, attribute: :text %#>
+  #   <% end %#>
+
+  textarea = Formstrap::TextareaView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", textarea.wrapper_options do %>
+  <%= render "formstrap/label", textarea.label_options if textarea.prepend_label? %>
+  <%= render "formstrap/input_group", textarea.input_group_options do %>
+    <%= form.text_area(textarea.attribute, textarea.input_options) %>
+  <% end %>
+  <%= render "formstrap/validation", textarea.validation_options if textarea.validate? %>
+  <%= render "formstrap/hint", textarea.hint_options if textarea.hint? || textarea.maxlength? %>
+  <%= render "formstrap/label", textarea.label_options if textarea.append_label? %>
+<% end %>

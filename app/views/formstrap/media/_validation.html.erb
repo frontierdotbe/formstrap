@@ -1,0 +1,12 @@
+<!-- Custom validation field -->
+<%= form.text_field :"validation_#{attribute}",
+  name: nil,
+  value: nil,
+  class: "formstrap-media-validation",
+  data: {
+    "media-target": "validationInput",
+    "min": min,
+    "max": max,
+    "min-message": t(".min", count: min),
+    "max-message": t(".max", count: max),
+  } %>

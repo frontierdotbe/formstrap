@@ -1,0 +1,54 @@
+nl:
+  attributes:
+    addresses: Adressen
+    banner_text: Bannertekst
+    blocked: Geblokkeerd
+    button: Knop
+    city: Stad
+    count: Aantal
+    created_at: Aangemaakt
+    date: Datum
+    digital: Digitaal
+    documents: Documenten
+    email: Email
+    end_date: Einddatum
+    fields: Velden
+    first_name: Voornaam
+    gallery: Galerij
+    image: Afbeelding
+    last_name: Achternaam
+    list: Lijst
+    name: Naam
+    parent: Behoort tot
+    period: Periode
+    points: Punten
+    poll: Enquête
+    poll_type: Type
+    position: Positie
+    postal_code: Postcode
+    primary_color: Primaire kleur
+    questions: Vragen
+    role: Rol
+    slug: Slug
+    street: Straatnaam
+    street_number: Huisnummer
+    text: Tekst
+    title: Titel
+    updated_at: Aangepast
+    value: Waarde
+  helpers:
+    label:
+      attribute: Attribuut
+      date: Datum
+      email: E-mail
+      end_date: Tot
+      file: Bestand
+      files: Bestanden
+      image: Afbeelding
+      list: Lijst
+      number: Nummer
+      password: Wachtwoord
+      period: Periode
+      start_date: Vanaf
+      text: Tekst
+      url: URL

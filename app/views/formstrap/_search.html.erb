@@ -1,0 +1,43 @@
+<%
+  # formstrap/search
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +append+ - Display as input group with text on the right-hand side
+  # * +collection+ - Values to be suggested while typing. Can be an collection array or a remote URL.
+  # * +float+ - Use floating labels. Defaults to false
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +list+ - Options are passed through options_for_select
+  # * +plaintext+ - Render input as plain text.
+  # * +prepend+ - Display as input group with text on the left-hand side
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  #
+  # ==== Documentation
+  # https://headmin.dev/docs/forms/search
+  # https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/search
+  # https://apidock.com/rails/ActionView/Helpers/FormHelper/search_field
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/search", form: form, attribute: "basic_example" %#>
+  #   <% end %#>
+
+  search = Formstrap::SearchView.new(local_assigns)
+%>
+
+<%= render "formstrap/wrapper", search.wrapper_options do %>
+  <%= render "formstrap/label", search.label_options if search.prepend_label? %>
+  <%= render "formstrap/input_group", search.input_group_options do %>
+    <%= form.search_field(search.attribute, search.input_options) %>
+    <%= render "formstrap/datalist", search.datalist_options if search.datalist? %>
+    <%= render "formstrap/autocomplete", search.autocomplete_options if search.autocomplete? %>
+  <% end %>
+  <%= render "formstrap/validation", search.validation_options if search.validate? %>
+  <%= render "formstrap/hint", search.hint_options if search.hint? %>
+  <%= render "formstrap/label", search.label_options if search.append_label? %>
+<% end %>

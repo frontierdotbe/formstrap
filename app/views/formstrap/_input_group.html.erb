@@ -1,0 +1,21 @@
+<% input_group = Formstrap::InputGroupView.new(local_assigns) %>
+
+<% if input_group.bypass %>
+  <%= yield %>
+<% else %>
+  <div <%= tag.attributes(input_group.options) %>>
+    <% if input_group.prepend %>
+      <span class="input-group-text">
+        <%= input_group.prepend %>
+      </span>
+    <% end %>
+
+    <%= yield %>
+
+    <% if input_group.append %>
+      <span class="input-group-text">
+        <%= input_group.append %>
+      </span>
+    <% end %>
+  </div>
+<% end %>

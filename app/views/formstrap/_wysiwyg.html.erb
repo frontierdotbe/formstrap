@@ -1,0 +1,27 @@
+<%
+  # formstrap/wysiwyg
+  #
+  # ==== Required parameters
+  # * +attribute+ - Name of the attribute of the form model
+  # * +form+ - Form object
+  #
+  # ==== Optional parameters
+  # * +hint+ - Informative text to assist with data input. HTML markup is allowed.
+  # * +label+ - Text to display inside label tag. Defaults to the attribute name. Set to false if you don"t want to show a label.
+  # * +toolbar+ - Show toolbar (default true)
+  # * +wrapper+ - Hash with all options for the surrounding html tag
+  # * +translatable+ - Adds a translatable icon next to the label if it is set to true. Defaults depends on initializer.
+  #
+  # ==== References
+  # https://imperavi.com/redactor/docs
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/wysiwyg", form: form, attribute: :text %#>
+  #   <% end %#>
+
+  wysiwyg = Formstrap::WysiwygView.new(local_assigns)
+%>
+
+<%= render "formstrap/redactor", wysiwyg.options %>

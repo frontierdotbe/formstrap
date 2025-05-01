@@ -1,0 +1,21 @@
+<%
+  # formstrap/hint
+  #
+  # ==== Required parameters
+  # * +content+ - Content to be displayed as input hint
+  #
+  # ==== Examples
+  #   Basic version
+  #   <%= form_with do |form| %#>
+  #     <%= render "formstrap/hint", content: "Hello" %#>
+  #   <% end %#>
+
+  hint = Formstrap::HintView.new(local_assigns)
+%>
+
+<div class="form-text d-flex justify-content-between">
+  <div><%= raw(hint.content) %></div>
+  <% if hint.maxlength %>
+    <div data-textarea-target="count"></div>
+  <% end %>
+</div>

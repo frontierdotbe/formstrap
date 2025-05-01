@@ -1,0 +1,22 @@
+welcome:
+  title: Welcome to our blog
+  created_at: 2021-08-11
+  comment_count: 13
+  published: 1
+
+second_post:
+  title: This is our second post
+  created_at: 2021-08-20
+  comment_count: 17
+  published: 1
+
+third_post:
+  title: This is our third post
+  created_at: 2021-09-01
+  comment_count: 3
+  published: 0
+
+fourth_post:
+  title: This is our fourth post
+  created_at: 2021-09-01
+  published: 0

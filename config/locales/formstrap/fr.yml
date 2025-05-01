@@ -1,0 +1,54 @@
+fr:
+  formstrap:
+    file:
+      not_found: Indisponible
+      placeholder:
+        one: Parcourir le fichier ou faites glisser et déposez-le ici
+        other: Parcourir les fichiers ou faites les glisser et déposez-les ici
+    group:
+      save: Sauvegarder
+    label:
+      translatable_tooltip: Ce champ est traduisible et peut contenir une valeur différente selon la langue
+    media:
+      modal:
+        close: Fermer
+        limits: "minimum: %{min} et maximum: %{max}"
+        maximum: " de %{count}"
+        placeholder: Téléchargez votre premier fichier dans la bibliothèque multimédia
+        search: Rechercher
+        search_no_results: Aucun résultat trouvé
+        select: Sélectionner
+        title:
+          one: Sélectionnez au moins 1 fichier
+          other: Sélectionnez au moins %{count} fichiers
+        unlimited: illimité
+        upload: Télécharger de nouveaux fichiers
+      validation:
+        min:
+          one: Veuillez sélectionner au moins 1 élément
+          other: "Veuillez sélectionner au moins %{count} éléments"
+        max:
+          one: Veuillez limiter votre sélection à un maximum de 1 élément
+          other: "Veuillez limiter votre sélection à un maximum de %{count} éléments"
+    pagination:
+      infinite:
+        load_more: Charger plus
+    repeater:
+      add: "Ajouter %{name}"
+      empty: Commencez par ajouter votre premier bloc
+      row:
+        add: Ajouter une ligne
+        remove: Supprimer la ligne
+    select:
+      blank: Faites un choix
+    shared:
+      nested_preview:
+        button: Mettre à jour l'aperçu
+        error: Impossible de charger l'aperçu. Vérifiez tous les champs et réessayez.
+        title: "Modifier %{model}"
+    thumbnail:
+      title: Titre
+  redactor:
+    ai:
+      fix: Améliorer
+      translate: Traduire

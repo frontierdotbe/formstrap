@@ -1,0 +1,54 @@
+nl:
+  formstrap:
+    file:
+      not_found: Niet beschikbaar
+      placeholder:
+        one: Kies bestand of sleep het hierheen
+        other: Kies bestanden of sleep ze hierheen
+    group:
+      save: Opslaan
+    label:
+      translatable_tooltip: "Dit veld is vertaalbaar en kan per taal een andere waarde bevatten"
+    media:
+      modal:
+        close: Sluiten
+        limits: "minimum: %{min} and maximum: %{max}"
+        maximum: " van %{count}"
+        placeholder: Upload je eerste bestand naar de mediabibliotheek
+        search: Zoeken
+        search_no_results: Geen resultaten gevonden
+        select: Selecteer
+        title:
+          one: Selecteer bestand
+          other: Selecteer bestanden
+        unlimited: onbeperkt
+        upload: Nieuwe bestanden uploaden
+      validation:
+        min:
+          one: Gelieve minstens 1 item te selecteren
+          other: "Gelieve minstens %{count} items te selecteren"
+        max:
+          one: Gelieve maximum 1 item te selecteren
+          other: "Gelieve maximum %{count} items te selecteren"
+    pagination:
+      infinite:
+        load_more: Laad meer
+    repeater:
+      add: "%{name} toevoegen"
+      empty: Voeg je eerste rij toe om te beginnen
+      row:
+        add: Rij toevoegen
+        remove: Rij verwijderen
+    select:
+      blank: Maak een keuze
+    shared:
+      nested_preview:
+        button: Voorvertoning bijwerken
+        error: Er kon geen voorvertoning worden geladen. Kijk alle velden na en probeer het opnieuw.
+        title: "%{model} bewerken"
+    thumbnail:
+      title: Titel
+  redactor:
+    ai:
+      fix: Verbeter 
+      translate: Vertalen
