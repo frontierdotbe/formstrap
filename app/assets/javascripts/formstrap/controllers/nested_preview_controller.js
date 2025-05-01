@@ -149,7 +149,7 @@ export default class extends Controller {
     // Check if the element is a select with multiple selection
     if (element.tagName.toLowerCase() === 'select' && element.multiple) {
       return [...element.selectedOptions].map(option => option.value)
-    } else if (element.tagName.toLowerCase() === "input" && element.type === "checkbox") {
+    } else if (element.tagName.toLowerCase() === 'input' && element.type === 'checkbox') {
       if (element.checked) {
         return [element.value]
       } else {
