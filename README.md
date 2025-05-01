@@ -1,26 +1,32 @@
 # Formstrap
 
-An extensive Bootstrap form library to power your Ruby On Rails application.
+Formstrap enhances the default Rails form helpers with Bootstrap-friendly markup and extended functionality. 
+Simply replace your existing ```form_with``` calls with ```formstrap_form_with```, and your forms will automatically be styled according to Bootstrap (5.3.x) conventions.
+
+In addition to clean and responsive markup, Formstrap offers a set of extended form helpers out of the box:
+
+- A WYSIWYG editor for rich text fields
+- A date range picker
+- A media picker for selecting Active Storage assets
+- ...and more
 
 ## Installation
 
-Add this line to your application's gemfile ```./Gemfile```
-
+Add Formstrap to your Rails application
 ```bash
-gem 'formstrap'
+bundle add 'formstrap'
 ```
 
-Afterwards, run:
-
-```bash
-bundle
-```
-
-In order to setup the initializer, run the following command:
+And copy the default configuration with:
 ```bash
 rails generate formstrap:install
 ```
 
+We're a big believer of "BYOD" Bring Your Own Dependencies.  
+You need to have Bootstrap (5.3.x) already installed in your application.
+
+Formstrap provides support for Redactor (Paid), TomSelect and Flatpickr.
+If you wish to make use of these dependencies you need to provide them yourself.
 
 ## Usage
 
@@ -40,9 +46,7 @@ An example:
 <% end %>
 ```
 
-As you might have noticed, Formstrap uses different named form helpers than Ruby on Rails.
-
-If the original Rails helper needs to be accessed, it can be accessed by:
+To fallback to the default form helpers add ```formstrap: false```:
 
 ```erb
 <%= formstrap_for_for(@user) do |f| %>
@@ -80,12 +84,60 @@ An overview of all the Formstrap / Ruby on Rails form helpers:
 | WYSIWYG *         | wysiwyg           | N/A                                         |
 | Repeater          | repeater_for      | Adds advanced features to fields_for        |
 
-\* Formstrap provides the implementation of these 3rd party libraries, however it is up to the user to provide the
-correct assets.
+Formstrap provides more helpers than what is standard in Ruby on Rails, e.g. ```Media```, ```Date range```, ```Redactor```.
 
-As you might have noticed, Formstrap provides more helpers than what is standard in Ruby on Rails, e.g. ```Media```, ```Date range```, ```Redactor``` ...
+#### Media
+A visual media picker that allows you to select ActiveStorage blobs to be attached to the current record.
+Works with ```has_many_attached``` and ```has_one_attached```
 
-### Altering Formstrap helpers
+```erb
+<%= formstrap_form_with do |form| %>
+  <%= form.media :image %>
+  <%= form.media :files %>
+<% end %>
+```
+
+![Screenshot 2025-05-01 at 10 06 37](https://github.com/user-attachments/assets/458a8264-2e21-46f9-9eae-d21ab3f37e27)
+
+#### Date range
+The default date range picker adds 2 date pickers. There's also "Flatpickr range" for a combined input which depends on Flatpickr
+
+```erb
+<%= formstrap_form_with do |form| %>
+  <%= form.date_range start: {attribute: :start_date}, end: {attribute: :end_date} %>
+<% end %>
+```
+
+![Screenshot 2025-05-01 at 10 16 32](https://github.com/user-attachments/assets/b516523f-fbc4-4fb8-a97a-047f706cb410)
+
+#### WYSIWYG
+This form helper depends on Redactor (paid).
+
+```erb
+<%= formstrap_form_with do |form| %>
+  <%= form.wysiwyg :text %>
+<% end %>
+```
+
+![Screenshot 2025-05-01 at 10 21 52](https://github.com/user-attachments/assets/04a5d62b-8c04-4251-b7b6-c16dc1aeb3aa)
+
+#### Repeater
+This form helper allows you to manage nested attributes in a visually appealing way. (replacement for cocoon)
+It adds buttons to: add and delete rows. A drag-&-drop interface allows you to reorder rows.
+To persist the order of rows a `position` attribute should be available on the associated model.
+
+```erb
+<%= formstrap_form_with do |form| %>
+  <% form.repeater_for :questions do |question| %>
+    <% render "admin/questions/fields, form: :question" %>
+  <% end %>
+<% end %>
+```
+
+![Screenshot 2025-05-01 at 10 25 21](https://github.com/user-attachments/assets/f3594bab-d376-4c07-9234-7d350c3350a1)
+
+
+### Overriding Formstrap helpers
 
 Because Formstrap uses html and Ruby on Rails helpers behind the scenes to render its helpers, editing the Formstrap
 helpers is straightforward.
@@ -100,18 +152,11 @@ rails generate formstrap:views
 This will create a directory ```./views/formstrap```, in which all the views (and its helpers) are copied in and can thus be
 inspected / altered. Because Formstrap is an engine, the application's local files take precedence over the engine's files.
 
-Note that on new releases, one can once more run:
+Running the command again will override the files already present in your application.
 
-```bash
-rails generate formstrap:views
-```
-
-To get new or updated versions of the helpers. **This will override the files that are already present (and which might contain your personal adjustments)**.
-
-### Extending Formstrap helpers
+### Build your own Formstrap helpers
 
 Extending Formstrap helpers is straightforward.
-
 Add your custom Formstrap (e.g. map) helper into the map ```./views/formstrap```. Formstrap makes it possible to access this helper is by its filename.
 
 
