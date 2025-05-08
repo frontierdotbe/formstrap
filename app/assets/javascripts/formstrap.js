@@ -11088,6 +11088,7 @@ var media_controller_default = class extends Controller {
     this.randomizeName();
     this.listenForMediaSelection();
     this.initializeSorting();
+    this.togglePlaceholder();
     this.validate();
   }
   destroy(event) {
